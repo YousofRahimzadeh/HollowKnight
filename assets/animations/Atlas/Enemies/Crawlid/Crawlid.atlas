@@ -1,0 +1,36 @@
+Crawlid.png
+size:2048,512
+repeat:none
+Death Air
+index:2
+bounds:2,332,303,177
+Death Air
+index:1
+bounds:307,332,303,177
+Death Air
+index:0
+bounds:612,332,303,177
+Death Land
+index:1
+bounds:2,153,303,177
+Death Land
+index:0
+bounds:307,153,303,177
+Walk
+index:1
+bounds:612,181,301,149
+Walk
+index:3
+bounds:305,2,301,149
+Walk
+index:0
+bounds:1220,360,301,149
+Walk
+index:2
+bounds:1523,360,301,149
+Turn
+index:1
+bounds:2,2,301,149
+Turn
+index:0
+bounds:917,360,301,149

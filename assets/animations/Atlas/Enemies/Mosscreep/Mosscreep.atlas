@@ -1,0 +1,39 @@
+Mosscreep.png
+size:2048,128
+repeat:none
+Death Air
+index:2
+bounds:2,2,157,123
+Death Air
+index:1
+bounds:638,2,157,123
+Death Air
+index:3
+bounds:1115,2,157,123
+Death Air
+index:0
+bounds:1751,2,157,123
+Death Land
+index:1
+bounds:479,2,157,123
+Death Land
+index:0
+bounds:1592,2,157,123
+Turn
+index:1
+bounds:161,2,157,123
+Turn
+index:0
+bounds:797,2,157,123
+Turn
+index:2
+bounds:1274,2,157,123
+Walk
+index:1
+bounds:320,2,157,123
+Walk
+index:0
+bounds:956,2,157,123
+Walk
+index:2
+bounds:1433,2,157,123

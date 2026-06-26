@@ -1,0 +1,29 @@
+package Yousof.HollowKnight.Enum;
+
+import com.badlogic.gdx.Input;
+
+
+public enum Keys {
+    KNIGHTUP(Input.Keys.UP),
+    KNIGHTDOWN(Input.Keys.DOWN),
+    KNIGHTRIGHT(Input.Keys.RIGHT),
+    KNIGHTLEFT(Input.Keys.LEFT),
+    KNIGHTLOOKUP(Input.Keys.UP),
+    KNIGHTLOOKDOWN(Input.Keys.DOWN),
+    KNIGHTJUMP(Input.Keys.Z),
+    KNIGHTATTACK(Input.Keys.X),
+    KNIGHTDASH(Input.Keys.C);
+
+    public int key;
+
+	private Keys(int key){
+        this.key = key;
+    }
+    public int getKey() {
+		return key;
+	}
+	public void setKey(int key) {
+		this.key = key;
+	}
+}
+
