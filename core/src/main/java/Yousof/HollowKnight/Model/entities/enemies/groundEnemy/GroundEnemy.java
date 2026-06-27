@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Model.entities.enemies;
+package Yousof.HollowKnight.Model.entities.enemies.groundEnemy;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,9 +15,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Enum.state.GroundEnemyState;
+import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 
 public class GroundEnemy extends Enemy {
     private int health;
+    private int damage = 5;
 
     private TextureRegion currentFrame;
     private Animations animation;
@@ -33,15 +35,8 @@ public class GroundEnemy extends Enemy {
     private boolean facingRight = true;
     private boolean physicsCleanedUp = false;
 
-    // Counters avoid Box2D sensor bounce issues when multiple fixtures overlap.
-    public int rightSensorContacts = 0;
-    public int leftSensorContacts = 0;
-    public int rightCliffContacts = 0;
-    public int leftCliffContacts = 0;
+    private GroundSurroundSensors sensors;
 
-    // Cliff sensors should only trigger edge-turns after they've seen ground at least once
-    private boolean rightCliffInitialized = false;
-    private boolean leftCliffInitialized = false;
 
     public GroundEnemy(World world, float x, float y, float width, float height, float speed , int health , Animations anim , float yOffset) {
         this.speed = speed;
@@ -51,6 +46,7 @@ public class GroundEnemy extends Enemy {
         this.animation = anim;
         this.yOffset = yOffset;
         this.currentState = GroundEnemyState.RUN;
+        sensors = new GroundSurroundSensors();
         createBody(world, new Vector2(x, y));
     }
 
@@ -74,38 +70,18 @@ public class GroundEnemy extends Enemy {
         cleanUpPhysicsOnDeath();
     }
 
-    public void handleSensorContact(String sensorType, boolean isBegin) {
-        int mod = isBegin ? 1 : -1;
-        switch (sensorType) {
-            case "right_sensor":
-                rightSensorContacts = Math.max(0, rightSensorContacts + mod);
-                break;
-            case "left_sensor":
-                leftSensorContacts = Math.max(0, leftSensorContacts + mod);
-                break;
-            case "right_cliff":
-                rightCliffContacts = Math.max(0, rightCliffContacts + mod);
-                if (isBegin) rightCliffInitialized = true;
-                break;
-            case "left_cliff":
-                leftCliffContacts = Math.max(0, leftCliffContacts + mod);
-                if (isBegin) leftCliffInitialized = true;
-                break;
-        }
-    }
-
     private void handleSensors(float dt){
         if(currentState == GroundEnemyState.DEATH){
             return;
         }
         if (facingRight) {
-            if (rightSensorContacts > 0 || (rightCliffInitialized && rightCliffContacts == 0)) {
+            if (sensors.rightWall > 0 || (sensors.rightCliffInitialized && sensors.rightCliff == 0)) {
                 currentState = GroundEnemyState.TURN;
                 facingRight = !facingRight;
                 return;
             }
         } else {
-            if (leftSensorContacts > 0 || (leftCliffInitialized && leftCliffContacts == 0)) {
+            if (sensors.leftWall > 0 || (sensors.leftCliffInitialized && sensors.leftCliff == 0)) {
                 currentState = GroundEnemyState.TURN;
                 facingRight = !facingRight;
                 return;
@@ -169,6 +145,8 @@ public class GroundEnemy extends Enemy {
         fdef.density = 1f;
         fdef.friction = 0f;
         fdef.restitution = 0f;
+        fdef.filter.categoryBits = Constants.BIT_ENEMY;
+        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT;
 
         PolygonShape shape = new PolygonShape();
         float hx = halfWidth / Constants.PPM;
@@ -176,29 +154,11 @@ public class GroundEnemy extends Enemy {
         shape.setAsBox(hx, hy);
         fdef.shape = shape;
         fdef.isSensor = false;
-        body.createFixture(fdef).setUserData("enemy_main_body");
-
-        // create sensors
-
-        float sideSensorWidth = 3f / Constants.PPM;
-        float sideSensorHeight = hy * 0.9f;
-        float cliffSensorWidth = 3f / Constants.PPM;
-        float cliffSensorHeight = 3f / Constants.PPM;
-        fdef.isSensor = true;
-
-        shape.setAsBox(sideSensorWidth, sideSensorHeight, new Vector2(hx + sideSensorWidth, 0), 0);
-        body.createFixture(fdef).setUserData("right_sensor");
-
-        shape.setAsBox(sideSensorWidth, sideSensorHeight, new Vector2(-hx - sideSensorWidth, 0), 0);
-        body.createFixture(fdef).setUserData("left_sensor");
-
-        shape.setAsBox(cliffSensorWidth, cliffSensorHeight, new Vector2(hx + cliffSensorWidth, -hy - cliffSensorHeight), 0);
-        body.createFixture(fdef).setUserData("right_cliff");
-
-        shape.setAsBox(cliffSensorWidth, cliffSensorHeight, new Vector2(-hx - cliffSensorWidth, -hy - cliffSensorHeight), 0);
-        body.createFixture(fdef).setUserData("left_cliff");
-
+        body.createFixture(fdef).setUserData("GroundEnemy_main_body");
         shape.dispose();
+
+        sensors.createSensors(body, hx, hy);
+
     }
 
     private void cleanUpPhysicsOnDeath() {
@@ -235,4 +195,21 @@ public class GroundEnemy extends Enemy {
     public void dispose() {
         
     }
+
+    public GroundSurroundSensors getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(GroundSurroundSensors sensors) {
+        this.sensors = sensors;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+    
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
 }

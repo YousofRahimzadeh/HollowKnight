@@ -3,6 +3,7 @@ package Yousof.HollowKnight.Model.entities.enemies;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Animations.Animations;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
 
 public class EnemyFactory {
     public static Enemy createEnemy(String type, World world, float x, float y) {

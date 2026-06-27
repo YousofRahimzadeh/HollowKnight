@@ -7,12 +7,12 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import Yousof.HollowKnight.Enum.Constants;
 
-public class SurroundSensors {
+public class KnightSurroundSensors {
     public int rightSensor;
     public int leftSensor;
     public int downSensor;
 
-    public SurroundSensors(){
+    public KnightSurroundSensors(){
         rightSensor = 0;
         leftSensor = 0;
         downSensor = 0;

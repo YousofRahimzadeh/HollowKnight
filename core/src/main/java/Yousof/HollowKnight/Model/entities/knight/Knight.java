@@ -1,7 +1,6 @@
 package Yousof.HollowKnight.Model.entities.knight;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -26,10 +25,9 @@ public class Knight extends Entitie {
     private int timeOfJump = 0;
     
     private TextureRegion currentFrame;
-    private HashMap<KnightState , Animation<TextureRegion>> animations;
     
-    private SurroundSensors surroundSensors;
-    private AttackSensors attackSensors;
+    private KnightSurroundSensors surroundSensors;
+    private KnightAttackSensors attackSensors;
 
     private boolean OnGround = true;
     private boolean OnWall = false;
@@ -50,8 +48,8 @@ public class Knight extends Entitie {
     
     public Knight(World world, Vector2 spawnPos , int health) {
         this.health = health;
-        surroundSensors = new SurroundSensors();
-        attackSensors = new AttackSensors();
+        surroundSensors = new KnightSurroundSensors();
+        attackSensors = new KnightAttackSensors();
         previousState = KnightState.IDLE;
         currentState = KnightState.IDLE;
         currentFrame = Animations.Knight.create("Idle", Animation.PlayMode.LOOP , 0.08f).getKeyFrame(stateTime, true);
@@ -64,9 +62,8 @@ public class Knight extends Entitie {
     }
 
     public void draw(Batch batch) {
-        float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
-        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + 38;
-        batch.draw(currentFrame, drawX, drawY);
+        drawKnight(batch);
+        drawEffects(batch);
     }
 
     private void handleInput(float delta) {        
@@ -244,6 +241,93 @@ public class Knight extends Entitie {
         stateTime += delta;
     }
 
+    private void drawKnight(Batch batch){
+        float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
+        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + 38;
+        batch.draw(currentFrame, drawX, drawY);
+    }
+
+    private void drawEffects(Batch batch){
+        if (currentState != KnightState.ATTACK && 
+            currentState != KnightState.ATTACKUP && 
+            currentState != KnightState.POGOJUMP &&
+            currentState != KnightState.DASH) {
+            return;
+        }
+
+        TextureRegion effectFrame = null;
+        float effectX = 0;
+        float effectY = 0;
+
+        float knightCenterX = body.getPosition().x * Constants.PPM;
+        float knightCenterY = body.getPosition().y * Constants.PPM;
+
+        switch (currentState) {
+            case ATTACK:
+                effectFrame = Animations.KnightEffects.create("SlashEffect", Animation.PlayMode.NORMAL, 0.06f).getKeyFrame(attackTimer, false);
+
+                float attackOffset = 45f; 
+
+                if (facingRight) {
+                    if (!effectFrame.isFlipX()) effectFrame.flip(true, false);
+                    effectX = knightCenterX + attackOffset - (effectFrame.getRegionWidth() / 2f);
+                } else {
+                    if (effectFrame.isFlipX()) effectFrame.flip(true, false);
+                    effectX = knightCenterX - attackOffset - (effectFrame.getRegionWidth() / 2f);
+                }
+                effectY = knightCenterY - (effectFrame.getRegionHeight() / 2f) + 10f; 
+                break;
+
+            case ATTACKUP:
+                effectFrame = Animations.KnightEffects.create("UpSlashEffect", Animation.PlayMode.NORMAL, 0.06f).getKeyFrame(attackTimer, false);
+
+                float upOffset = 65f; 
+                effectX = knightCenterX - (effectFrame.getRegionWidth() / 2f);
+                effectY = knightCenterY + upOffset - (effectFrame.getRegionHeight() / 2f);
+
+                if (effectFrame.isFlipX() != facingRight) {
+                    effectFrame.flip(true, false);
+                }
+                break;
+
+            case POGOJUMP:
+                effectFrame = Animations.KnightEffects.create("DownSlashEffect", Animation.PlayMode.NORMAL, 0.06f).getKeyFrame(attackTimer, false);
+
+                float downOffset = 45f;
+                effectX = knightCenterX - (effectFrame.getRegionWidth() / 2f);
+                effectY = knightCenterY - downOffset - (effectFrame.getRegionHeight() / 2f);
+
+                if (effectFrame.isFlipX() != facingRight) {
+                    effectFrame.flip(true, false);
+                }
+                break;
+
+            case DASH:
+                Animation<TextureRegion> dashAnim = Animations.KnightEffects.create("Dash Effect", Animation.PlayMode.NORMAL, 0.06f);
+
+                if (dashAnim.isAnimationFinished(dashTimer)) break;
+            
+                effectFrame = dashAnim.getKeyFrame(dashTimer, false);
+                float dOffset = 250f;
+            
+                if (facingRight) {
+                    if (effectFrame.isFlipX()) effectFrame.flip(true, false); 
+                    effectX = knightCenterX - dOffset - (effectFrame.getRegionWidth() / 2f); 
+                } else {
+                    if (!effectFrame.isFlipX()) effectFrame.flip(true, false);
+                    effectX = knightCenterX + dOffset - (effectFrame.getRegionWidth() / 2f);
+                }
+                effectY = knightCenterY - (effectFrame.getRegionHeight() / 2f); 
+                break;
+            default:
+                break;
+            }
+
+        if (effectFrame != null) {
+            batch.draw(effectFrame, effectX, effectY);
+        }
+    }
+
     private void createBody(World world, Vector2 spawnPos){
         float hx = 14 / Constants.PPM;
         float hy = 50 / Constants.PPM;
@@ -260,7 +344,7 @@ public class Knight extends Entitie {
         fdef.friction = 0f;
         fdef.filter.categoryBits = Constants.BIT_KNIGHT;
         fdef.filter.maskBits = Constants.BIT_ENEMY | Constants.BIT_GROUND;
-        body.createFixture(fdef).setUserData("bounds");
+        body.createFixture(fdef).setUserData("Knight_main_body");
         shape.dispose();
 
         surroundSensors.createSensors(body, hx, hy);
@@ -278,12 +362,13 @@ public class Knight extends Entitie {
             enemies = attackSensors.upSensor;
         } else if(currentState == KnightState.POGOJUMP){
             enemies = attackSensors.downSensor;
+            canDoubleJump = true;
         }
         
         if(enemies != null && !enemies.isEmpty()){
             for(Enemy enemy : enemies){
                 if(enemy != null){
-                    enemy.takeDamage(5);
+                    enemy.takeDamage(damage);
                 }
             }
         }
@@ -310,8 +395,8 @@ public class Knight extends Entitie {
     public void setVel(Vector2 vel) { body.setLinearVelocity(vel); }
     public float getMaxSpeed() { return maxSpeed; }
     public void setMaxSpeed(float maxSpeed) { this.maxSpeed = maxSpeed; }
-    public SurroundSensors getSurroundSensors() {return surroundSensors;}
-    public void setSurroundSensors(SurroundSensors surroundSensors) {this.surroundSensors = surroundSensors;}
-    public AttackSensors getAttackSensors() {return attackSensors;}
-    public void setAttackSensors(AttackSensors attackSensors) {this.attackSensors = attackSensors;}
+    public KnightSurroundSensors getSurroundSensors() {return surroundSensors;}
+    public void setSurroundSensors(KnightSurroundSensors surroundSensors) {this.surroundSensors = surroundSensors;}
+    public KnightAttackSensors getAttackSensors() {return attackSensors;}
+    public void setAttackSensors(KnightAttackSensors attackSensors) {this.attackSensors = attackSensors;}
 }

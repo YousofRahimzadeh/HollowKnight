@@ -10,13 +10,13 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 
-public class AttackSensors {
+public class KnightAttackSensors {
     public ArrayList<Enemy> rightSensor;
     public ArrayList<Enemy> leftSensor;
     public ArrayList<Enemy> downSensor;
     public ArrayList<Enemy> upSensor;
 
-    public AttackSensors(){
+    public KnightAttackSensors(){
         rightSensor = new ArrayList<>();
         leftSensor = new ArrayList<>();
         downSensor = new ArrayList<>();

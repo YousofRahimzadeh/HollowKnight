@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameStore;
 import Yousof.HollowKnight.Model.contacts.GameContactListener;
+import Yousof.HollowKnight.Model.contacts.GroundEnemyListener;
 import Yousof.HollowKnight.Model.contacts.KnightContactListener;
 import Yousof.HollowKnight.Model.entities.Projectile;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
@@ -100,6 +101,7 @@ public class GameController {
                 FixtureDef fdef = new FixtureDef();
                 fdef.friction = 0f;
                 fdef.shape = shape;
+                fdef.filter.categoryBits = Constants.BIT_GROUND;
                 body.createFixture(fdef).setUserData("grounds");;
                 shape.dispose();
             }
@@ -118,6 +120,7 @@ public class GameController {
     private static void loadContactListeners(){
         GameContactListener manager = new GameContactListener();
         manager.addListeners(new KnightContactListener());
+        manager.addListeners(new GroundEnemyListener());
         
         game.getWorld().setContactListener(manager);
     }
