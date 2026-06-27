@@ -21,12 +21,16 @@ public class WingedSentry extends Enemy{
     private final float speed = 20f;
     private final float halfWidth = 50f;
     private final float halfHeight = 75f;
+    private final float yOffset = 0f;
+    private final float xOffset = 0f;
+
     private boolean facingRight = true;
 
     private WingedSentryState currentState;
     private WingedSentrySensor sensors;
 
     public WingedSentry(World world, float x, float y){
+        sensors = new WingedSentrySensor();
         createBody(world, new Vector2(x, y));
         changeState(new WingedIdleState());
     }
@@ -60,6 +64,7 @@ public class WingedSentry extends Enemy{
         
         BodyDef bdef = new BodyDef();
         bdef.type = BodyType.DynamicBody;
+        bdef.gravityScale = 0f;
         bdef.position.set(spawnPos.x / Constants.PPM, spawnPos.y / Constants.PPM);
         bdef.fixedRotation = true;
         body = world.createBody(bdef);
@@ -92,4 +97,28 @@ public class WingedSentry extends Enemy{
         currentState = newState;
         currentState.enter(this);
     }
+
+    public WingedSentrySensor getSensor() {
+        return sensors;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+        public boolean isFacingRight() {
+        return facingRight;
+    }
+
+    public void setFacingRight(boolean facingRight) {
+        this.facingRight = facingRight;
+    }
+
+    public float getyOffset() {
+        return yOffset;
+    }
+    public float getxOffset() {
+        return xOffset;
+    }
+
 }

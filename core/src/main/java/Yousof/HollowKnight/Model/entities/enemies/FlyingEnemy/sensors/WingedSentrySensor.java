@@ -8,7 +8,7 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class WingedSentrySensor {
-    public Knight knight;
+    public Knight knight = null;
 
     public void createSensors(Body body , float hx , float hy){
         FixtureDef fdef = new FixtureDef();

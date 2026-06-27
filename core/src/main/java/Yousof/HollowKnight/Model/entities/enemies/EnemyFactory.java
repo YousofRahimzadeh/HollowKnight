@@ -3,6 +3,7 @@ package Yousof.HollowKnight.Model.entities.enemies;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Animations.Animations;
+import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
 
 public class EnemyFactory {
@@ -12,6 +13,8 @@ public class EnemyFactory {
                 return new GroundEnemy(world, x, y, 110f, 75f, 1.5f , 10 , Animations.Crawlid , 28f);
             case "Mosscreep":
                 return new GroundEnemy(world, x, y, 110f, 95f, 1f , 15 , Animations.Mosscreep , 0f);
+            case "WingedSentry":
+                return new WingedSentry(world, x, y);
             default:
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }
