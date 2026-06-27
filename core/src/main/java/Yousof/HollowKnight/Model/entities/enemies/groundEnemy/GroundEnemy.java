@@ -1,8 +1,6 @@
 package Yousof.HollowKnight.Model.entities.enemies.groundEnemy;
 
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -14,20 +12,21 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
-import Yousof.HollowKnight.Enum.state.GroundEnemyState;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.sensors.GroundSurroundSensors;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundDeathState;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundEnemyState;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundRunState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
 
 public class GroundEnemy extends Enemy {
     private int health;
     private int damage = 5;
 
-    private TextureRegion currentFrame;
     private Animations animation;
-    private float yOffset;
-    private float stateTime = 0;
 
-    private GroundEnemyState previousState;
+    private float yOffset;
+
     private GroundEnemyState currentState;
 
     private final float speed;
@@ -46,90 +45,41 @@ public class GroundEnemy extends Enemy {
         this.health = health;
         this.animation = anim;
         this.yOffset = yOffset;
-        this.currentState = GroundEnemyState.RUN;
         sensors = new GroundSurroundSensors();
         createBody(world, new Vector2(x, y));
+        this.changeState(new GroundRunState());
     }
 
     @Override
     public void update(float dt) {
-        handleDeath();
-        handleSensors(dt);
-        handleAnimation(dt);
-        handleVelacity(dt);
+        currentState.update(dt);
     }
 
     @Override
     public void draw(Batch batch) {
-        float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
-        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + yOffset;
-        batch.draw(currentFrame, drawX, drawY);
+        currentState.draw(batch);
     }
 
-    public void handleDeath(){
-        if(currentState != GroundEnemyState.DEATH) return;
-        cleanUpPhysicsOnDeath();
+    @Override
+    public void takeDamage(int how){
+        this.health -= how;
+        if(health <= 0){
+            health = 0;
+            changeState(new GroundDeathState());
+        }
     }
 
-    private void handleSensors(float dt){
-        if(currentState == GroundEnemyState.DEATH){
-            return;
-        }
-        if (facingRight) {
-            if (sensors.rightWall > 0 || (sensors.rightCliffInitialized && sensors.rightCliff == 0)) {
-                currentState = GroundEnemyState.TURN;
-                facingRight = !facingRight;
-                return;
-            }
-        } else {
-            if (sensors.leftWall > 0 || (sensors.leftCliffInitialized && sensors.leftCliff == 0)) {
-                currentState = GroundEnemyState.TURN;
-                facingRight = !facingRight;
-                return;
-            }
-        }
-        currentState = GroundEnemyState.RUN;
-    }
-
-    public void handleAnimation(float delta){
-        if(previousState == GroundEnemyState.TURN && !animation.create("turn", PlayMode.NORMAL, 0.1f).isAnimationFinished(stateTime)){
-            currentState = GroundEnemyState.TURN;
-        }
-        if(previousState != currentState){
-            stateTime = 0;
-            previousState = currentState;
-        }
-        switch (currentState) {
-            case GroundEnemyState.RUN:
-                currentFrame = animation.create("Walk", PlayMode.LOOP, 0.1f).getKeyFrame(stateTime);
-                break;
-            case GroundEnemyState.DEATH:
-                currentFrame = animation.create("Death Land", PlayMode.NORMAL, 0.1f).getKeyFrame(stateTime);
-                break;
-            case GroundEnemyState.TURN:
-                currentFrame = animation.create("Turn", PlayMode.NORMAL, 0.05f).getKeyFrame(stateTime);
-                break;
+    @Override
+    public void dispose() {
         
-            default:
-                break;
-        }
-
-        if(facingRight){
-            currentFrame.flip(true, false);
-        }
-        if(currentState == GroundEnemyState.TURN){
-            currentFrame.flip(true, false);
-        }
-        stateTime += delta;
     }
-
-    public void handleVelacity(float delta){
-        if(currentState == GroundEnemyState.DEATH || currentState == GroundEnemyState.TURN){
-            body.setLinearVelocity(0, body.getLinearVelocity().y);
-            return;
+    
+    public void changeState(GroundEnemyState newState){
+        if (currentState != null) {
+            currentState.exit();
         }
-        float targetVelocity = facingRight ? speed : -speed;
-        body.setLinearVelocity(targetVelocity, body.getLinearVelocity().y);
+        currentState = newState;
+        currentState.enter(this);
     }
     
     private void createBody(World world, Vector2 spawnPos) {
@@ -162,7 +112,7 @@ public class GroundEnemy extends Enemy {
 
     }
 
-    private void cleanUpPhysicsOnDeath() {
+    public void cleanUpPhysicsOnDeath() {
         if (physicsCleanedUp) return;
 
         Filter disableFilter = new Filter();
@@ -183,34 +133,35 @@ public class GroundEnemy extends Enemy {
 
         physicsCleanedUp = true;
     }
-    
-    @Override
-    public void takeDamage(int how){
-        this.health -= how;
-        if(health <= 0){
-            health = 0;
-            currentState = GroundEnemyState.DEATH;
-        }
-    }
-    @Override
-    public void dispose() {
-        
-    }
 
     public GroundSurroundSensors getSensors() {
         return sensors;
     }
-
     public void setSensors(GroundSurroundSensors sensors) {
         this.sensors = sensors;
     }
-
     public int getDamage() {
         return damage;
     }
-    
     public void setDamage(int damage) {
         this.damage = damage;
     }
-
+    public Animations getAnimation() {
+        return animation;
+    }
+    public void setAnimation(Animations animation) {
+        this.animation = animation;
+    }
+    public boolean isFacingRight() {
+        return facingRight;
+    }
+    public void setFacingRight(boolean facingRight) {
+        this.facingRight = facingRight;
+    }
+    public float getyOffset() {
+        return yOffset;
+    }
+    public float getSpeed() {
+        return speed;
+    }
 }
