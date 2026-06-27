@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Model.entities.knight;
+package Yousof.HollowKnight.Model.entities.knight.sensors;
 
 import java.util.ArrayList;
 
