@@ -9,7 +9,7 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class DashState extends IKnightState{
+public class KnightPogoJumpState extends KnightState{
     private Animation<TextureRegion> animation;
 
     @Override

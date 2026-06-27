@@ -1,32 +1,62 @@
 package Yousof.HollowKnight.Model.entities.knight.state;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Enum.Keys;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class AttackState extends IKnightState{
+public class KnightRunState extends KnightState{
     private Animation<TextureRegion> animation;
 
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Idle", PlayMode.LOOP, 0.08f);
+        animation = Animations.Knight.create("Run", PlayMode.LOOP, 0.08f);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+
+        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTATTACK.key)){
+            knight.changeState(new KnightAttackState());
+            return;
+        }
+
+        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTJUMP.key)){
+            knight.changeState(new KnightJumpState());
+            return;
+        }
+
+        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTDASH.key)){
+            knight.changeState(new KnightDashState());
+            return;
+        }
         
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key)){
+            knight.setFacingRight(true);
+            body.setLinearVelocity(knight.getMaxSpeed() , body.getLinearVelocity().y);
+            return;
+        }
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key)){
+            knight.setFacingRight(false);
+            body.setLinearVelocity(-knight.getMaxSpeed() , body.getLinearVelocity().y);
+            return;
+        }
+
+        knight.changeState(new KnightIdleState());
+        body.setLinearVelocity(0, body.getLinearVelocity().y);
     }
 
     @Override
     public void exit() {
-        
+
     }
 
     @Override
@@ -44,7 +74,6 @@ public class AttackState extends IKnightState{
 
     @Override
     public void drawEffects(Batch batch, float stateTime) {
-        
         
     }
     

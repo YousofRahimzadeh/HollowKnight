@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public abstract class IKnightState {
+public abstract class KnightState {
     protected float stateTime;
     protected Knight knight;
     protected Body body;

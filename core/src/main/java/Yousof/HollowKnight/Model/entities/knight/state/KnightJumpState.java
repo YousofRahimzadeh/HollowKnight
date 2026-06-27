@@ -3,6 +3,7 @@ package Yousof.HollowKnight.Model.entities.knight.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -11,7 +12,7 @@ import Yousof.HollowKnight.Enum.Keys;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class JumpState extends IKnightState{
+public class KnightJumpState extends KnightState{
 
     // private float timer;
     private Animation<TextureRegion> animation;
@@ -20,20 +21,18 @@ public class JumpState extends IKnightState{
     public void enter(Knight knight) {  
         super.enter(knight);
         animation = Animations.Knight.create("Airborne", PlayMode.NORMAL, 0.08f);
+        body.setLinearVelocity(body.getLinearVelocity().x , 0f);
+        body.applyLinearImpulse(new Vector2(0f , 5f), body.getPosition(), true);
+        knight.setCanDoubleJump(true);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
 
-        if(knight.getSurroundSensors().downSensor > 0 && !Gdx.input.isKeyPressed(Keys.KNIGHTJUMP.key)){
-            knight.changeState(new IdleState());
-            return;
-        }
-
         if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key)){
             if(knight.getSurroundSensors().rightSensor > 0){
-                knight.changeState(new WallSideState());
+                knight.changeState(new KnightWallSideState());
                 return;
             }
             knight.setFacingRight(true);
@@ -42,37 +41,38 @@ public class JumpState extends IKnightState{
 
         if(Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key)){
             if(knight.getSurroundSensors().leftSensor > 0){
-                knight.changeState(new WallSideState());
+                knight.changeState(new KnightWallSideState());
                 return;
             }
             knight.setFacingRight(false);
             body.setLinearVelocity(-knight.getMaxSpeed() , body.getLinearVelocity().y);
         }
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTJUMP.key)){
-            body.setLinearVelocity( body.getLinearVelocity().x , knight.getMaxSpeed());
+        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTJUMP.key) && knight.isCanDoubleJump()){
+            body.setLinearVelocity(body.getLinearVelocity().x, 0);
+            body.applyLinearImpulse(new Vector2(0f , 5f), body.getPosition(), true);
+            knight.setCanDoubleJump(false);
             return;
         }
 
         if(body.getLinearVelocity().y < 0){
-            knight.changeState(new FallState());
+            knight.changeState(new KnightFallState());
             return;
         }
 
         if(Gdx.input.isKeyJustPressed(Keys.KNIGHTATTACK.key)){
-            knight.changeState(new AttackState());
+            knight.changeState(new KnightAttackState());
             return;
         }
 
         if(Gdx.input.isKeyJustPressed(Keys.KNIGHTDASH.key)){
-            knight.changeState(new DashState());
+            knight.changeState(new KnightDashState());
             return;
         }
     }
 
     @Override
     public void exit() {
-        
     }
 
     @Override

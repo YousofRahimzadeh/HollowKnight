@@ -16,6 +16,7 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Enum.state.GroundEnemyState;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.sensors.GroundSurroundSensors;
 
 public class GroundEnemy extends Enemy {
     private int health;

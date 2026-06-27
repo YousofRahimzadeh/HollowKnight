@@ -11,21 +11,19 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightSurroundSensors;
-import Yousof.HollowKnight.Model.entities.knight.state.IKnightState;
-import Yousof.HollowKnight.Model.entities.knight.state.IdleState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightIdleState;
 
 public class Knight extends Entitie {
     private int health;
     private int damage = 5;
     private float maxSpeed = 3.0f;
 
-    private IKnightState currentState;
+    private KnightState currentState;
     
     private KnightSurroundSensors surroundSensors;
     private KnightAttackSensors attackSensors;
 
-    private boolean OnGround = true;
-    private boolean OnWall = false;
     private boolean facingRight = true;
     private boolean canDoubleJump = true;
     private boolean canDash = true;
@@ -36,7 +34,7 @@ public class Knight extends Entitie {
         surroundSensors = new KnightSurroundSensors();
         attackSensors = new KnightAttackSensors();
         createBody(world, spawnPos);
-        changeState(new IdleState());
+        changeState(new KnightIdleState());
     }
 
     public void update(float delta) {
@@ -78,7 +76,7 @@ public class Knight extends Entitie {
         }
     }
 
-    public void changeState(IKnightState newState){
+    public void changeState(KnightState newState){
         if (currentState != null) {
             currentState.exit();
         }
@@ -89,11 +87,12 @@ public class Knight extends Entitie {
     public void dispose() {}
 
 
-
-    public boolean isOnWall() {return OnWall;}
-    public void setOnWall(boolean onWall) {OnWall = onWall;}
-    public boolean isOnGround() {return OnGround;}
-    public void setOnGround(boolean OnGround) {this.OnGround = OnGround;}
+    public int getDamage() {
+        return damage;
+    }
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
     public boolean isFacingRight() {
         return facingRight;
     }
