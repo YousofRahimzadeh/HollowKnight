@@ -16,8 +16,9 @@ import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.sensors.GroundSurroundSensors;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundDeathState;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundEnemyState;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundKnockbackState;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundRunState;
-import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
+import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class GroundEnemy extends Enemy {
     private int health;
@@ -52,6 +53,10 @@ public class GroundEnemy extends Enemy {
 
     @Override
     public void update(float dt) {
+        if(knockbackTimer > 0) {
+            knockbackTimer -= dt;
+            return;
+        }
         currentState.update(dt);
     }
 
@@ -61,11 +66,13 @@ public class GroundEnemy extends Enemy {
     }
 
     @Override
-    public void takeDamage(int how){
-        this.health -= how;
+    public void takeDamage(Knight knight){
+        this.health -= knight.getDamage();
         if(health <= 0){
             health = 0;
             changeState(new GroundDeathState());
+        }else{
+            changeState(new GroundKnockbackState(knight.getBody() , 4f));
         }
     }
 
@@ -105,7 +112,7 @@ public class GroundEnemy extends Enemy {
         shape.setAsBox(hx, hy);
         fdef.shape = shape;
         fdef.isSensor = false;
-        body.createFixture(fdef).setUserData("GroundEnemy_main_body");
+        body.createFixture(fdef).setUserData("Enemy_main_body");
         shape.dispose();
 
         sensors.createSensors(body, hx, hy);

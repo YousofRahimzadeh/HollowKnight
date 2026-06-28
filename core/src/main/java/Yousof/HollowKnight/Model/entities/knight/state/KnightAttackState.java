@@ -151,7 +151,8 @@ public class KnightAttackState extends KnightState{
         if(enemies != null && !enemies.isEmpty()){
             for(Enemy enemy : enemies){
                 if(enemy != null){
-                    enemy.takeDamage(knight.getDamage());
+                    enemy.takeDamage(knight);
+                    enemy.applyKnockback(body);
                 }
             }
         }

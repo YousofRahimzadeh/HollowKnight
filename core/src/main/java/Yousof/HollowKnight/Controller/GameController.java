@@ -17,6 +17,7 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameStore;
 import Yousof.HollowKnight.Model.contacts.FlyingEnemyListener;
 import Yousof.HollowKnight.Model.contacts.GameContactListener;
+import Yousof.HollowKnight.Model.contacts.GlobalContactListener;
 import Yousof.HollowKnight.Model.contacts.GroundEnemyListener;
 import Yousof.HollowKnight.Model.contacts.KnightContactListener;
 import Yousof.HollowKnight.Model.entities.Projectile;
@@ -125,6 +126,7 @@ public class GameController {
         manager.addListeners(new KnightContactListener());
         manager.addListeners(new GroundEnemyListener());
         manager.addListeners(new FlyingEnemyListener());
+        manager.addListeners(new GlobalContactListener());
         
         game.getWorld().setContactListener(manager);
     }

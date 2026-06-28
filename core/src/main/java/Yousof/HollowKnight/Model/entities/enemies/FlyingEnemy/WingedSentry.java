@@ -12,7 +12,9 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.sensors.WingedSentrySensor;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedIdleState;
+import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedKnockbackState;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedSentryState;
+import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class WingedSentry extends Enemy{
     private int health = 11;
@@ -35,7 +37,7 @@ public class WingedSentry extends Enemy{
         changeState(new WingedIdleState());
     }
 
-     @Override
+    @Override
     public void update(float dt) {
         currentState.update(dt);
     }
@@ -46,11 +48,13 @@ public class WingedSentry extends Enemy{
     }
 
     @Override
-    public void takeDamage(int how){
-        health -= how;
+    public void takeDamage(Knight knight){
+        health -= knight.getDamage();
         if(health <= 0){
             health = 0;
             changeState(new WingedIdleState());
+        }else{
+            changeState(new WingedKnockbackState(knight.getBody(), currentState ,6f));
         }
     }
 
@@ -83,7 +87,7 @@ public class WingedSentry extends Enemy{
         shape.setAsBox(hx, hy);
         fdef.shape = shape;
         fdef.isSensor = false;
-        body.createFixture(fdef).setUserData("WingedSentry_main_body");
+        body.createFixture(fdef).setUserData("Enemy_main_body");
         shape.dispose();
 
         sensors.createSensors(body, hx, hy);

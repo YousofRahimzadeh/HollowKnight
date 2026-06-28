@@ -39,6 +39,11 @@ public class WingedIdleState extends WingedSentryState{
             
             float speed = enemy.getSpeed();
             body.setLinearVelocity(direction.x * speed, direction.y * speed);
+            if(direction.x > 0){
+                enemy.setFacingRight(true);
+            }else{
+                enemy.setFacingRight(false);
+            }
             
         } else {
             body.setLinearVelocity(0 , 0);

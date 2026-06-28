@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class GroundEnemyListener implements ContactListener {
 
@@ -18,9 +17,7 @@ public class GroundEnemyListener implements ContactListener {
 
         checkSensorContact(fa, fb, true);
         checkSensorContact(fb, fa, true);
-        
-        checkEnemyToKnightContact(fa, fb);
-        checkEnemyToKnightContact(fb, fa);
+
     }
 
     @Override
@@ -30,24 +27,6 @@ public class GroundEnemyListener implements ContactListener {
 
         checkSensorContact(fa, fb, false);
         checkSensorContact(fb, fa, false);
-    }
-
-    private void checkEnemyToKnightContact(Fixture fixtureA, Fixture fixtureB) {
-
-        if (fixtureA.getUserData() != null && fixtureA.getUserData().equals("GroundEnemy_main_body")) {
-            if (fixtureB.getUserData() != null && fixtureB.getUserData().equals("Knight_main_body")) {
-                
-                if (fixtureA.getBody().getUserData() instanceof GroundEnemy && 
-                    fixtureB.getBody().getUserData() instanceof Knight) {
-                    
-                    GroundEnemy enemy = (GroundEnemy) fixtureA.getBody().getUserData();
-                    Knight knight = (Knight) fixtureB.getBody().getUserData();
-                    
-                    knight.takeDamage(enemy.getDamage()); 
-                    
-                }
-            }
-        }
     }
 
     private void checkSensorContact(Fixture sensor, Fixture obstacle, boolean isBegin) {

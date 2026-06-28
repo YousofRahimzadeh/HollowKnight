@@ -55,7 +55,7 @@ public class KnightContactListener implements ContactListener{
     }
 
     private void attackSensor(Fixture enemy , Fixture sensor , boolean Begin){
-        if("knight_attack_up_sensor".equals(sensor.getUserData()) && "GroundEnemy_main_body".equals(enemy.getUserData())){
+        if("knight_attack_up_sensor".equals(sensor.getUserData()) && "Enemy_main_body".equals(enemy.getUserData())){
             Enemy enem = (Enemy) enemy.getBody().getUserData();
             Knight knight = (Knight) sensor.getBody().getUserData();
             if(Begin) {
@@ -63,7 +63,7 @@ public class KnightContactListener implements ContactListener{
             } else {
                 knight.getAttackSensors().upSensor.remove(enem);
             }
-        }else if("knight_attack_down_sensor".equals(sensor.getUserData()) && "GroundEnemy_main_body".equals(enemy.getUserData())){
+        }else if("knight_attack_down_sensor".equals(sensor.getUserData()) && "Enemy_main_body".equals(enemy.getUserData())){
             Enemy enem = (Enemy) enemy.getBody().getUserData();
             Knight knight = (Knight) sensor.getBody().getUserData();
             if(Begin) {
@@ -71,7 +71,7 @@ public class KnightContactListener implements ContactListener{
             } else {
                 knight.getAttackSensors().downSensor.remove(enem);
             }
-        }else if("knight_attack_right_sensor".equals(sensor.getUserData()) && "GroundEnemy_main_body".equals(enemy.getUserData())){
+        }else if("knight_attack_right_sensor".equals(sensor.getUserData()) && "Enemy_main_body".equals(enemy.getUserData())){
             Enemy enem = (Enemy) enemy.getBody().getUserData();
             Knight knight = (Knight) sensor.getBody().getUserData();
             if(Begin) {
@@ -79,7 +79,7 @@ public class KnightContactListener implements ContactListener{
             } else {
                 knight.getAttackSensors().rightSensor.remove(enem);
             }
-        }else if("knight_attack_left_sensor".equals(sensor.getUserData()) && "GroundEnemy_main_body".equals(enemy.getUserData())){
+        }else if("knight_attack_left_sensor".equals(sensor.getUserData()) && "Enemy_main_body".equals(enemy.getUserData())){
             Enemy enem = (Enemy) enemy.getBody().getUserData();
             Knight knight = (Knight) sensor.getBody().getUserData();
             if(Begin) {

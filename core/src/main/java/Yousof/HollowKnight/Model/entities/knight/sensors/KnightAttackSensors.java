@@ -31,10 +31,10 @@ public class KnightAttackSensors {
         fdef.isSensor = true;
         fdef.shape = shape;
 
-        float rightLeftSensorWidth = 40f / Constants.PPM;
+        float rightLeftSensorWidth = 70f / Constants.PPM;
         float rightLeftSensorHeight = hy;
         float upDownSensorWidth = 3 * hx;
-        float upDownSensorHeight = 40f / Constants.PPM;
+        float upDownSensorHeight = 45f / Constants.PPM;
         
 
         shape.setAsBox(upDownSensorWidth, upDownSensorHeight, new Vector2(0, -hy -upDownSensorHeight), 0);
