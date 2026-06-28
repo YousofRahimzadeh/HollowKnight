@@ -11,14 +11,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.sensors.WingedSentrySensor;
+import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedDeathState;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedIdleState;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedKnockbackState;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedSentryState;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class WingedSentry extends Enemy{
-    private int health = 11;
-    private final int damage = 1;
+    private int health = 100;
 
     private final float speed = 1f;
     private final float halfWidth = 50f;
@@ -49,12 +49,15 @@ public class WingedSentry extends Enemy{
 
     @Override
     public void takeDamage(Knight knight){
+        if(health == 0){
+            return;
+        }
         health -= knight.getDamage();
         if(health <= 0){
             health = 0;
-            changeState(new WingedIdleState());
+            changeState(new WingedDeathState());
         }else{
-            changeState(new WingedKnockbackState(knight.getBody(), currentState ,6f));
+            changeState(new WingedKnockbackState(knight.getBody(), currentState ,12f));
         }
     }
 

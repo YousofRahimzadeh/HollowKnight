@@ -1,6 +1,5 @@
 package Yousof.HollowKnight.Model.entities.knight.state;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,21 +9,19 @@ import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class KnightDeathState extends KnightState{
-    private Animation<TextureRegion> animation;
+
 
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Idle", PlayMode.LOOP, 0.08f);
+        animation = Animations.Knight.create("Death", PlayMode.NORMAL, 0.08f);
+        
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        body.getFixtureList().forEach(f -> f.isSensor());
-        if(animation.isAnimationFinished(stateTime)){
-            knight.changeState(new KnightIdleState());
-        }
+        body.setLinearVelocity(0 , body.getLinearVelocity().y);
     }
 
     @Override

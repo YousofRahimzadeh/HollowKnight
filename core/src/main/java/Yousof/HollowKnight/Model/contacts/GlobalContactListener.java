@@ -31,7 +31,7 @@ public class GlobalContactListener implements ContactListener {
             Enemy enemy = (Enemy) fixtureA.getBody().getUserData();
             Knight knight = (Knight) fixtureB.getBody().getUserData();
             
-            knight.takeDamage(1); 
+            knight.takeDamage(enemy); 
         }
     }
 

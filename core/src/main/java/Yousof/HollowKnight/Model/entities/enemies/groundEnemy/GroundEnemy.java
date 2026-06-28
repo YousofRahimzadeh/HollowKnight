@@ -72,7 +72,7 @@ public class GroundEnemy extends Enemy {
             health = 0;
             changeState(new GroundDeathState());
         }else{
-            changeState(new GroundKnockbackState(knight.getBody() , 4f));
+            changeState(new GroundKnockbackState(knight.getBody(), currentState ,3f));
         }
     }
 

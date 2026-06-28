@@ -9,14 +9,19 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.Entitie;
+import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightSurroundSensors;
-import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightDeathState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightIdleState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightKnockbackState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
 
 public class Knight extends Entitie {
     private int health;
-    private int damage = 5;
+    private int soul = 0;
+   
+    private int damage = 5; 
     private float maxSpeed = 3.0f;
 
     private KnightState currentState;
@@ -25,6 +30,7 @@ public class Knight extends Entitie {
     private KnightAttackSensors attackSensors;
 
     private boolean facingRight = true;
+    private boolean canGetDamage = true;
     private boolean canDoubleJump = true;
     private boolean canDash = true;
 
@@ -69,11 +75,13 @@ public class Knight extends Entitie {
         attackSensors.createSensors(body, hx, hy);
     }
 
-    public void takeDamage(int how){
-        this.health -= how;
+    public void takeDamage(Enemy enemy){
+        this.health -= 1;
         if(health <= 0){
             health = 0;
-            changeState(currentState);
+            changeState(new KnightDeathState());
+        }else{
+            changeState(new KnightKnockbackState(enemy.getBody() , currentState , 6f));
         }
     }
 
@@ -111,6 +119,10 @@ public class Knight extends Entitie {
     }
     public void setCanDash(boolean canDash) {this.canDash = canDash;}
     
+    
+    public int getSoul() {return soul;}
+    public void addSoul() {soul += 11;}
+    public void setSoul(int soul) {this.soul = soul;}
     public Vector2 getPos() { return body.getPosition(); }
     public void setPos(Vector2 pos) { body.setTransform(pos, body.getAngle()); }
     public Vector2 getVel() { return body.getLinearVelocity(); }

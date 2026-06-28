@@ -3,7 +3,6 @@ package Yousof.HollowKnight.Model.entities.knight.state;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,7 +15,6 @@ import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;
 
 public class KnightAttackState extends KnightState{
-    private Animation<TextureRegion> currentAnimation;
 
     private Direction currentDir;
     private enum Direction {
@@ -32,13 +30,13 @@ public class KnightAttackState extends KnightState{
 
         if(Gdx.input.isKeyPressed(Keys.KNIGHTUP.key)){
             currentDir = Direction.UP;
-            currentAnimation = Animations.Knight.create("UpSlash", PlayMode.NORMAL, 0.08f);
+            animation = Animations.Knight.create("UpSlash", PlayMode.NORMAL, 0.08f);
         }else if(Gdx.input.isKeyPressed(Keys.KNIGHTDOWN.key) && knight.getSurroundSensors().downSensor == 0){
             currentDir = Direction.DOWN;
-            currentAnimation = Animations.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
+            animation = Animations.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
         }else{
             currentDir = Direction.HOR;
-            currentAnimation = Animations.Knight.create("Slash", PlayMode.NORMAL, 0.08f);
+            animation = Animations.Knight.create("Slash", PlayMode.NORMAL, 0.08f);
         }
         performAttack();
     }
@@ -47,7 +45,7 @@ public class KnightAttackState extends KnightState{
     public void update(float delta) {
         super.update(delta);
 
-        if(currentAnimation.isAnimationFinished(stateTime)){
+        if(animation.isAnimationFinished(stateTime)){
             if(knight.getSurroundSensors().downSensor > 0){
                 knight.changeState(new KnightIdleState());
                 return;
@@ -63,7 +61,7 @@ public class KnightAttackState extends KnightState{
 
     @Override
     public void draw(Batch batch) {
-        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime);
+        TextureRegion currentFrame = animation.getKeyFrame(stateTime);
         if (knight.isFacingRight() && !currentFrame.isFlipX()) {
             currentFrame.flip(true, false);
         } else if (!knight.isFacingRight() && currentFrame.isFlipX()) {

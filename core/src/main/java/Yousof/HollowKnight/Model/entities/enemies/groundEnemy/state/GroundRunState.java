@@ -1,16 +1,15 @@
 package Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.sensors.GroundSurroundSensors;
 
 public class GroundRunState extends GroundEnemyState{
 
-    private Animation<TextureRegion> currentAnimation ;
     private GroundSurroundSensors sensors;
     private float speed;
     @Override

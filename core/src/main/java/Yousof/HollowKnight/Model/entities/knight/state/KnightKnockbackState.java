@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state;
+package Yousof.HollowKnight.Model.entities.knight.state;
 
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -7,25 +7,25 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
+import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class WingedKnockbackState extends WingedSentryState {
+public class KnightKnockbackState extends KnightState{
 
     private float duration = 0.2f;
     private float timer = 0f;
     private Body attackerBody;
     private float strength;
 
-    public WingedKnockbackState(Body attackerBody,WingedSentryState lastState ,float strength) {
+    public KnightKnockbackState(Body attackerBody,KnightState lastState ,float strength) {
         this.attackerBody = attackerBody;
         this.strength = strength;
         this.stateTime = lastState.stateTime;
-        this.currentAnimation = lastState.currentAnimation;
+        this.animation = lastState.animation;
     }
 
     @Override
-    public void enter(WingedSentry enemy) {
-        super.enter(enemy);
+    public void enter(Knight knight) {
+        super.enter(knight);
         this.timer = 0f;
 
 
@@ -54,21 +54,21 @@ public class WingedKnockbackState extends WingedSentryState {
         timer += delta;
 
         if (timer >= duration) {
-            enemy.changeState(new WingedIdleState());
+            knight.changeState(new KnightIdleState());
         }
     }
 
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime);
-        if (enemy.isFacingRight() && !currentFrame.isFlipX()) {
+        TextureRegion currentFrame = animation.getKeyFrame(stateTime);
+        if (knight.isFacingRight() && !currentFrame.isFlipX()) {
             currentFrame.flip(true, false);
-        } else if (!enemy.isFacingRight() && currentFrame.isFlipX()) {
+        } else if (!knight.isFacingRight() && currentFrame.isFlipX()) {
             currentFrame.flip(true, false);
         }
-        float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f) + enemy.getxOffset();
-        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + enemy.getyOffset();
+        float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
+        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + 38;
         
         float oldColor = batch.getPackedColor(); 
         batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 0.3f);

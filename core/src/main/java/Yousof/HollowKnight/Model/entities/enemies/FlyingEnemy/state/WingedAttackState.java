@@ -1,6 +1,5 @@
 package Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,7 +10,6 @@ import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
 
 public class WingedAttackState extends WingedSentryState{
 
-    private Animation<TextureRegion> currentAnimation;
     private float targetX;
     private boolean isRight;
     private boolean isChargingFinish = false;

@@ -1,7 +1,6 @@
 package Yousof.HollowKnight.Model.entities.knight.state;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -13,9 +12,6 @@ import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class KnightJumpState extends KnightState{
-
-    // private float timer;
-    private Animation<TextureRegion> animation;
 
     @Override
     public void enter(Knight knight) {  

@@ -1,12 +1,15 @@
 package Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
 
 
 public abstract class GroundEnemyState {
+    protected Animation<TextureRegion> currentAnimation;
     protected float stateTime;
     protected GroundEnemy enemy;
     protected Body body;

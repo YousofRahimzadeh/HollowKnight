@@ -1,11 +1,15 @@
 package Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
 
 public abstract class WingedSentryState {
+
+    protected Animation<TextureRegion> currentAnimation;
     protected float stateTime;
     protected WingedSentry enemy;
     protected Body body;

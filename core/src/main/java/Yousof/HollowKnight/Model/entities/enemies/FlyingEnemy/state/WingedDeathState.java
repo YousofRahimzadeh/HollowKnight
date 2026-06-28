@@ -3,54 +3,29 @@ package Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class WingedIdleState extends WingedSentryState{
+public class WingedDeathState extends WingedSentryState{
 
     @Override
     public void enter(WingedSentry enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.WingedSentry.create("Idle", PlayMode.LOOP, 0.08f);
+        currentAnimation = Animations.WingedSentry.create("Death", PlayMode.NORMAL, 0.08f);
+        enemy.getBody().setGravityScale(1f);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        Knight knight = enemy.getSensor().knight;
-        
-        if(knight != null){
-            Vector2 enemyPos = body.getPosition();
-            Vector2 knightPos = knight.getBody().getPosition(); 
-            Vector2 direction = new Vector2(knightPos.x - enemyPos.x, knightPos.y - enemyPos.y);
-
-            if (Math.abs(enemyPos.y - knightPos.y) < 0.5f) {
-                enemy.changeState(new WingedAttackState());
-                return;
-            }
-            
-            direction = direction.nor(); 
-            
-            float speed = enemy.getSpeed();
-            body.setLinearVelocity(direction.x * speed, direction.y * speed);
-            if(direction.x > 0){
-                enemy.setFacingRight(true);
-            }else{
-                enemy.setFacingRight(false);
-            }
-            
-        } else {
-            body.setLinearVelocity(0 , 0);
-        }
     }
 
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
+        enemy.getBody().setLinearVelocity(0f , enemy.getBody().getLinearVelocity().y);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime);
         if (enemy.isFacingRight() && !currentFrame.isFlipX()) {
             currentFrame.flip(true, false);
@@ -64,13 +39,11 @@ public class WingedIdleState extends WingedSentryState{
 
     @Override
     public void drawEffects(Batch batch, float stateTime) {
-        // TODO Auto-generated method stub
         super.drawEffects(batch, stateTime);
     }
 
     @Override
     public void exit() {
-        // TODO Auto-generated method stub
         super.exit();
     }
     
