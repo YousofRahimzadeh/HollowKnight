@@ -37,7 +37,7 @@ public class WingedAttackState extends WingedSentryState{
             }
         }
 
-        float attackSpeed = enemy.getSpeed() * 3f;
+        float attackSpeed = enemy.getSpeed() * 5f;
 
         if(isRight){
             if(targetX < body.getPosition().x || stateTime > 5f){

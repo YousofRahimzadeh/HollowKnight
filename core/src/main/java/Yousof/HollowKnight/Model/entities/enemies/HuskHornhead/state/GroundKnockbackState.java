@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Model.entities.knight.state;
+package Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state;
 
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -7,30 +7,25 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
 
-public class KnightKnockbackState extends KnightState{
+public class GroundKnockbackState extends GroundEnemyState{
 
-    private KnightState stateWrapper;
-    private float duration = 2f;
-    private float knockDuration = 0.4f;
+    private float duration = 0.2f;
     private float timer = 0f;
     private Body attackerBody;
     private float strength;
 
-    public KnightKnockbackState(Body attackerBody,KnightState lastState ,float strength) {
+    public GroundKnockbackState(Body attackerBody,GroundEnemyState lastState ,float strength) {
         this.attackerBody = attackerBody;
         this.strength = strength;
-        this.stateWrapper = lastState;
         this.stateTime = lastState.stateTime;
-        this.animation = lastState.animation;
+        this.currentAnimation = lastState.currentAnimation;
     }
 
     @Override
-    public void enter(Knight knight) {
-        super.enter(knight);
-        knight.setOnKnock(true);
-
+    public void enter(GroundEnemy enemy) {
+        super.enter(enemy);
         this.timer = 0f;
 
 
@@ -55,32 +50,28 @@ public class KnightKnockbackState extends KnightState{
     @Override
     public void update(float delta) {
         super.update(delta);
+        
         timer += delta;
-        if(timer < knockDuration) return;
-
-        stateWrapper.update(delta);
-        stateTime = stateWrapper.stateTime;
 
         if (timer >= duration) {
-            knight.setOnKnock(false);
-            knight.changeState(stateWrapper);
+            enemy.changeState(new GroundRunState());
         }
     }
 
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        TextureRegion currentFrame = animation.getKeyFrame(stateTime);
-        if (knight.isFacingRight() && !currentFrame.isFlipX()) {
+        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime);
+        if (enemy.isFacingRight() && !currentFrame.isFlipX()) {
             currentFrame.flip(true, false);
-        } else if (!knight.isFacingRight() && currentFrame.isFlipX()) {
+        } else if (!enemy.isFacingRight() && currentFrame.isFlipX()) {
             currentFrame.flip(true, false);
         }
         float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
-        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + 38;
+        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + enemy.getyOffset();
         
         float oldColor = batch.getPackedColor(); 
-        batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, Math.min( 1f , (stateTime) % 1f + 0.3f) );
+        batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 0.3f);
         batch.draw(currentFrame, drawX, drawY);
         batch.setPackedColor(oldColor);
     }
@@ -92,16 +83,5 @@ public class KnightKnockbackState extends KnightState{
             body.setLinearVelocity(0, 0);
         }
         super.exit();
-    }
-
-    public void changeState(KnightState newState){
-        if (stateWrapper != null) {
-            stateWrapper.exit();
-        }
-        stateWrapper = newState;
-        stateWrapper.enter(knight);
-
-        animation = stateWrapper.animation;
-        stateTime = stateWrapper.stateTime;
     }
 }

@@ -1,41 +1,44 @@
-package Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state;
+package Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
-import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
 
-public class WingedDeathState extends WingedSentryState{
-
+public class GroundDeathState extends GroundEnemyState{
+    
     @Override
-    public void enter(WingedSentry enemy) {
+    public void enter(GroundEnemy enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.WingedSentry.create("Death", PlayMode.NORMAL, 0.08f);
-        enemy.getBody().setGravityScale(1f);
+        currentAnimation = enemy.getAnimation().create("Death Land", PlayMode.NORMAL, 0.08f);
         enemy.cleanUpPhysicsOnDeath();
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+        body.setLinearVelocity(0 , body.getLinearVelocity().y);
     }
 
     @Override
     public void draw(Batch batch) {
-        super.draw(batch);
-        enemy.getBody().setLinearVelocity(0f , enemy.getBody().getLinearVelocity().y);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime);
         if (enemy.isFacingRight() && !currentFrame.isFlipX()) {
             currentFrame.flip(true, false);
         } else if (!enemy.isFacingRight() && currentFrame.isFlipX()) {
             currentFrame.flip(true, false);
         }
-        float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f) + enemy.getxOffset();
+        float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
         float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + enemy.getyOffset();
         batch.draw(currentFrame, drawX, drawY);
+        drawEffects(batch, stateTime);
+
     }
 
     @Override
@@ -46,6 +49,6 @@ public class WingedDeathState extends WingedSentryState{
     @Override
     public void exit() {
         super.exit();
+
     }
-    
 }

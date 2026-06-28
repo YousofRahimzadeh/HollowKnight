@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy;
+package Yousof.HollowKnight.Model.entities.enemies.groundEnemy;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -11,36 +11,52 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
-import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.sensors.WingedSentrySensor;
-import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedDeathState;
-import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedIdleState;
-import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedKnockbackState;
-import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedSentryState;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.sensors.GroundSurroundSensors;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundDeathState;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundEnemyState;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundKnockbackState;
+import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundRunState;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class WingedSentry extends Enemy{
-    private int health = 100;
+public class GroundEnemy extends Enemy {
+    private int health;
+    private int damage = 5;
 
-    private final float speed = 1f;
-    private final float halfWidth = 50f;
-    private final float halfHeight = 75f;
-    private final float yOffset = -70f;
-    private final float xOffset = -30f;
+    private Animations animation;
 
+    private float yOffset;
+
+    private GroundEnemyState currentState;
+
+    private final float speed;
+    private final float halfWidth;
+    private final float halfHeight;
     private boolean facingRight = true;
+    private boolean physicsCleanedUp = false;
 
-    private WingedSentryState currentState;
-    private WingedSentrySensor sensors;
+    private GroundSurroundSensors sensors;
 
-    public WingedSentry(World world, float x, float y){
-        sensors = new WingedSentrySensor();
+
+    public GroundEnemy(World world, float x, float y, float width, float height, float speed , int health , Animations anim , float yOffset) {
+        this.speed = speed;
+        this.halfWidth = width / 2f;
+        this.halfHeight = height / 2f;
+        this.health = health;
+        this.animation = anim;
+        this.yOffset = yOffset;
+        sensors = new GroundSurroundSensors();
         createBody(world, new Vector2(x, y));
-        changeState(new WingedIdleState());
+        this.changeState(new GroundRunState());
     }
 
     @Override
     public void update(float dt) {
+        if(knockbackTimer > 0) {
+            knockbackTimer -= dt;
+            return;
+        }
         currentState.update(dt);
     }
 
@@ -51,15 +67,12 @@ public class WingedSentry extends Enemy{
 
     @Override
     public void takeDamage(Knight knight){
-        if(health == 0){
-            return;
-        }
-        health -= knight.getDamage();
+        this.health -= knight.getDamage();
         if(health <= 0){
             health = 0;
-            changeState(new WingedDeathState());
+            changeState(new GroundDeathState());
         }else{
-            changeState(new WingedKnockbackState(knight.getBody(), currentState ,12f));
+            changeState(new GroundKnockbackState(knight.getBody(), currentState ,3f));
         }
     }
 
@@ -67,13 +80,20 @@ public class WingedSentry extends Enemy{
     public void dispose() {
         
     }
-
+    
+    public void changeState(GroundEnemyState newState){
+        if (currentState != null) {
+            currentState.exit();
+        }
+        currentState = newState;
+        currentState.enter(this);
+    }
+    
     private void createBody(World world, Vector2 spawnPos) {
         //create main body
         
         BodyDef bdef = new BodyDef();
         bdef.type = BodyType.DynamicBody;
-        bdef.gravityScale = 0f;
         bdef.position.set(spawnPos.x / Constants.PPM, spawnPos.y / Constants.PPM);
         bdef.fixedRotation = true;
         body = world.createBody(bdef);
@@ -99,15 +119,8 @@ public class WingedSentry extends Enemy{
 
     }
 
-    public void changeState(WingedSentryState newState){
-        if (currentState != null) {
-            currentState.exit();
-        }
-        currentState = newState;
-        currentState.enter(this);
-    }
-
     public void cleanUpPhysicsOnDeath() {
+        if (physicsCleanedUp) return;
 
         Filter disableFilter = new Filter();
         disableFilter.categoryBits = 0;
@@ -125,29 +138,37 @@ public class WingedSentry extends Enemy{
             }
         }
 
+        physicsCleanedUp = true;
     }
 
-    public WingedSentrySensor getSensor() {
+    public GroundSurroundSensors getSensors() {
         return sensors;
     }
-
-    public float getSpeed() {
-        return speed;
+    public void setSensors(GroundSurroundSensors sensors) {
+        this.sensors = sensors;
     }
-
-        public boolean isFacingRight() {
+    public int getDamage() {
+        return damage;
+    }
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+    public Animations getAnimation() {
+        return animation;
+    }
+    public void setAnimation(Animations animation) {
+        this.animation = animation;
+    }
+    public boolean isFacingRight() {
         return facingRight;
     }
-
     public void setFacingRight(boolean facingRight) {
         this.facingRight = facingRight;
     }
-
     public float getyOffset() {
         return yOffset;
     }
-    public float getxOffset() {
-        return xOffset;
+    public float getSpeed() {
+        return speed;
     }
-
 }

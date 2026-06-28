@@ -30,7 +30,7 @@ public class Knight extends Entitie {
     private KnightAttackSensors attackSensors;
 
     private boolean facingRight = true;
-    private boolean canGetDamage = true;
+    private boolean onKnock = false;
     private boolean canDoubleJump = true;
     private boolean canDash = true;
 
@@ -76,6 +76,8 @@ public class Knight extends Entitie {
     }
 
     public void takeDamage(Enemy enemy){
+        if(onKnock) return;
+        
         this.health -= 1;
         if(health <= 0){
             health = 0;
@@ -89,6 +91,10 @@ public class Knight extends Entitie {
         if (currentState != null) {
             currentState.exit();
         }
+        if(onKnock){
+            ((KnightKnockbackState)currentState).changeState(newState);
+            return;
+        }
         currentState = newState;
         currentState.enter(this);
     }
@@ -96,6 +102,8 @@ public class Knight extends Entitie {
     public void dispose() {}
 
 
+    public boolean isOnKnock() {return onKnock;}
+    public void setOnKnock(boolean onKnock) {this.onKnock = onKnock;}
     public int getDamage() {
         return damage;
     }
