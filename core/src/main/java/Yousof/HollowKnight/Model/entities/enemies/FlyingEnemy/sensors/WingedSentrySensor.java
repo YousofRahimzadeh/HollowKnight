@@ -1,5 +1,6 @@
 package Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.sensors;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -18,14 +19,14 @@ public class WingedSentrySensor {
         fdef.isSensor = true;
         fdef.shape = shape;
 
-        float SensorWidth = hx * 2 ;
-        float SensorHeight = hy * 2 ;
+        float SensorWidth = hx * 10 ;
+        float SensorHeight = hy * 5 ;
 
         fdef.isSensor = true;
         fdef.filter.categoryBits = Constants.BIT_ENEMY;
         fdef.filter.maskBits = Constants.BIT_KNIGHT;
 
-        shape.setAsBox(SensorWidth, SensorHeight, body.getPosition(), 0);
+        shape.setAsBox(SensorWidth, SensorHeight, new Vector2(0,0), 0);
         body.createFixture(fdef).setUserData("WingedSentry_knight_is_around");
 
         shape.dispose();

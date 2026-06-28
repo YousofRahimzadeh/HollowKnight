@@ -18,11 +18,11 @@ public class WingedSentry extends Enemy{
     private int health = 11;
     private final int damage = 1;
 
-    private final float speed = 20f;
+    private final float speed = 1f;
     private final float halfWidth = 50f;
     private final float halfHeight = 75f;
-    private final float yOffset = 0f;
-    private final float xOffset = 0f;
+    private final float yOffset = -70f;
+    private final float xOffset = -30f;
 
     private boolean facingRight = true;
 

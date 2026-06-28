@@ -39,6 +39,7 @@ public class Knight extends Entitie {
 
     public void update(float delta) {
         currentState.update(delta);
+        
     }
 
     public void draw(Batch batch) {

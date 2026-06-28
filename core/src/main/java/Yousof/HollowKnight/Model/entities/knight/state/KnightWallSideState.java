@@ -41,13 +41,13 @@ public class KnightWallSideState extends KnightState{
         }
 
         if(Gdx.input.isKeyPressed(Keys.KNIGHTJUMP.key) && knight.getSurroundSensors().rightSensor > 0){
-            body.applyLinearImpulse(new Vector2(-1f , 1f), body.getPosition(), true);
+            body.applyLinearImpulse(new Vector2(-1f , 2f), body.getPosition(), true);
             knight.setFacingRight(false);
             return;
         }
 
         if(Gdx.input.isKeyPressed(Keys.KNIGHTJUMP.key) && knight.getSurroundSensors().leftSensor > 0){
-            body.applyLinearImpulse(new Vector2(1f , 1f), body.getPosition(), true);
+            body.applyLinearImpulse(new Vector2(1f , 2f), body.getPosition(), true);
             knight.setFacingRight(true);
             return;
         }

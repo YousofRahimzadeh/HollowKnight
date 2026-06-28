@@ -1,47 +1,58 @@
 package Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class WingedIdleState extends WingedSentryState{
+public class WingedAttackState extends WingedSentryState{
 
     private Animation<TextureRegion> currentAnimation;
+    private float targetX;
+    private boolean isRight;
+    private boolean isChargingFinish = false;
     @Override
     public void enter(WingedSentry enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.WingedSentry.create("Idle", PlayMode.LOOP, 0.08f);
+        currentAnimation = Animations.WingedSentry.create("Charge Antic", PlayMode.NORMAL, 0.09f);
+        body.setLinearVelocity(0, 0);
+        targetX = enemy.getSensor().knight.getBody().getPosition().x;
+        isRight = (targetX > body.getPosition().x);
+        enemy.setFacingRight(isRight);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        Knight knight = enemy.getSensor().knight;
-        
-        if(knight != null){
-            Vector2 enemyPos = body.getPosition();
-            Vector2 knightPos = knight.getBody().getPosition(); 
-            Vector2 direction = new Vector2(knightPos.x - enemyPos.x, knightPos.y - enemyPos.y);
-
-            if (Math.abs(enemyPos.y - knightPos.y) < 0.5f) {
-                enemy.changeState(new WingedAttackState());
+        if(!isChargingFinish){
+            if(currentAnimation.isAnimationFinished(stateTime)){
+                currentAnimation = Animations.WingedSentry.create("Charge", PlayMode.LOOP, 0.08f);
+                isChargingFinish = true;
+                stateTime = 0;
+            }else {
+                body.setLinearVelocity(0, 0);
                 return;
             }
-            
-            direction = direction.nor(); 
-            
-            float speed = enemy.getSpeed();
-            body.setLinearVelocity(direction.x * speed, direction.y * speed);
-            
-        } else {
-            body.setLinearVelocity(0 , 0);
+        }
+
+        float attackSpeed = enemy.getSpeed() * 3f;
+
+        if(isRight){
+            if(targetX < body.getPosition().x || stateTime > 5f){
+                enemy.changeState(new WingedIdleState());
+                return;
+            }
+            body.setLinearVelocity(attackSpeed, 0);     
+        }else{
+            if(targetX > body.getPosition().x || stateTime > 5f){
+                enemy.changeState(new WingedIdleState());
+                return;
+            }
+            body.setLinearVelocity(-attackSpeed, 0); 
         }
     }
 
