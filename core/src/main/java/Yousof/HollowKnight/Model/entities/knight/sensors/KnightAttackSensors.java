@@ -32,7 +32,7 @@ public class KnightAttackSensors {
         fdef.shape = shape;
 
         float rightLeftSensorWidth = 70f / Constants.PPM;
-        float rightLeftSensorHeight = hy;
+        float rightLeftSensorHeight = hy * 0.7f;
         float upDownSensorWidth = 3 * hx;
         float upDownSensorHeight = 45f / Constants.PPM;
         

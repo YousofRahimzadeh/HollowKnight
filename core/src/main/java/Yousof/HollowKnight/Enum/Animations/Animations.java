@@ -10,6 +10,7 @@ public enum Animations {
     KnightEffects("Animations/Atlas/Knight/Effects.atlas"),
     Crawlid("Animations/Atlas/Enemies/Crawlid/Crawlid.atlas"),
     WingedSentry("Animations/Atlas/Enemies/WingedSentry/WingedSentry.atlas"),
+    HuskHornhead("Animations/Atlas/Enemies/HuskHornhead/HuskHornhead.atlas"),
     Mosscreep("Animations/Atlas/Enemies/Mosscreep/Mosscreep.atlas");
 
     

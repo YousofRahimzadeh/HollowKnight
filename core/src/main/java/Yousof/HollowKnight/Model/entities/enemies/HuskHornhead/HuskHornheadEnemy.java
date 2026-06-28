@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
+import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSeeSensors;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSurroundSensors;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskDeathState;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskEnemyState;
@@ -22,7 +23,6 @@ import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class HuskHornheadEnemy extends Enemy {
     private int health;
-    private int damage = 5;
 
     private Animations animation;
 
@@ -36,7 +36,8 @@ public class HuskHornheadEnemy extends Enemy {
     private boolean facingRight = true;
     private boolean physicsCleanedUp = false;
 
-    private HuskSurroundSensors sensors;
+    private HuskSurroundSensors surroundSensors;
+    private HuskSeeSensors seeSensors;
 
 
     public HuskHornheadEnemy(World world, float x, float y, float width, float height, float speed , int health , Animations anim , float yOffset) {
@@ -46,7 +47,8 @@ public class HuskHornheadEnemy extends Enemy {
         this.health = health;
         this.animation = anim;
         this.yOffset = yOffset;
-        sensors = new HuskSurroundSensors();
+        surroundSensors = new HuskSurroundSensors();
+        seeSensors = new HuskSeeSensors();
         createBody(world, new Vector2(x, y));
         this.changeState(new HuskRunState());
     }
@@ -90,7 +92,6 @@ public class HuskHornheadEnemy extends Enemy {
     }
     
     private void createBody(World world, Vector2 spawnPos) {
-        //create main body
         
         BodyDef bdef = new BodyDef();
         bdef.type = BodyType.DynamicBody;
@@ -115,7 +116,8 @@ public class HuskHornheadEnemy extends Enemy {
         body.createFixture(fdef).setUserData("Enemy_main_body");
         shape.dispose();
 
-        sensors.createSensors(body, hx, hy);
+        surroundSensors.createSensors(body, hx, hy);
+        seeSensors.createSensors(body, hx, hy);
 
     }
 
@@ -141,17 +143,20 @@ public class HuskHornheadEnemy extends Enemy {
         physicsCleanedUp = true;
     }
 
-    public HuskSurroundSensors getSensors() {
-        return sensors;
+     public HuskSurroundSensors getSurroundSensors() {
+        return surroundSensors;
     }
-    public void setSensors(HuskSurroundSensors sensors) {
-        this.sensors = sensors;
+
+    public void setSurroundSensors(HuskSurroundSensors surroundSensors) {
+        this.surroundSensors = surroundSensors;
     }
-    public int getDamage() {
-        return damage;
+
+    public HuskSeeSensors getSeeSensors() {
+        return seeSensors;
     }
-    public void setDamage(int damage) {
-        this.damage = damage;
+
+    public void setSeeSensors(HuskSeeSensors seeSensors) {
+        this.seeSensors = seeSensors;
     }
     public Animations getAnimation() {
         return animation;

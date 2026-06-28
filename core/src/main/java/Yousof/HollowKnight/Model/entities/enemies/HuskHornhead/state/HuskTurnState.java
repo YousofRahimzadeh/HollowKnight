@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.HuskHornheadEnemy;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSurroundSensors;
-import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
-import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.sensors.GroundSurroundSensors;
-import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundEnemyState;
 
 public class HuskTurnState extends HuskEnemyState{
 
@@ -17,7 +14,7 @@ public class HuskTurnState extends HuskEnemyState{
     @Override
     public void enter(HuskHornheadEnemy enemy) {
         super.enter(enemy);
-        sensors = enemy.getSensors();
+        sensors = enemy.getSurroundSensors();
         currentAnimation = enemy.getAnimation().create("Turn", PlayMode.NORMAL, 0.08f);
     }
 

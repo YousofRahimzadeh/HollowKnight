@@ -19,6 +19,7 @@ import Yousof.HollowKnight.Model.contacts.FlyingEnemyListener;
 import Yousof.HollowKnight.Model.contacts.GameContactListener;
 import Yousof.HollowKnight.Model.contacts.GlobalContactListener;
 import Yousof.HollowKnight.Model.contacts.GroundEnemyListener;
+import Yousof.HollowKnight.Model.contacts.HuskEnemyListener;
 import Yousof.HollowKnight.Model.contacts.KnightContactListener;
 import Yousof.HollowKnight.Model.entities.Projectile;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
@@ -113,10 +114,10 @@ public class GameController {
     private static void loadDynamicBodies(){
         for(MapObject object : game.getMap().getLayers().get("spawn").getObjects()){
             if(object.getName().equals("GroundSpawn")){
-                Enemy enemy = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                Enemy nextEnemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                Enemy enemy = EnemyFactory.createEnemy("HuskHornhead", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                // Enemy nextEnemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 game.getEnemies().add(enemy);
-                game.getEnemies().add(nextEnemy);
+                // game.getEnemies().add(nextEnemy);
             }
         }
     }
@@ -126,6 +127,7 @@ public class GameController {
         manager.addListeners(new KnightContactListener());
         manager.addListeners(new GroundEnemyListener());
         manager.addListeners(new FlyingEnemyListener());
+        manager.addListeners(new HuskEnemyListener());
         manager.addListeners(new GlobalContactListener());
         
         game.getWorld().setContactListener(manager);

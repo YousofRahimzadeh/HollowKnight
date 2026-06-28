@@ -6,46 +6,21 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.HuskHornheadEnemy;
-import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSeeSensors;
-import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSurroundSensors;
 
-public class HuskRunState extends HuskEnemyState{
-
+public class HuskIdleState extends HuskEnemyState{
     private float duration = 10f;
-    private HuskSurroundSensors sensors;
-    private HuskSeeSensors seeSensors;
-    private float speed;
+
     @Override
     public void enter(HuskHornheadEnemy enemy) {
         super.enter(enemy);
-        sensors = enemy.getSurroundSensors();
-        seeSensors = enemy.getSeeSensors();
-        currentAnimation = enemy.getAnimation().create("Walk", PlayMode.LOOP, 0.08f);
-        speed = enemy.isFacingRight() ? enemy.getSpeed() : -enemy.getSpeed();
+        currentAnimation = enemy.getAnimation().create("Idle", PlayMode.LOOP, 0.08f);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        body.setLinearVelocity(speed , body.getLinearVelocity().y);
-
-        if(stateTime >= duration) enemy.changeState(new HuskIdleState());
-
-        if(seeSensors.knightRight != null && enemy.isFacingRight() || 
-            seeSensors.knightLeft != null && !enemy.isFacingRight()) 
-            enemy.changeState(new HuskAttackState());
-
-        if(sensors.leftCliff == 0 && sensors.rightCliff == 0){
-            return;
-        }
-        if((sensors.leftCliff == 0 || sensors.leftWall > 0) && !enemy.isFacingRight()){
-            enemy.changeState(new HuskTurnState());
-            return;
-        }
-        if((sensors.rightCliff == 0 || sensors.rightWall > 0) && enemy.isFacingRight()){
-            enemy.changeState(new HuskTurnState());
-            return;
-        }
+        if(stateTime >= duration) enemy.changeState(new HuskRunState());
+        body.setLinearVelocity(0 , body.getLinearVelocity().y);
     }
 
     @Override
@@ -66,7 +41,6 @@ public class HuskRunState extends HuskEnemyState{
     @Override
     public void drawEffects(Batch batch, float stateTime) {
         super.drawEffects(batch, stateTime);
-
     }
 
     @Override
