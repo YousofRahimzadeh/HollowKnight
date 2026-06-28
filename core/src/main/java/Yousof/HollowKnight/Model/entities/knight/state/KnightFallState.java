@@ -2,6 +2,7 @@ package Yousof.HollowKnight.Model.entities.knight.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -12,6 +13,7 @@ import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class KnightFallState extends KnightState{
 
+    private boolean isLanding = false;
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
@@ -22,15 +24,25 @@ public class KnightFallState extends KnightState{
     public void update(float delta) {
         super.update(delta);
 
-        if(knight.getSurroundSensors().downSensor > 0){
-            body.setLinearVelocity(body.getLinearVelocity().x , 0);
+        if(isLanding && animation.isAnimationFinished(stateTime)){
             knight.changeState(new KnightIdleState());
+            return;
+        }
+
+        if(!isLanding && knight.getSurroundSensors().downSensor > 0){
+            isLanding = true;
+            stateTime = 0f;
+            animation = Animations.Knight.create("Landing", PlayMode.NORMAL, 0.08f);
+            body.setLinearVelocity(0f , 0f);
             return;
         }
 
         if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key)){
             if(knight.getSurroundSensors().rightSensor > 0){
                 knight.changeState(new KnightWallSideState());
+                return;
+            }else if (knight.getSurroundSensors().downSensor > 0){
+                knight.changeState(new KnightRunState());
                 return;
             }
             knight.setFacingRight(true);
@@ -40,6 +52,9 @@ public class KnightFallState extends KnightState{
         if(Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key)){
             if(knight.getSurroundSensors().leftSensor > 0){
                 knight.changeState(new KnightWallSideState());
+                return;
+            }else if (knight.getSurroundSensors().downSensor > 0){
+                knight.changeState(new KnightRunState());
                 return;
             }
             knight.setFacingRight(false);
