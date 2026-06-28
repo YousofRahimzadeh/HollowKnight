@@ -1,10 +1,6 @@
 package Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-
-import com.badlogic.gdx.physics.box2d.Filter;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
