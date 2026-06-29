@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardianEnemy;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
 
 public class CrystalKnockbackState extends CrystalEnemyState{
 
@@ -24,7 +24,7 @@ public class CrystalKnockbackState extends CrystalEnemyState{
     }
 
     @Override
-    public void enter(CrystalGuardianEnemy enemy) {
+    public void enter(CrystalGuardian enemy) {
         super.enter(enemy);
         this.timer = 0f;
 

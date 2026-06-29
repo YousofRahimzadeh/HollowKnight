@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardianEnemy;
-import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSurroundSensors;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.sensors.CrystalSurroundSensors;
 
 public class CrystalTurnState extends CrystalEnemyState{
 
-    private HuskSurroundSensors sensors;
+    private CrystalSurroundSensors sensors;
     @Override
-    public void enter(CrystalGuardianEnemy enemy) {
+    public void enter(CrystalGuardian enemy) {
         super.enter(enemy);
         sensors = enemy.getSurroundSensors();
         currentAnimation = enemy.getAnimation().create("Turn", PlayMode.NORMAL, 0.08f);

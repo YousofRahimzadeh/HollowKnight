@@ -32,16 +32,16 @@ public class CrystalSurroundSensors {
         fdef.filter.maskBits = Constants.BIT_GROUND;
 
         shape.setAsBox(sideSensorWidth, sideSensorHeight, new Vector2(hx + sideSensorWidth, 0), 0);
-        body.createFixture(fdef).setUserData("HuskHornhead_sensor_wall_right");
+        body.createFixture(fdef).setUserData("CrystalGuardian_sensor_wall_right");
 
         shape.setAsBox(sideSensorWidth, sideSensorHeight, new Vector2(-hx - sideSensorWidth, 0), 0);
-        body.createFixture(fdef).setUserData("HuskHornhead_sensor_wall_left");
+        body.createFixture(fdef).setUserData("CrystalGuardian_sensor_wall_left");
 
         shape.setAsBox(cliffSensorWidth, cliffSensorHeight, new Vector2(hx + cliffSensorWidth, -hy - cliffSensorHeight), 0);
-        body.createFixture(fdef).setUserData("HuskHornhead_sensor_cliff_right");
+        body.createFixture(fdef).setUserData("CrystalGuardian_sensor_cliff_right");
 
         shape.setAsBox(cliffSensorWidth, cliffSensorHeight, new Vector2(-hx - cliffSensorWidth, -hy - cliffSensorHeight), 0);
-        body.createFixture(fdef).setUserData("HuskHornhead_sensor_cliff_left");
+        body.createFixture(fdef).setUserData("CrystalGuardian_sensor_cliff_left");
 
         shape.dispose();
 

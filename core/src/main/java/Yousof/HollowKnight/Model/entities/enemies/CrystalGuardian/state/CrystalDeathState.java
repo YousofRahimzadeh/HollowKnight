@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardianEnemy;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
 
-public class CrystalDeathState extends GrystalEnemyState{
+public class CrystalDeathState extends CrystalEnemyState{
     private boolean startIsFinish = false;
     @Override
-    public void enter(CrystalGuardianEnemy enemy) {
+    public void enter(CrystalGuardian enemy) {
         super.enter(enemy);
         currentAnimation = enemy.getAnimation().create("Death Air", PlayMode.NORMAL, 0.08f);
         enemy.cleanUpPhysicsOnDeath();

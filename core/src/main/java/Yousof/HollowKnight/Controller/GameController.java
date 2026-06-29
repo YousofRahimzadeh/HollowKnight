@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameStore;
+import Yousof.HollowKnight.Model.contacts.CrystalEnemyListener;
 import Yousof.HollowKnight.Model.contacts.FlyingEnemyListener;
 import Yousof.HollowKnight.Model.contacts.GameContactListener;
 import Yousof.HollowKnight.Model.contacts.GlobalContactListener;
@@ -114,10 +115,12 @@ public class GameController {
     private static void loadDynamicBodies(){
         for(MapObject object : game.getMap().getLayers().get("spawn").getObjects()){
             if(object.getName().equals("GroundSpawn")){
-                Enemy enemy = EnemyFactory.createEnemy("HuskHornhead", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                // Enemy nextEnemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                Enemy nextEnemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                Enemy nextEnemy2 = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 game.getEnemies().add(enemy);
-                // game.getEnemies().add(nextEnemy);
+                game.getEnemies().add(nextEnemy);
+                game.getEnemies().add(nextEnemy2);
             }
         }
     }
@@ -128,6 +131,7 @@ public class GameController {
         manager.addListeners(new GroundEnemyListener());
         manager.addListeners(new FlyingEnemyListener());
         manager.addListeners(new HuskEnemyListener());
+        manager.addListeners(new CrystalEnemyListener());
         manager.addListeners(new GlobalContactListener());
         
         game.getWorld().setContactListener(manager);

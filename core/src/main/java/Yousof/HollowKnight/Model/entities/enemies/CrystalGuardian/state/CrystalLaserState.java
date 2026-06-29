@@ -1,61 +1,127 @@
 package Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state;
 
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.math.Vector2;
-
-import javax.sound.sampled.Line;
-
-import org.w3c.dom.Text;
-
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardianEnemy;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class CrystalLaserState extends CrystalEnemyState{
+public class CrystalLaserState extends CrystalEnemyState {
 
-    private Vector2 target;
-    private float duration = 5f; 
+    private float duration = 1.5f;
+    private float laserTimer = 0f;
     private boolean startIsFinish = false;
     private boolean middleIsFinish = false;
-
+    
     private Animation<TextureRegion> circleLaserAnimation;
     private Animation<TextureRegion> lineLaserAnimation;
+    
+    private Vector2 target;
+    private Vector2 startPoint;
+    private Vector2 hitPoint;
+    private Sprite laserSprite;
+    private float laserThickness = 0.4f;
 
     @Override
-    public void enter(CrystalGuardianEnemy enemy) {
+    public void enter(CrystalGuardian enemy) {
         super.enter(enemy);
         currentAnimation = enemy.getAnimation().create("Shoot", PlayMode.NORMAL, 0.08f);
         circleLaserAnimation = enemy.getAnimation().create("CircleLaser", PlayMode.NORMAL, 0.08f);
-        lineLaserAnimation = enemy.getAnimation().create("LineLaser", PlayMode.NORMAL, 0.08f);
+        lineLaserAnimation = enemy.getAnimation().create("LineLaser", PlayMode.LOOP, 0.05f); // خط لیزر باید تکرار شونده (LOOP) باشد
+
+        startPoint = new Vector2();
+        hitPoint = new Vector2();
+        laserTimer = 0f;
+        startIsFinish = false;
+        middleIsFinish = false;
 
         if(enemy.getSeeSensors().knightRight != null && enemy.isFacingRight()){
-            target = enemy.getSeeSensors().knightRight.getBody().getPosition();
+            target = new Vector2(enemy.getSeeSensors().knightRight.getBody().getPosition());
         }
         else if(enemy.getSeeSensors().knightLeft != null && !enemy.isFacingRight()){
-            target = enemy.getSeeSensors().knightLeft.getBody().getPosition();
+            target = new Vector2(enemy.getSeeSensors().knightLeft.getBody().getPosition());
+        } else {
+            float dir = enemy.isFacingRight() ? 5f : -5f;
+            target = new Vector2(body.getPosition().x + dir, body.getPosition().y);
         }
+        
+        // ساخت اسپریت برای خط لیزر
+        laserSprite = new Sprite(lineLaserAnimation.getKeyFrame(0));
+        laserSprite.setOrigin(0, (laserThickness * Constants.PPM) / 2f); // لولا در سمت چپ و وسط عرض
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        body.setLinearVelocity(0 , body.getLinearVelocity().y);
+        body.setLinearVelocity(0, body.getLinearVelocity().y);
 
-        if(!startIsFinish){
-            if(currentAnimation.isAnimationFinished(stateTime)){
+        if (!startIsFinish) {
+            if (currentAnimation.isAnimationFinished(stateTime)) {
                 startIsFinish = true;
+                stateTime = 0;
             }
             return;
         }
 
-        if(!middleIsFinish){
+        if (!middleIsFinish) {
+            laserTimer += delta;
             
-        }
+            startPoint.set(body.getPosition().x, body.getPosition().y);
 
+            Vector2 direction = new Vector2(target).sub(startPoint).nor();
+            
+            float maxRange = 30f; 
+            Vector2 endPoint = new Vector2(startPoint).add(direction.scl(maxRange));
+            
+            hitPoint.set(endPoint);
+
+            enemy.getBody().getWorld().rayCast(new RayCastCallback() {
+                @Override
+                public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+                    Object userData = fixture.getUserData();
+                    Body targetBody = fixture.getBody();
+                    
+                    if (userData != null) {
+                        if (userData.equals("grounds") || userData.equals("wall")) {
+                            hitPoint.set(point);
+                            return fraction;
+                        }
+                        if (userData.equals("Knight_main_body")) {
+                            hitPoint.set(point);
+                            ((Knight)targetBody.getUserData()).takeDamage(enemy);
+                            return fraction;
+                        }
+                    }
+                    return -1;
+                }
+            }, startPoint, endPoint);
+
+            updateLaserSprite();
+
+            if (laserTimer >= duration) {
+                middleIsFinish = true;
+                enemy.changeState(new CrystalEnragedState());
+            }
+        }
+    }
+
+    private void updateLaserSprite() {
+        float distanceInPixels = startPoint.dst(hitPoint) * Constants.PPM;
+        laserSprite.setSize(distanceInPixels, laserThickness * Constants.PPM);
+        
+        laserSprite.setPosition(startPoint.x * Constants.PPM, startPoint.y * Constants.PPM - (laserSprite.getHeight() / 2f));
+        
+        Vector2 diff = new Vector2(hitPoint).sub(startPoint);
+        float angle = diff.angleDeg();
+        laserSprite.setRotation(angle);
     }
 
     @Override
@@ -69,21 +135,24 @@ public class CrystalLaserState extends CrystalEnemyState{
         float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
         float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + enemy.getyOffset();
         batch.draw(currentFrame, drawX, drawY);
+        
         drawEffects(batch, stateTime);
-
     }
 
     @Override
     public void drawEffects(Batch batch, float stateTime) {
         super.drawEffects(batch, stateTime);
-        if(startIsFinish){
-            
+
+        if (!startIsFinish) {
+            TextureRegion circleFrame = circleLaserAnimation.getKeyFrame(stateTime);
+            float circleX = body.getPosition().x * Constants.PPM - (circleFrame.getRegionWidth() / 2f);
+            float circleY = body.getPosition().y * Constants.PPM - (circleFrame.getRegionHeight() / 2f);
+            batch.draw(circleFrame, circleX, circleY);
         }
-    }
-
-    @Override
-    public void exit() {
-        super.exit();
-
+        
+        if (startIsFinish && !middleIsFinish) {
+            laserSprite.setRegion(lineLaserAnimation.getKeyFrame(laserTimer));
+            laserSprite.draw(batch);
+        }
     }
 }

@@ -5,16 +5,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 
-import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardianEnemy;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
 
 
-public abstract class GrystalEnemyState {
+public abstract class CrystalEnemyState {
     protected Animation<TextureRegion> currentAnimation;
     protected float stateTime;
-    protected CrystalGuardianEnemy enemy;
+    protected CrystalGuardian enemy;
     protected Body body;
 
-    public void enter (CrystalGuardianEnemy enemy){
+    public void enter (CrystalGuardian enemy){
         stateTime = 0f;
         this.enemy = enemy;
         this.body = enemy.getBody();

@@ -13,15 +13,15 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.sensors.CrystalSeeSensors;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.sensors.CrystalSurroundSensors;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalDeathState;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalEnemyState;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalEnragedState;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalKnockbackState;
-import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSeeSensors;
-import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSurroundSensors;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class CrystalGuardianEnemy extends Enemy {
+public class CrystalGuardian extends Enemy {
     private int health;
 
     private Animations animation;
@@ -36,19 +36,19 @@ public class CrystalGuardianEnemy extends Enemy {
     private boolean facingRight = true;
     private boolean physicsCleanedUp = false;
 
-    private HuskSurroundSensors surroundSensors;
-    private HuskSeeSensors seeSensors;
+    private CrystalSurroundSensors surroundSensors;
+    private CrystalSeeSensors seeSensors;
 
 
-    public CrystalGuardianEnemy(World world, float x, float y, float width, float height, float speed , int health , Animations anim , float yOffset) {
-        this.speed = speed;
-        this.halfWidth = width / 2f;
-        this.halfHeight = height / 2f;
-        this.health = health;
+    public CrystalGuardian(World world, float x, float y, Animations anim , float yOffset) {
+        this.speed = 2f;
+        this.halfWidth = 96f / 2f;
+        this.halfHeight = 140 / 2f;
+        this.health = 11;
         this.animation = anim;
         this.yOffset = yOffset;
-        surroundSensors = new HuskSurroundSensors();
-        seeSensors = new HuskSeeSensors();
+        surroundSensors = new CrystalSurroundSensors();
+        seeSensors = new CrystalSeeSensors();
         createBody(world, new Vector2(x, y));
         this.changeState(new CrystalEnragedState());
     }
@@ -143,19 +143,19 @@ public class CrystalGuardianEnemy extends Enemy {
         physicsCleanedUp = true;
     }
 
-     public HuskSurroundSensors getSurroundSensors() {
+     public CrystalSurroundSensors getSurroundSensors() {
         return surroundSensors;
     }
 
-    public void setSurroundSensors(HuskSurroundSensors surroundSensors) {
+    public void setSurroundSensors(CrystalSurroundSensors surroundSensors) {
         this.surroundSensors = surroundSensors;
     }
 
-    public HuskSeeSensors getSeeSensors() {
+    public CrystalSeeSensors getSeeSensors() {
         return seeSensors;
     }
 
-    public void setSeeSensors(HuskSeeSensors seeSensors) {
+    public void setSeeSensors(CrystalSeeSensors seeSensors) {
         this.seeSensors = seeSensors;
     }
     public Animations getAnimation() {

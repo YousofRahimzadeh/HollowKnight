@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardianEnemy;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
 
 public class CrystalIdleState extends CrystalEnemyState{
 
     @Override
-    public void enter(CrystalGuardianEnemy enemy) {
+    public void enter(CrystalGuardian enemy) {
         super.enter(enemy);
         currentAnimation = enemy.getAnimation().create("Idle", PlayMode.LOOP, 0.08f);
     }

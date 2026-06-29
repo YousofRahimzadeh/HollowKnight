@@ -5,35 +5,40 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardianEnemy;
-import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSeeSensors;
-import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSurroundSensors;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.sensors.CrystalSeeSensors;
+import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.sensors.CrystalSurroundSensors;
 
 public class CrystalEnragedState extends CrystalEnemyState{
 
     private float duration = 5f;
-    private HuskSurroundSensors sensors;
-    private HuskSeeSensors seeSensors;
+    private CrystalSurroundSensors sensors;
+    private CrystalSeeSensors seeSensors;
     private float speed;
     @Override
-    public void enter(CrystalGuardianEnemy enemy) {
+    public void enter(CrystalGuardian enemy) {
         super.enter(enemy);
         sensors = enemy.getSurroundSensors();
         seeSensors = enemy.getSeeSensors();
         currentAnimation = enemy.getAnimation().create("Run", PlayMode.LOOP, 0.08f);
-        speed = enemy.isFacingRight() ? enemy.getSpeed() : -enemy.getSpeed();
+        speed = enemy.getSpeed();
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        body.setLinearVelocity(speed , body.getLinearVelocity().y);
 
         if(stateTime >= duration) enemy.changeState(new CrystalIdleState());
 
-        if(seeSensors.knightRight != null && enemy.isFacingRight() || 
-            seeSensors.knightLeft != null && !enemy.isFacingRight()) 
-            enemy.changeState(new CrystalEnragedState());
+        if(seeSensors.knightRight != null){
+            if(!enemy.isFacingRight()) enemy.changeState(new CrystalTurnState());
+            body.setLinearVelocity(speed , body.getLinearVelocity().y);
+        }else if(seeSensors.knightLeft != null){
+            if(enemy.isFacingRight()) enemy.changeState(new CrystalTurnState());
+            body.setLinearVelocity(-speed , body.getLinearVelocity().y);
+        } else {
+            enemy.changeState(new CrystalIdleState());
+        }
 
         if(sensors.leftCliff == 0 && sensors.rightCliff == 0){
             return;
