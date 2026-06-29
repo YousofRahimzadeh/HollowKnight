@@ -6,16 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
-import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.sensors.GroundSurroundSensors;
 
 public class GroundTurnState extends GroundEnemyState{
 
-    private GroundSurroundSensors sensors;
     @Override
     public void enter(GroundEnemy enemy) {
         super.enter(enemy);
-        sensors = enemy.getSensors();
         currentAnimation = enemy.getAnimation().create("Turn", PlayMode.NORMAL, 0.08f);
+        enemy.setFacingRight(!enemy.isFacingRight());
     }
 
     @Override
@@ -23,16 +21,6 @@ public class GroundTurnState extends GroundEnemyState{
         super.update(delta);
         body.setLinearVelocity(0f, body.getLinearVelocity().y);
         if(currentAnimation.isAnimationFinished(stateTime)){
-
-            if(sensors.leftCliff == 0 && sensors.rightCliff == 0){
-                return;
-            }
-            if(sensors.leftCliff == 0 || sensors.leftWall > 0){
-                enemy.setFacingRight(true);
-            }
-            else if(sensors.rightCliff == 0 || sensors.rightWall > 0){
-                enemy.setFacingRight(false);
-            }
             enemy.changeState(new GroundRunState());
         }
     }

@@ -116,11 +116,11 @@ public class GameController {
         for(MapObject object : game.getMap().getLayers().get("spawn").getObjects()){
             if(object.getName().equals("GroundSpawn")){
                 Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                Enemy nextEnemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                Enemy nextEnemy2 = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                // Enemy nextEnemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                // Enemy nextEnemy2 = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 game.getEnemies().add(enemy);
-                game.getEnemies().add(nextEnemy);
-                game.getEnemies().add(nextEnemy2);
+                // game.getEnemies().add(nextEnemy);
+                // game.getEnemies().add(nextEnemy2);
             }
         }
     }
