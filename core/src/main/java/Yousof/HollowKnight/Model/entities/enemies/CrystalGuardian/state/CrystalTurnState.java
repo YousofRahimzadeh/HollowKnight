@@ -6,16 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
-import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.sensors.CrystalSurroundSensors;
 
 public class CrystalTurnState extends CrystalEnemyState{
 
-    private CrystalSurroundSensors sensors;
     @Override
     public void enter(CrystalGuardian enemy) {
         super.enter(enemy);
-        sensors = enemy.getSurroundSensors();
         currentAnimation = enemy.getAnimation().create("Turn", PlayMode.NORMAL, 0.08f);
+        enemy.setFacingRight(!enemy.isFacingRight());
     }
 
     @Override
@@ -23,16 +21,6 @@ public class CrystalTurnState extends CrystalEnemyState{
         super.update(delta);
         body.setLinearVelocity(0f, body.getLinearVelocity().y);
         if(currentAnimation.isAnimationFinished(stateTime)){
-
-            if(sensors.leftCliff == 0 && sensors.rightCliff == 0){
-                return;
-            }
-            if(sensors.leftCliff == 0 || sensors.leftWall > 0){
-                enemy.setFacingRight(true);
-            }
-            else if(sensors.rightCliff == 0 || sensors.rightWall > 0){
-                enemy.setFacingRight(false);
-            }
             enemy.changeState(new CrystalIdleState());
         }
     }
