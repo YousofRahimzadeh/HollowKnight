@@ -2,6 +2,7 @@ package Yousof.HollowKnight.Model.entities.enemies.groundEnemy;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -18,7 +19,6 @@ import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundDeathS
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundEnemyState;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundKnockbackState;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.state.GroundRunState;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class GroundEnemy extends Enemy {
     private int health;
@@ -66,13 +66,13 @@ public class GroundEnemy extends Enemy {
     }
 
     @Override
-    public void takeDamage(Knight knight){
-        this.health -= knight.getDamage();
+    public void takeDamage(Body body , int how){
+        this.health -= how;
         if(health <= 0){
             health = 0;
             changeState(new GroundDeathState());
         }else{
-            changeState(new GroundKnockbackState(knight.getBody(), currentState ,3f));
+            changeState(new GroundKnockbackState(body, currentState ,3f));
         }
     }
 

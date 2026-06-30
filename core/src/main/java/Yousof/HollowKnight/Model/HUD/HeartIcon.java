@@ -1,9 +1,8 @@
 package Yousof.HollowKnight.Model.HUD;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Animations.Animations;
 
@@ -12,7 +11,6 @@ public class HeartIcon {
 
     private HeartState state = HeartState.FILLED;
     
-    // انیمیشن‌ها و فریم‌های ثابت
     private Animation<TextureRegion> FilledHealth;
     private Animation<TextureRegion> EmptyHealth;
     private Animation<TextureRegion> breakAnimation;

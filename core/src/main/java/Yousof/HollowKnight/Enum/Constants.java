@@ -7,6 +7,7 @@ public class Constants {
     public static final short BIT_GROUND     = 1;
     public static final short BIT_KNIGHT     = 2;
     public static final short BIT_ENEMY      = 4;
-    public static final short BIT_DEAD_ENEMY = 8;
-    public static final short BIT_NULL = 16;
+    public static final short BIT_PROJECTILE = 8;
+    public static final short BIT_DEAD_ENEMY = 16;
+    public static final short BIT_NULL = 32;
 }

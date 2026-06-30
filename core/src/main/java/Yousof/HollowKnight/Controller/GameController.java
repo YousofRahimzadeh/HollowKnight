@@ -1,6 +1,7 @@
 package Yousof.HollowKnight.Controller;
 
-import com.badlogic.gdx.Gdx;
+import java.util.Iterator;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -16,7 +17,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameStore;
-import Yousof.HollowKnight.Model.HUD.GameHUD;
 import Yousof.HollowKnight.Model.contacts.CrystalEnemyListener;
 import Yousof.HollowKnight.Model.contacts.FlyingEnemyListener;
 import Yousof.HollowKnight.Model.contacts.GameContactListener;
@@ -24,14 +24,20 @@ import Yousof.HollowKnight.Model.contacts.GlobalContactListener;
 import Yousof.HollowKnight.Model.contacts.GroundEnemyListener;
 import Yousof.HollowKnight.Model.contacts.HuskEnemyListener;
 import Yousof.HollowKnight.Model.contacts.KnightContactListener;
-import Yousof.HollowKnight.Model.entities.Projectile;
+import Yousof.HollowKnight.Model.contacts.ProjectileContactListener;
+import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.EnemyFactory;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 
 public class GameController {
 
     private static GameStore game;
+
+    public static GameStore getGame() {
+        return game;
+    }
 
     public static void loadGame(GameStore Context){
         game = Context;
@@ -54,25 +60,47 @@ public class GameController {
     }
 
     public static void updateGame(float delta){
-        System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+        // System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+        game.getWorld().step(1/60f, 6, 2);
+
         for(Projectile projectile : game.getProjectiles()){
             projectile.update(delta);
         }
+        
         for(Enemy enemy : game.getEnemies()){
             enemy.update(delta);
         }
+
         game.getKnight().update(delta);
-        game.getWorld().step(1/60f, 6, 2);
+
+        Iterator<Entitie> removeIter = game.getToRemove().iterator();
+
+        while(removeIter.hasNext()){
+
+            Entitie entitie = removeIter.next();
+
+            if(entitie.getBody() != null) {
+                game.getWorld().destroyBody(entitie.getBody());
+            }
+            entitie.dispose();
+
+            if(entitie instanceof Projectile) {
+                game.getProjectiles().remove(entitie); 
+            }
+            removeIter.remove(); 
+        }
     }
 
     public static void drawGame(SpriteBatch batch , float delta){
-        for(Projectile projectile : game.getProjectiles()){
-            projectile.draw(batch);
-        }
         for(Enemy enemy : game.getEnemies()){
             enemy.draw(batch);
         }
+        
         game.getKnight().draw(batch);
+        
+        for(Projectile projectile : game.getProjectiles()){
+            projectile.draw(batch);
+        }
     }
 
     private static Vector2 getSpawnPosition() {    
@@ -137,6 +165,7 @@ public class GameController {
         manager.addListeners(new HuskEnemyListener());
         manager.addListeners(new CrystalEnemyListener());
         manager.addListeners(new GlobalContactListener());
+        manager.addListeners(new ProjectileContactListener());
         
         game.getWorld().setContactListener(manager);
     }

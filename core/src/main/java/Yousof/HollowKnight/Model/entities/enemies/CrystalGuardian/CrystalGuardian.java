@@ -2,6 +2,7 @@ package Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -19,7 +20,6 @@ import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalD
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalEnemyState;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalEnragedState;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalKnockbackState;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class CrystalGuardian extends Enemy {
     private int health;
@@ -68,13 +68,13 @@ public class CrystalGuardian extends Enemy {
     }
 
     @Override
-    public void takeDamage(Knight knight){
-        this.health -= knight.getDamage();
+    public void takeDamage(Body body , int how){
+        this.health -= how;
         if(health <= 0){
             health = 0;
             changeState(new CrystalDeathState());
         }else{
-            changeState(new CrystalKnockbackState(knight.getBody(), currentState ,3f));
+            changeState(new CrystalKnockbackState(body, currentState ,3f));
         }
     }
 
@@ -105,7 +105,7 @@ public class CrystalGuardian extends Enemy {
         fdef.friction = 0f;
         fdef.restitution = 0f;
         fdef.filter.categoryBits = Constants.BIT_ENEMY;
-        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT;
+        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT | Constants.BIT_PROJECTILE;
 
         PolygonShape shape = new PolygonShape();
         float hx = halfWidth / Constants.PPM;

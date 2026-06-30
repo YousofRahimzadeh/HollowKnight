@@ -76,6 +76,10 @@ public class KnightFallState extends KnightState{
             return;
         }
 
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTVENGEFUL.key)){
+            knight.changeState(new KnightVengefulSpiritState());
+        }
+
         
     }
 

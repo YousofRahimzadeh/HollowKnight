@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Plane.PlaneSide;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import Yousof.HollowKnight.Enum.Animations.Animations;
@@ -92,7 +90,7 @@ public class GameHUD {
         float frameHeight = currentFrame.getRegionHeight();
         float frameWidth = currentFrame.getRegionWidth();
         float liquidY = vesselY - frameHeight + (frameHeight * soulPercentage);
-        batch.draw(currentFrame, vesselX + 10f , liquidY, frameWidth, frameHeight);
+        batch.draw(currentFrame, vesselX + 10f , liquidY + 5f, frameWidth, frameHeight);
         batch.flush();
         batch.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ZERO);
         batch.draw(vesselMask, vesselX - 20f, vesselY - 220f);
@@ -112,12 +110,12 @@ public class GameHUD {
         updateHealthSystem(delta);
 
         float heartStartX = vesselX + 140;
-        float heartY = vesselY + 10;       
+        float heartY = vesselY + 30f;       
 
         for (int i = 0; i < MAX_HEALTH; i++) {
             TextureRegion heartFrame = hearts[i].getCurrentFrame();
-            float currentHeartX = heartStartX + (i * 68f); 
-            batch.draw(heartFrame, currentHeartX, heartY, heartFrame.getRegionWidth(), heartFrame.getRegionHeight());
+            float currentHeartX = heartStartX + (i * 60f); 
+            batch.draw(heartFrame, currentHeartX, heartY, 0 , 0 , heartFrame.getRegionWidth(), heartFrame.getRegionHeight() , 0.8f , 0.8f , 0f );
         }
         batch.end();
 

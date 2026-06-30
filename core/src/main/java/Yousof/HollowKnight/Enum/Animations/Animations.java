@@ -10,6 +10,7 @@ public enum Animations {
     SoulContainer("Animations/Atlas/HUD/SoulContainer.atlas"),
     Mask("Animations/Atlas/HUD/KnightHp.atlas"),
     Knight("Animations/Atlas/Knight/Knight.atlas"),
+    KnightProjectile("Animations/Atlas/Knight/KnightProjectile.atlas"),
     KnightEffects("Animations/Atlas/Knight/Effects.atlas"),
     Crawlid("Animations/Atlas/Enemies/Crawlid/Crawlid.atlas"),
     WingedSentry("Animations/Atlas/Enemies/WingedSentry/WingedSentry.atlas"),

@@ -36,6 +36,10 @@ public class KnightRunState extends KnightState{
             knight.changeState(new KnightDashState());
             return;
         }
+
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTVENGEFUL.key)){
+            knight.changeState(new KnightVengefulSpiritState());
+        }
         
         if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key)){
             knight.setFacingRight(true);

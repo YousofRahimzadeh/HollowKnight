@@ -1,6 +1,8 @@
-package Yousof.HollowKnight.Model.entities;
+package Yousof.HollowKnight.Model.entities.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+
+import Yousof.HollowKnight.Model.entities.Entitie;
 
 public class Projectile extends Entitie {
 

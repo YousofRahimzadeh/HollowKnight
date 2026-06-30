@@ -6,9 +6,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
-import Yousof.HollowKnight.Model.entities.Projectile;
+import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 
 public class GameStore implements Disposable{
     private TiledMap map;
@@ -16,6 +17,7 @@ public class GameStore implements Disposable{
 	private Knight knight;
     private ArrayList<Enemy> enemies;
     private ArrayList<Projectile> projectiles;
+	private ArrayList<Entitie> toRemove;
 
 	public GameStore(TiledMap map , World world, Knight knight) {
 		this.map = map;
@@ -23,6 +25,7 @@ public class GameStore implements Disposable{
 		this.knight = knight;
 		this.enemies = new ArrayList<>();
 		this.projectiles = new ArrayList<>();
+		this.toRemove = new ArrayList<>();
 	}
 
     public TiledMap getMap() {
@@ -61,6 +64,13 @@ public class GameStore implements Disposable{
 
 	public void setProjectiles(ArrayList<Projectile> projectiles) {
 		this.projectiles = projectiles;
+	}
+
+	public ArrayList<Entitie> getToRemove() {
+		return toRemove;
+	}
+	public void addToRemove(Entitie toRemove) {
+		this.toRemove.add(toRemove);
 	}
 
     public void dispose(){

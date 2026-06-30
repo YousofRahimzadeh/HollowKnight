@@ -65,6 +65,10 @@ public class KnightJumpState extends KnightState{
             knight.changeState(new KnightDashState());
             return;
         }
+
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTVENGEFUL.key)){
+            knight.changeState(new KnightVengefulSpiritState());
+        }
     }
 
     @Override

@@ -27,7 +27,7 @@ public class Enemy extends Entitie{
         
     }
 
-    public void takeDamage(Knight knight){}
+    public void takeDamage(Body body , int how){}
     
     public void applyKnockback(Body attackerBody) {}
 }

@@ -32,7 +32,7 @@ public class AbstractScreen implements Screen {
 
     @Override
     public void show() {
-        skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("ui/uiSkin.json"));
 
         cursorPixmap = new Pixmap(Gdx.files.internal("cursor.png"));
         Cursor customCursor = Gdx.graphics.newCursor(cursorPixmap, 0, 0);

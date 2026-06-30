@@ -15,7 +15,7 @@ public class KnightFocusState extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Soul.create("Soulorb", PlayMode.LOOP, 0.08f);
+        animation = Animations.Knight.create("Focus", PlayMode.LOOP, 0.08f);
     }
 
     @Override

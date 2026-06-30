@@ -38,6 +38,9 @@ public class KnightIdleState extends KnightState{
         if(Gdx.input.isKeyPressed(Keys.KNIGHTFOCUS.key)){
             knight.changeState(new KnightFocusState());
         }
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTVENGEFUL.key)){
+            knight.changeState(new KnightVengefulSpiritState());
+        }
     }
 
     @Override

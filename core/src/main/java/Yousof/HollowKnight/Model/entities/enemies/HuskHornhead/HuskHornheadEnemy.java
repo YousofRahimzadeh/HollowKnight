@@ -2,6 +2,7 @@ package Yousof.HollowKnight.Model.entities.enemies.HuskHornhead;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -19,7 +20,6 @@ import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskDeathSt
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskEnemyState;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskKnockbackState;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskRunState;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class HuskHornheadEnemy extends Enemy {
     private int health;
@@ -68,13 +68,13 @@ public class HuskHornheadEnemy extends Enemy {
     }
 
     @Override
-    public void takeDamage(Knight knight){
-        this.health -= knight.getDamage();
+    public void takeDamage(Body body , int how){
+        this.health -= how;
         if(health <= 0){
             health = 0;
             changeState(new HuskDeathState());
         }else{
-            changeState(new HuskKnockbackState(knight.getBody(), currentState ,3f));
+            changeState(new HuskKnockbackState(body, currentState ,3f));
         }
     }
 

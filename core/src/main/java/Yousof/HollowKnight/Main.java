@@ -7,6 +7,7 @@ import Yousof.HollowKnight.Controller.MainController;
 import Yousof.HollowKnight.Model.Assets;
 import Yousof.HollowKnight.Model.GameStore;
 import Yousof.HollowKnight.Screen.GameScreen;
+import Yousof.HollowKnight.Screen.MainScreen;
 
 public class Main extends Game {
     public static Main main;
@@ -18,7 +19,7 @@ public class Main extends Game {
     public void create() {
         main = this;
         MainController.loadAllAssests(Assets.manager);
-        setScreen(new GameScreen(new GameStore(null , null, null)));
+        setScreen(new MainScreen());
     }
 
     @Override

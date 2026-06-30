@@ -19,7 +19,7 @@ import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
 
 public class Knight extends Entitie {
     private int currentMasks = 5;
-    private int currentSoul = 33;
+    private int currentSoul = 99;
     private final int maxSoul = 99;
     private final int maxMasks = 5;
 
