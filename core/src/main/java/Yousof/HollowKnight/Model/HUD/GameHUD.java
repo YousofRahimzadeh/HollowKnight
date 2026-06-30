@@ -111,8 +111,8 @@ public class GameHUD {
                               hudCamera.position.y - hudViewport.getWorldHeight()/2f);
         updateHealthSystem(delta);
 
-        float heartStartX = vesselX + 160;
-        float heartY = vesselY + 30;       
+        float heartStartX = vesselX + 140;
+        float heartY = vesselY + 10;       
 
         for (int i = 0; i < MAX_HEALTH; i++) {
             TextureRegion heartFrame = hearts[i].getCurrentFrame();
@@ -152,7 +152,6 @@ public class GameHUD {
     public void resize(int width, int height) {
         hudViewport.update(width, height, false);
         hudCamera.position.set(hudViewport.getScreenWidth() / 2f, hudViewport.getScreenHeight() / 2f, 0);
-        // بازسازی FBO به ابعاد جدید صفحه برای جلوگیری از کشیدگی تصویر
         recreateFBO(width, height);
     }
 

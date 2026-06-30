@@ -29,6 +29,14 @@ public class HeartIcon {
 
     public void update(float delta) {
         stateTime += delta;
+
+        if (state == HeartState.BREAKING && breakAnimation.isAnimationFinished(stateTime)) {
+            changeState(HeartState.EMPTY);
+        }
+        
+        if (state == HeartState.REFILLING && refillAnimation.isAnimationFinished(stateTime)) {
+            changeState(HeartState.FILLED);
+        }
     }
 
     public void changeState(HeartState newState) {
@@ -46,11 +54,11 @@ public class HeartIcon {
             case REFILLING:
                 return refillAnimation.getKeyFrame(stateTime);
             case EMPTY:
-                return refillAnimation.getKeyFrame(stateTime);
+                return EmptyHealth.getKeyFrame(stateTime);
             case FILLED:
-                return refillAnimation.getKeyFrame(stateTime);
+                return FilledHealth.getKeyFrame(stateTime);
         }
-
+        return null;
     }
     
     public HeartState getState() {
