@@ -1,5 +1,6 @@
 package Yousof.HollowKnight.Controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameStore;
+import Yousof.HollowKnight.Model.HUD.GameHUD;
 import Yousof.HollowKnight.Model.contacts.CrystalEnemyListener;
 import Yousof.HollowKnight.Model.contacts.FlyingEnemyListener;
 import Yousof.HollowKnight.Model.contacts.GameContactListener;
@@ -44,13 +46,15 @@ public class GameController {
         loadDynamicBodies();
 
         Vector2 spawnPos = getSpawnPosition();
-        Knight knight = new Knight(world, spawnPos , 20);
+        Knight knight = new Knight(world, spawnPos);
         game.setKnight(knight);
 
         loadContactListeners();
+        
     }
 
     public static void updateGame(float delta){
+        System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
         for(Projectile projectile : game.getProjectiles()){
             projectile.update(delta);
         }
@@ -61,7 +65,7 @@ public class GameController {
         game.getWorld().step(1/60f, 6, 2);
     }
 
-    public static void drawGame(SpriteBatch batch){
+    public static void drawGame(SpriteBatch batch , float delta){
         for(Projectile projectile : game.getProjectiles()){
             projectile.draw(batch);
         }

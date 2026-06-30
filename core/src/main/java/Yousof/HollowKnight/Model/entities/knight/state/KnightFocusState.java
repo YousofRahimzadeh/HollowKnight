@@ -10,33 +10,33 @@ import Yousof.HollowKnight.Enum.Keys;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class KnightIdleState extends KnightState{
+public class KnightFocusState extends KnightState{
 
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Idle", PlayMode.LOOP, 0.08f);
+        animation = Animations.Soul.create("Soulorb", PlayMode.LOOP, 0.08f);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
 
+        if(knight.getCurrentSoul() < 33){
+            knight.changeState(new KnightIdleState());
+            return;
+        }
+        
+        if(stateTime >= knight.getFocusDuration()){
+            knight.addMaskRemoveSoul();
+            knight.changeState(new KnightIdleState());
+            return;
+        }
+        
         body.setLinearVelocity(0 , body.getLinearVelocity().y);
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key) || Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key)){
-            knight.changeState(new KnightRunState());
-        }
-        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTJUMP.key)){
-            knight.changeState(new KnightJumpState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTDASH.key)){
-            knight.changeState(new KnightDashState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTATTACK.key)){
-            knight.changeState(new KnightAttackState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTFOCUS.key)){
-            knight.changeState(new KnightFocusState());
+        if(!Gdx.input.isKeyPressed(Keys.KNIGHTFOCUS.key)){
+            knight.changeState(new KnightIdleState());
+            return;
         }
     }
 

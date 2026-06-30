@@ -18,9 +18,11 @@ import Yousof.HollowKnight.Model.entities.knight.state.KnightKnockbackState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
 
 public class Knight extends Entitie {
-    private int health;
-    private int soul = 0;
-   
+    private int currentMasks = 5;
+    private int currentSoul = 33;
+    private final int maxSoul = 99;
+    private final int maxMasks = 5;
+
     private int damage = 5; 
     private float maxSpeed = 3.0f;
 
@@ -29,14 +31,15 @@ public class Knight extends Entitie {
     private KnightSurroundSensors surroundSensors;
     private KnightAttackSensors attackSensors;
 
+    private float focusDuration = 1.5f;
+
     private boolean facingRight = true;
     private boolean onKnock = false;
     private boolean canDoubleJump = true;
     private boolean canDash = true;
 
 
-    public Knight(World world, Vector2 spawnPos , int health) {
-        this.health = health;
+    public Knight(World world, Vector2 spawnPos) {
         surroundSensors = new KnightSurroundSensors();
         attackSensors = new KnightAttackSensors();
         createBody(world, spawnPos);
@@ -78,9 +81,9 @@ public class Knight extends Entitie {
     public void takeDamage(Enemy enemy){
         if(onKnock) return;
         
-        this.health -= 1;
-        if(health <= 0){
-            health = 0;
+        this.currentMasks -= 1;
+        if(currentMasks <= 0){
+            currentMasks = 0;
             changeState(new KnightDeathState());
         }else{
             changeState(new KnightKnockbackState(enemy.getBody() , currentState , 6f));
@@ -97,6 +100,19 @@ public class Knight extends Entitie {
         }
         currentState = newState;
         currentState.enter(this);
+    }
+
+    public void addCurrentSoul(){
+        if(currentSoul >= 99) return;
+        currentSoul += 11;
+    }
+
+    public void addMaskRemoveSoul(){
+        if(currentMasks == maxMasks) return;
+        if(currentSoul < 33) return;
+
+        currentSoul -= 33;
+        currentMasks += 1;
     }
 
     public void dispose() {}
@@ -128,9 +144,14 @@ public class Knight extends Entitie {
     public void setCanDash(boolean canDash) {this.canDash = canDash;}
     
     
-    public int getSoul() {return soul;}
-    public void addSoul() {soul += 11;}
-    public void setSoul(int soul) {this.soul = soul;}
+    public float getFocusDuration() {return focusDuration;}
+    public void setFocusDuration(float focousDuration) {this.focusDuration = focousDuration;}
+    public int getMaxSoul() {return maxSoul;}
+    public int getMaxMasks() {return maxMasks;}
+    public int getCurrentMasks() {return currentMasks;}
+    public void setCurrentMasks(int currentMasks) {this.currentMasks = currentMasks;}
+    public int getCurrentSoul() {return currentSoul;}
+    public void setCurrentSoul(int currentSoul) {this.currentSoul = currentSoul;}
     public Vector2 getPos() { return body.getPosition(); }
     public void setPos(Vector2 pos) { body.setTransform(pos, body.getAngle()); }
     public Vector2 getVel() { return body.getLinearVelocity(); }

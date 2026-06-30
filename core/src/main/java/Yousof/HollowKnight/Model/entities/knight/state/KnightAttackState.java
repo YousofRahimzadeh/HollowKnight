@@ -150,6 +150,7 @@ public class KnightAttackState extends KnightState{
             for(Enemy enemy : enemies){
                 if(enemy != null){
                     enemy.takeDamage(knight);
+                    knight.addCurrentSoul();
                     enemy.applyKnockback(body);
                 }
             }

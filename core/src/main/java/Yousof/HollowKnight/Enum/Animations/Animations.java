@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public enum Animations {
+    Soul("Animations/Atlas/HUD/SoulAnim.atlas"),
+    SoulContainer("Animations/Atlas/HUD/SoulContainer.atlas"),
+    Mask("Animations/Atlas/HUD/KnightHp.atlas"),
     Knight("Animations/Atlas/Knight/Knight.atlas"),
     KnightEffects("Animations/Atlas/Knight/Effects.atlas"),
     Crawlid("Animations/Atlas/Enemies/Crawlid/Crawlid.atlas"),

@@ -12,6 +12,7 @@ public enum Keys {
     KNIGHTLOOKDOWN(Input.Keys.DOWN),
     KNIGHTJUMP(Input.Keys.Z),
     KNIGHTATTACK(Input.Keys.X),
+    KNIGHTFOCUS(Input.Keys.A),
     KNIGHTDASH(Input.Keys.C);
 
     public int key;
