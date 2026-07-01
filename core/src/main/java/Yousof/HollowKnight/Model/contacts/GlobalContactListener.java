@@ -33,6 +33,13 @@ public class GlobalContactListener implements ContactListener {
             
             knight.takeDamage(enemy); 
         }
+
+        if ("spikes".equals(fixtureA.getUserData()) && fixtureB.getBody().getUserData() instanceof Knight && !fixtureA.isSensor() && !fixtureB.isSensor()) {
+            
+            Knight knight = (Knight) fixtureB.getBody().getUserData();
+            
+            knight.takeDamage(); 
+        }
     }
 
     @Override

@@ -94,6 +94,16 @@ public class Knight extends Entitie {
         }
     }
 
+    public void takeDamage(){
+        if(onKnock) return;
+        
+        this.currentMasks -= 1;
+        if(currentMasks <= 0){
+            currentMasks = 0;
+            changeState(new KnightDeathState());
+        }
+    }
+
     public void changeState(KnightState newState){
         if (currentState != null) {
             currentState.exit();

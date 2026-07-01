@@ -67,14 +67,6 @@ public class KnightContactListener implements ContactListener{
             } else {
                 knight.getAttackSensors().upSensor.remove(enem);
             }
-        }else if("knight_attack_down_sensor".equals(sensor.getUserData()) && "Enemy_main_body".equals(enemy.getUserData())){
-            Enemy enem = (Enemy) enemy.getBody().getUserData();
-            Knight knight = (Knight) sensor.getBody().getUserData();
-            if(Begin) {
-                knight.getAttackSensors().downSensor.add(enem);
-            } else {
-                knight.getAttackSensors().downSensor.remove(enem);
-            }
         }else if("knight_attack_right_sensor".equals(sensor.getUserData()) && "Enemy_main_body".equals(enemy.getUserData())){
             Enemy enem = (Enemy) enemy.getBody().getUserData();
             Knight knight = (Knight) sensor.getBody().getUserData();
@@ -91,6 +83,17 @@ public class KnightContactListener implements ContactListener{
             } else {
                 knight.getAttackSensors().leftSensor.remove(enem);
             }
+        }else if("knight_attack_down_sensor".equals(sensor.getUserData()) && "Enemy_main_body".equals(enemy.getUserData())){
+            Enemy enem = (Enemy) enemy.getBody().getUserData();
+            Knight knight = (Knight) sensor.getBody().getUserData();
+            if(Begin) {
+                knight.getAttackSensors().downSensor.add(enem);
+            } else {
+                knight.getAttackSensors().downSensor.remove(enem);
+            }
+        }else if("knight_attack_down_sensor".equals(sensor.getUserData()) && "spikes".equals(enemy.getUserData())){
+            Knight knight = (Knight) sensor.getBody().getUserData();
+            knight.getAttackSensors().spikesOnDown += (Begin) ? 1 : -1;
         }
     }
 

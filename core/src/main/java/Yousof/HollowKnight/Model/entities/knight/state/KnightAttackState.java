@@ -142,8 +142,8 @@ public class KnightAttackState extends KnightState{
         } else if(currentDir == Direction.UP){
             enemies = attackSensors.upSensor;
         } else if(currentDir == Direction.DOWN){
-            enemies = attackSensors.downSensor;
-            knight.setCanDoubleJump(true);
+            knight.changeState(new KnightPogoJumpState());
+            return;
         }
         
         if(enemies != null && !enemies.isEmpty()){

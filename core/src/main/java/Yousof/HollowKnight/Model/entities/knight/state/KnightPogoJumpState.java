@@ -1,24 +1,47 @@
 package Yousof.HollowKnight.Model.entities.knight.state;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
+import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class KnightPogoJumpState extends KnightState{
 
+    private Animation<TextureRegion> effectAnimation;
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Idle", PlayMode.LOOP, 0.08f);
+        animation = Animations.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
+        effectAnimation = Animations.KnightEffects.create("DownSlashEffect", PlayMode.NORMAL, 0.06f);
+        knight.setCanDoubleJump(true);
+        knight.setCanDash(true);
+        boolean spikeDetected = knight.getAttackSensors().spikesOnDown > 0;
+        boolean enemyDetected = !knight.getAttackSensors().downSensor.isEmpty();
+
+        if (spikeDetected || enemyDetected) {
+            knight.getBody().setLinearVelocity(knight.getBody().getLinearVelocity().x , 0f);
+            knight.getBody().applyLinearImpulse(new Vector2(0f , 5f), knight.getBody().getWorldCenter(), true);
+
+            if (enemyDetected) performAttack();
+        }
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+
+        if(animation.isAnimationFinished(stateTime)){
+            knight.changeState(new KnightFallState());
+            return;
+        }
         
     }
 
@@ -38,12 +61,33 @@ public class KnightPogoJumpState extends KnightState{
         float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
         float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + 38;
         batch.draw(currentFrame, drawX, drawY);
+        drawEffects(batch, stateTime);
     }
 
     @Override
     public void drawEffects(Batch batch, float stateTime) {
+        TextureRegion effectFrame = effectAnimation.getKeyFrame(stateTime);
+        float downOffset = 45f;
+        float effectX = body.getPosition().x * Constants.PPM - (effectFrame.getRegionWidth() / 2f);
+        float effectY = body.getPosition().y * Constants.PPM - downOffset - (effectFrame.getRegionHeight() / 2f);
+        if (effectFrame.isFlipX() != knight.isFacingRight()) {
+            effectFrame.flip(true, false);
+        }
+        batch.draw(effectFrame, effectX, effectY);
+    }
+
+    private void performAttack(){
+        ArrayList<Enemy> enemies = knight.getAttackSensors().downSensor;
         
-        
+        if(enemies != null && !enemies.isEmpty()){
+            for(Enemy enemy : enemies){
+                if(enemy != null){
+                    enemy.takeDamage(knight.getBody() , knight.getDamage());
+                    knight.addCurrentSoul();
+                    enemy.applyKnockback(body);
+                }
+            }
+        }
     }
     
 }

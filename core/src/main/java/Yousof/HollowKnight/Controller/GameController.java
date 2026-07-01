@@ -142,17 +142,44 @@ public class GameController {
                 shape.dispose();
             }
         }
+
+        for(MapObject object : game.getMap().getLayers().get("spikes").getObjects()){
+
+            if (object instanceof RectangleMapObject) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+                BodyDef bdef = new BodyDef();
+                bdef.type = BodyDef.BodyType.StaticBody;
+                float x = (rect.getX() + rect.getWidth() / 2f) / Constants.PPM;
+                float y = (rect.getY() + rect.getHeight() / 2f) / Constants.PPM;
+                bdef.position.set(x, y);
+
+                Body body = game.getWorld().createBody(bdef);
+
+                PolygonShape shape = new PolygonShape();
+                float hx = (rect.getWidth() / 2f) / Constants.PPM;
+                float hy = (rect.getHeight() / 2f) / Constants.PPM;
+                shape.setAsBox(hx, hy);
+
+                FixtureDef fdef = new FixtureDef();
+                fdef.friction = 0f;
+                fdef.shape = shape;
+                fdef.filter.categoryBits = Constants.BIT_GROUND;
+                body.createFixture(fdef).setUserData("spikes");;
+                shape.dispose();
+            }
+        }
     }
     
     private static void loadDynamicBodies(){
         for(MapObject object : game.getMap().getLayers().get("spawn").getObjects()){
             if(object.getName().equals("GroundSpawn")){
-                Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                // Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 // Enemy nextEnemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                // Enemy nextEnemy2 = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                game.getEnemies().add(enemy);
+                Enemy nextEnemy2 = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                // game.getEnemies().add(enemy);
                 // game.getEnemies().add(nextEnemy);
-                // game.getEnemies().add(nextEnemy2);
+                game.getEnemies().add(nextEnemy2);
             }
         }
     }

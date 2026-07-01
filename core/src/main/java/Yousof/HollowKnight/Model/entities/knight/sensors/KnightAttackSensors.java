@@ -11,10 +11,11 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 
 public class KnightAttackSensors {
+    public ArrayList<Enemy> upSensor;
     public ArrayList<Enemy> rightSensor;
     public ArrayList<Enemy> leftSensor;
     public ArrayList<Enemy> downSensor;
-    public ArrayList<Enemy> upSensor;
+    public int spikesOnDown = 0;
 
     public KnightAttackSensors(){
         rightSensor = new ArrayList<>();
