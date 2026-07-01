@@ -2,6 +2,7 @@ package Yousof.HollowKnight.Model.entities.knight;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -104,13 +105,25 @@ public class Knight extends Entitie {
         }
     }
 
-    public void changeState(KnightState newState){
-        if (currentState != null) {
-            currentState.exit();
+    public void takeDamage(Body body ,int how){
+        if(onKnock) return;
+        
+        this.currentMasks -= how;
+        if(currentMasks <= 0){
+            currentMasks = 0;
+            changeState(new KnightDeathState());
+        }else{
+            changeState(new KnightKnockbackState(body , this , currentState , 6f));
         }
+    }
+
+    public void changeState(KnightState newState){
         if(onKnock){
             ((KnightKnockbackState)currentState).changeState(newState);
             return;
+        }
+        if (currentState != null) {
+            currentState.exit();
         }
         currentState = newState;
         currentState.enter(this);

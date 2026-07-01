@@ -7,15 +7,16 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseFarSensors;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseGroundSensors;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseMiddleSensors;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseNearbySensors;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseIdleState;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseKnightState;
-import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.sensors.GroundSurroundSensors;
 
 public class FalseKnightEnemy extends Enemy{
     
@@ -26,12 +27,20 @@ public class FalseKnightEnemy extends Enemy{
 
     private boolean facingRight = true;
     private boolean physicsCleanedUp = false;
+    private boolean firstUpdate = true;
 
-    private GroundSurroundSensors sensors;
+    private FalseNearbySensors nearbySensors;
+    private FalseMiddleSensors middleSensors;
+    private FalseFarSensors farSensors;
+    private FalseGroundSensors groundSensors;
+
 
 
     public FalseKnightEnemy(World world, float x, float y) {
-        sensors = new GroundSurroundSensors();
+        nearbySensors = new FalseNearbySensors();
+        middleSensors = new FalseMiddleSensors();
+        farSensors = new FalseFarSensors();
+        groundSensors = new FalseGroundSensors();
         createBody(world, new Vector2(x, y));
         this.changeState(new FalseIdleState());
     }
@@ -75,32 +84,12 @@ public class FalseKnightEnemy extends Enemy{
     }
     
     private void createBody(World world, Vector2 spawnPos) {
-        //create main body
-        
         BodyDef bdef = new BodyDef();
         bdef.type = BodyType.DynamicBody;
         bdef.position.set(spawnPos.x / Constants.PPM, spawnPos.y / Constants.PPM);
         bdef.fixedRotation = true;
         body = world.createBody(bdef);
         body.setUserData(this);
-        
-        FixtureDef fdef = new FixtureDef();
-        fdef.density = 1f;
-        fdef.friction = 0f;
-        fdef.restitution = 0f;
-        fdef.filter.categoryBits = Constants.BIT_ENEMY;
-        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT;
-
-        PolygonShape shape = new PolygonShape();
-        float hx = 250f / Constants.PPM;
-        float hy = 260f / Constants.PPM;
-        shape.setAsBox(hx, hy);
-        fdef.shape = shape;
-        fdef.isSensor = false;
-        body.createFixture(fdef).setUserData("Enemy_main_body");
-        shape.dispose();
-
-        // sensors.createSensors(body, hx, hy);
 
     }
 
@@ -126,11 +115,31 @@ public class FalseKnightEnemy extends Enemy{
         physicsCleanedUp = true;
     }
 
-    public GroundSurroundSensors getSensors() {
-        return sensors;
+    
+    public FalseNearbySensors getNearbySensors() {
+        return nearbySensors;
     }
-    public void setSensors(GroundSurroundSensors sensors) {
-        this.sensors = sensors;
+    public void setNearbySensors(FalseNearbySensors gorzSensors) {
+        this.nearbySensors = gorzSensors;
+    }
+    public FalseMiddleSensors getMiddleSensors() {
+        return middleSensors;
+    }
+    public void setMiddleSensors(FalseMiddleSensors middleSensors) {
+        this.middleSensors = middleSensors;
+    }
+    public FalseFarSensors getFarSensors() {
+        return farSensors;
+    }
+    public void setFarSensors(FalseFarSensors surroundSensors) {
+        this.farSensors = surroundSensors;
+    }
+    public FalseGroundSensors getGroundSensors() {
+        return groundSensors;
+    }
+
+    public void setGroundSensors(FalseGroundSensors groundSensors) {
+        this.groundSensors = groundSensors;
     }
     public int getDamage() {
         return damage;

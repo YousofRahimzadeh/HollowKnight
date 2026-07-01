@@ -18,7 +18,7 @@ public class KnightJumpState extends KnightState{
         super.enter(knight);
         animation = Animations.Knight.create("Airborne", PlayMode.NORMAL, 0.08f);
         body.setLinearVelocity(body.getLinearVelocity().x , 0f);
-        body.applyLinearImpulse(new Vector2(0f , 5f), body.getPosition(), true);
+        body.applyLinearImpulse(new Vector2(0f , 7.5f), body.getPosition(), true);
         knight.setCanDoubleJump(true);
     }
 

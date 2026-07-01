@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameStore;
 import Yousof.HollowKnight.Model.contacts.CrystalEnemyListener;
+import Yousof.HollowKnight.Model.contacts.FalseKnightListener;
 import Yousof.HollowKnight.Model.contacts.FlyingEnemyListener;
 import Yousof.HollowKnight.Model.contacts.GameContactListener;
 import Yousof.HollowKnight.Model.contacts.GlobalContactListener;
@@ -194,6 +195,7 @@ public class GameController {
         manager.addListeners(new HuskEnemyListener());
         manager.addListeners(new CrystalEnemyListener());
         manager.addListeners(new GlobalContactListener());
+        manager.addListeners(new FalseKnightListener());
         manager.addListeners(new ProjectileContactListener());
         
         game.getWorld().setContactListener(manager);

@@ -21,6 +21,11 @@ public class FalseKnightState {
     public void update(float delta){
         stateTime += delta;
     }
+    public void reCreateBody(){
+        while (body.getFixtureList().size > 0) {
+            body.destroyFixture(body.getFixtureList().first());
+        }
+    }
     public void exit(){}
     public void draw(Batch batch){}
     public void drawEffects(Batch batch, float stateTime){}
