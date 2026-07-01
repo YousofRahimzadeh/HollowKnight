@@ -90,7 +90,7 @@ public class Knight extends Entitie {
             currentMasks = 0;
             changeState(new KnightDeathState());
         }else{
-            changeState(new KnightKnockbackState(enemy.getBody() , currentState , 6f));
+            changeState(new KnightKnockbackState(enemy.getBody() , this , currentState , 6f));
         }
     }
 

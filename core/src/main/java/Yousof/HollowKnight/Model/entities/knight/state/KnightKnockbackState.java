@@ -12,18 +12,20 @@ import Yousof.HollowKnight.Model.entities.knight.Knight;
 public class KnightKnockbackState extends KnightState{
 
     private KnightState stateWrapper;
-    private float duration = 2f;
+    private float duration = 1.5f;
     private float knockDuration = 0.4f;
     private float timer = 0f;
     private Body attackerBody;
     private float strength;
 
-    public KnightKnockbackState(Body attackerBody,KnightState lastState ,float strength) {
-        this.attackerBody = attackerBody;
+    public KnightKnockbackState(Body enemyBody , Knight knight,KnightState lastState ,float strength) {
+        this.attackerBody = enemyBody;
+        this.knight = knight;
         this.strength = strength;
         this.stateWrapper = lastState;
         this.stateTime = lastState.stateTime;
         this.animation = lastState.animation;
+        if(lastState instanceof KnightFocusState) changeState(new KnightIdleState());
     }
 
     @Override
@@ -95,6 +97,10 @@ public class KnightKnockbackState extends KnightState{
     }
 
     public void changeState(KnightState newState){
+        if(newState instanceof KnightFocusState && timer < duration) {
+            changeState(new KnightIdleState());
+            return;
+        }
         if (stateWrapper != null) {
             stateWrapper.exit();
         }

@@ -12,23 +12,37 @@ import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class KnightFocusState extends KnightState{
 
+    private boolean theEnd = false;
+    private boolean theStart = true;
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Focus", PlayMode.LOOP, 0.08f);
+        animation = Animations.Knight.create("Focus Start", PlayMode.LOOP, 0.08f);
+        if(knight.getCurrentSoul() < 33){
+            knight.changeState(new KnightIdleState());
+            return;
+        }
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
 
-        if(knight.getCurrentSoul() < 33){
-            knight.changeState(new KnightIdleState());
+        if(animation.isAnimationFinished(stateTime) && theStart){
+            theStart = false;
+            animation = Animations.Knight.create("Focus", PlayMode.LOOP, 0.08f);
             return;
         }
         
-        if(stateTime >= knight.getFocusDuration()){
+        if(stateTime >= knight.getFocusDuration() && !theEnd){
+            animation = Animations.Knight.create("Focus Get", PlayMode.NORMAL, 0.08f);
+            stateTime = 0;
+            theEnd = true;
             knight.addMaskRemoveSoul();
+            return;
+        }
+
+        if(animation.isAnimationFinished(stateTime) && theEnd){
             knight.changeState(new KnightIdleState());
             return;
         }

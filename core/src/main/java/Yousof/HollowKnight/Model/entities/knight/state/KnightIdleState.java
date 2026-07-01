@@ -23,6 +23,9 @@ public class KnightIdleState extends KnightState{
         super.update(delta);
 
         body.setLinearVelocity(0 , body.getLinearVelocity().y);
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTFOCUS.key)){
+            knight.changeState(new KnightFocusState());
+        }
         if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key) || Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key)){
             knight.changeState(new KnightRunState());
         }
@@ -34,9 +37,6 @@ public class KnightIdleState extends KnightState{
         }
         if(Gdx.input.isKeyPressed(Keys.KNIGHTATTACK.key)){
             knight.changeState(new KnightAttackState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTFOCUS.key)){
-            knight.changeState(new KnightFocusState());
         }
         if(Gdx.input.isKeyPressed(Keys.KNIGHTVENGEFUL.key)){
             knight.changeState(new KnightVengefulSpiritState());
