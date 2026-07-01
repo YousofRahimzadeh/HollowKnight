@@ -165,7 +165,7 @@ public class GameController {
                 fdef.friction = 0f;
                 fdef.shape = shape;
                 fdef.filter.categoryBits = Constants.BIT_GROUND;
-                body.createFixture(fdef).setUserData("spikes");;
+                body.createFixture(fdef).setUserData("spikes");
                 shape.dispose();
             }
         }
@@ -175,11 +175,13 @@ public class GameController {
         for(MapObject object : game.getMap().getLayers().get("spawn").getObjects()){
             if(object.getName().equals("GroundSpawn")){
                 // Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                // Enemy nextEnemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 Enemy nextEnemy2 = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 // game.getEnemies().add(enemy);
-                // game.getEnemies().add(nextEnemy);
                 game.getEnemies().add(nextEnemy2);
+            }
+            if(object.getName().equals("FalseKnight")){
+                Enemy nextEnemy = EnemyFactory.createEnemy("FalseKnight", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.getEnemies().add(nextEnemy);
             }
         }
     }

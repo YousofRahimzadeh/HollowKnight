@@ -16,7 +16,8 @@ public enum Animations {
     WingedSentry("Animations/Atlas/Enemies/WingedSentry/WingedSentry.atlas"),
     HuskHornhead("Animations/Atlas/Enemies/HuskHornhead/HuskHornhead.atlas"),
     CrystalGuardian("Animations/Atlas/Enemies/CrystalGuardian/CrystalGuardian.atlas"),
-    Mosscreep("Animations/Atlas/Enemies/Mosscreep/Mosscreep.atlas");
+    Mosscreep("Animations/Atlas/Enemies/Mosscreep/Mosscreep.atlas"),
+    FalseKnight("Animations/Atlas/Enemies/FalseKnight/FalseKnight.atlas");
 
     
     private String atlasPath;
