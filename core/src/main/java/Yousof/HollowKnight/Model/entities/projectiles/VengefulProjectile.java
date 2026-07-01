@@ -1,7 +1,5 @@
 package Yousof.HollowKnight.Model.entities.projectiles;
 
-import java.io.ObjectInputFilter.Config;
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -19,7 +17,6 @@ public class VengefulProjectile extends Projectile{
     private Animation<TextureRegion> animation;
     private int damage = 5;
     private float stateTime = 0;
-    private Knight knight;
     private boolean isFacingRight;
     private float speed;
     private static final float maxSpeed = 8f;
@@ -27,7 +24,6 @@ public class VengefulProjectile extends Projectile{
     public VengefulProjectile(World world ,Knight knight){
         isFacingRight = knight.isFacingRight();
         animation = Animations.KnightProjectile.create("SoulBall", PlayMode.LOOP_PINGPONG, 0.08f);
-        this.knight = knight;
         createBody(world , knight);
         speed = (isFacingRight) ? maxSpeed : -maxSpeed;
     }

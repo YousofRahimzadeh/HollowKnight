@@ -7,16 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Keys;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;
-import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
-import Yousof.HollowKnight.Model.entities.projectiles.ProjectileFactory;
-import Yousof.HollowKnight.Model.entities.projectiles.VengefulProjectile;
 
 public class KnightAttackState extends KnightState{
 

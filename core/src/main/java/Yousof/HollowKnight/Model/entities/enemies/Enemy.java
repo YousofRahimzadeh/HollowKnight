@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Model.entities.Entitie;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class Enemy extends Entitie{
     protected float knockbackTimer = 0;

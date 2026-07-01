@@ -18,7 +18,6 @@ import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedDeathS
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedIdleState;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedKnockbackState;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedSentryState;
-import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class WingedSentry extends Enemy{
     private int health = 100;

@@ -5,8 +5,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import Yousof.HollowKnight.Controller.MainController;
 import Yousof.HollowKnight.Model.Assets;
-import Yousof.HollowKnight.Model.GameStore;
-import Yousof.HollowKnight.Screen.GameScreen;
 import Yousof.HollowKnight.Screen.MainScreen;
 
 public class Main extends Game {
