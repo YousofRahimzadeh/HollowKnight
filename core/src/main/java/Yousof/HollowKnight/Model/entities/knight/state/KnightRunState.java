@@ -41,6 +41,10 @@ public class KnightRunState extends KnightState{
             knight.changeState(new KnightVengefulSpiritState());
         }
         
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTSCREAM.key)){
+            knight.changeState(new KnightHowlingWraiths());
+        }
+        
         if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key)){
             knight.setFacingRight(true);
             body.setLinearVelocity(knight.getMaxSpeed() , body.getLinearVelocity().y);

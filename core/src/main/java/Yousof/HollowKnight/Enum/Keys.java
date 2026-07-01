@@ -14,6 +14,7 @@ public enum Keys {
     KNIGHTATTACK(Input.Keys.X),
     KNIGHTFOCUS(Input.Keys.A),
     KNIGHTVENGEFUL(Input.Keys.V),
+    KNIGHTSCREAM(Input.Keys.S),
     KNIGHTDASH(Input.Keys.C);
 
     public int key;

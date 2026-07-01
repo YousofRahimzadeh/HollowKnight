@@ -11,6 +11,7 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;
+import Yousof.HollowKnight.Model.entities.knight.sensors.KnightScreamSensros;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightSurroundSensors;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightDeathState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightIdleState;
@@ -30,6 +31,7 @@ public class Knight extends Entitie {
     
     private KnightSurroundSensors surroundSensors;
     private KnightAttackSensors attackSensors;
+    private KnightScreamSensros screamSensros;
 
     private float focusDuration = 1.5f;
 
@@ -42,6 +44,7 @@ public class Knight extends Entitie {
     public Knight(World world, Vector2 spawnPos) {
         surroundSensors = new KnightSurroundSensors();
         attackSensors = new KnightAttackSensors();
+        screamSensros = new KnightScreamSensros();
         createBody(world, spawnPos);
         changeState(new KnightIdleState());
     }
@@ -76,6 +79,7 @@ public class Knight extends Entitie {
 
         surroundSensors.createSensors(body, hx, hy);
         attackSensors.createSensors(body, hx, hy);
+        screamSensros.createSensors(body, hx, hy);
     }
 
     public void takeDamage(Enemy enemy){
@@ -117,33 +121,16 @@ public class Knight extends Entitie {
 
     public void dispose() {}
 
-
     public boolean isOnKnock() {return onKnock;}
     public void setOnKnock(boolean onKnock) {this.onKnock = onKnock;}
-    public int getDamage() {
-        return damage;
-    }
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-    public boolean isFacingRight() {
-        return facingRight;
-    }
-    public void setFacingRight(boolean facingRight) {
-        this.facingRight = facingRight;
-    }
-    public boolean isCanDoubleJump() {
-        return canDoubleJump;
-    }
-    public void setCanDoubleJump(boolean canDoubleJump) {
-        this.canDoubleJump = canDoubleJump;
-    }
-    public boolean isCanDash() {
-        return canDash;
-    }
+    public int getDamage() {return damage;}
+    public void setDamage(int damage) {this.damage = damage;}
+    public boolean isFacingRight() {return facingRight;}
+    public void setFacingRight(boolean facingRight) {this.facingRight = facingRight;}
+    public boolean isCanDoubleJump() {return canDoubleJump;}
+    public void setCanDoubleJump(boolean canDoubleJump) {this.canDoubleJump = canDoubleJump;}
+    public boolean isCanDash() {return canDash;}
     public void setCanDash(boolean canDash) {this.canDash = canDash;}
-    
-    
     public float getFocusDuration() {return focusDuration;}
     public void setFocusDuration(float focousDuration) {this.focusDuration = focousDuration;}
     public int getMaxSoul() {return maxSoul;}
@@ -162,4 +149,6 @@ public class Knight extends Entitie {
     public void setSurroundSensors(KnightSurroundSensors surroundSensors) {this.surroundSensors = surroundSensors;}
     public KnightAttackSensors getAttackSensors() {return attackSensors;}
     public void setAttackSensors(KnightAttackSensors attackSensors) {this.attackSensors = attackSensors;}
+    public KnightScreamSensros getScreamSensros() {return screamSensros;}
+    public void setScreamSensros(KnightScreamSensros screamSensros) {this.screamSensros = screamSensros;}
 }

@@ -41,6 +41,9 @@ public class KnightIdleState extends KnightState{
         if(Gdx.input.isKeyPressed(Keys.KNIGHTVENGEFUL.key)){
             knight.changeState(new KnightVengefulSpiritState());
         }
+        if(Gdx.input.isKeyPressed(Keys.KNIGHTSCREAM.key)){
+            knight.changeState(new KnightHowlingWraiths());
+        }
     }
 
     @Override

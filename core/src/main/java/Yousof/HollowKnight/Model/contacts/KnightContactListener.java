@@ -20,6 +20,8 @@ public class KnightContactListener implements ContactListener{
         surroundSensor(fb, fa, true); 
         attackSensor(fa, fb, true);
         attackSensor(fb, fa, true); 
+        screamSensor(fa, fb, true);
+        screamSensor(fb, fa, true); 
         
     }
 
@@ -32,6 +34,8 @@ public class KnightContactListener implements ContactListener{
         surroundSensor(fb, fa, false);
         attackSensor(fa, fb, false);
         attackSensor(fb, fa, false);
+        screamSensor(fa, fb, false);
+        screamSensor(fb, fa, false); 
         
     }
 
@@ -86,6 +90,18 @@ public class KnightContactListener implements ContactListener{
                 knight.getAttackSensors().leftSensor.add(enem);
             } else {
                 knight.getAttackSensors().leftSensor.remove(enem);
+            }
+        }
+    }
+
+    private void screamSensor(Fixture enemy , Fixture sensor , boolean Begin){
+        if("knight_scream_surround_sensor".equals(sensor.getUserData()) && "Enemy_main_body".equals(enemy.getUserData())){
+            Enemy enem = (Enemy) enemy.getBody().getUserData();
+            Knight knight = (Knight) sensor.getBody().getUserData();
+            if(Begin) {
+                knight.getScreamSensros().wholeSensor.add(enem);
+            } else {
+                knight.getScreamSensros().wholeSensor.remove(enem);
             }
         }
     }
