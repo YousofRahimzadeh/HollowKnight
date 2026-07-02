@@ -20,7 +20,7 @@ public class FalseDeathState extends FalseKnightState {
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
         
-        currentAnimation = Animations.FalseKnight.create("DeathFall", PlayMode.NORMAL, 0.1f);
+        currentAnimation = Animations.FalseKnight.create("DeathFall", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.FALLING;
 
         reCreateBody();
@@ -32,14 +32,14 @@ public class FalseDeathState extends FalseKnightState {
         body.setLinearVelocity(0 , body.getLinearVelocity().y);
 
         if (currentAnimation.isAnimationFinished(stateTime) && currentPhase == LeapPhase.FALLING) {
-            currentAnimation = Animations.FalseKnight.create("DeathLand", PlayMode.NORMAL, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("DeathLand", PlayMode.NORMAL, enemy.frameDuration);
             currentPhase = LeapPhase.LANDING;
             stateTime = 0f;
             return;
         } 
 
         if (currentAnimation.isAnimationFinished(stateTime) && currentPhase == LeapPhase.LANDING) {
-            currentAnimation = Animations.FalseKnight.create("Body", PlayMode.LOOP, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("Body", PlayMode.LOOP, enemy.frameDuration);
             currentPhase = LeapPhase.IDLE;
             stateTime = 0f;
             return;

@@ -27,9 +27,13 @@ public class FalseKnightEnemy extends Enemy{
     private int damage = 5;
     private float speed = 10f;
     private FalseKnightState currentState;
+    private String lastPerformedMove = "";
+
+    private boolean isPhaseTwo = false;
+    public float factor = 1.0f;
+    public float frameDuration = 0.1f;
 
     private boolean facingRight = true;
-    private boolean hasStunYet = false;
     private boolean onKnock = false;
     private boolean physicsCleanedUp = false;
 
@@ -65,14 +69,16 @@ public class FalseKnightEnemy extends Enemy{
     public void takeDamage(Body body, int how) {
         this.health -= how;
     
-        if (health <= 0) {
+        if (health <= 0 && !(currentState instanceof FalseDeathState)) {
             health = 0;
             changeState(new FalseDeathState());
             return;
         }
     
-        if (health <= 50 && !hasStunYet) {
-            hasStunYet = true;
+        if (health <= 50 && !isPhaseTwo) {
+            isPhaseTwo = true;
+            factor = 2.0f;
+            frameDuration /= factor;
             changeState(new FalseStunState());
             return;
         }
@@ -182,4 +188,6 @@ public class FalseKnightEnemy extends Enemy{
     public void setOnKnock(boolean onKnock) {
         this.onKnock = onKnock;
     }
+    public String getLastPerformedMove() { return lastPerformedMove; }
+    public void setLastPerformedMove(String move) { this.lastPerformedMove = move; }
 }

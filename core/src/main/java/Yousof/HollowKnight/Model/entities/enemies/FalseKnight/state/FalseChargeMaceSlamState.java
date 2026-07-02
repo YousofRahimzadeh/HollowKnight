@@ -20,7 +20,7 @@ public class FalseChargeMaceSlamState extends FalseKnightState{
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
         
-        currentAnimation = Animations.FalseKnight.create("Jump", PlayMode.NORMAL, 0.1f);
+        currentAnimation = Animations.FalseKnight.create("Jump", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.JUMPING;
 
         reCreateBody();
@@ -45,13 +45,14 @@ public class FalseChargeMaceSlamState extends FalseKnightState{
         if (currentPhase == LeapPhase.LANDING) {
             if (enemy.getGroundSensors().groundSensor > 0) {
                 currentPhase = LeapPhase.ATTACKING;
-                currentAnimation = Animations.FalseKnight.create("Jump Attack", PlayMode.NORMAL, 0.1f);
+                currentAnimation = Animations.FalseKnight.create("Jump Attack", PlayMode.NORMAL, enemy.frameDuration);
                 stateTime = 0f;
             }
             return;
         }
 
         if (currentPhase == LeapPhase.ATTACKING && currentAnimation.isAnimationFinished(stateTime)) {
+            performAttack();
             enemy.changeState(new FalseIdleState());
             return;
         }
@@ -100,6 +101,14 @@ public class FalseChargeMaceSlamState extends FalseKnightState{
         enemy.getFarSensors().createSensors(body, bodyHx, bodyHy);
         enemy.getMiddleSensors().createSensors(body, bodyHx, bodyHy);
         enemy.getGroundSensors().createSensors(body, bodyHx, bodyHy);
+    }
+
+    private void performAttack() {
+        if(enemy.getNearbySensors().knight == null) return;
+        if(enemy.getNearbySensors().knight.getBody().getPosition().x > body.getPosition().x && !enemy.isFacingRight()) return;
+        if(enemy.getNearbySensors().knight.getBody().getPosition().x < body.getPosition().x && enemy.isFacingRight()) return;
+
+        enemy.getNearbySensors().knight.takeDamage(body,1);
     }
 
     @Override

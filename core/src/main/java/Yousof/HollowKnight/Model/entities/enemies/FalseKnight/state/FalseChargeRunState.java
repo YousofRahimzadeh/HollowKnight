@@ -18,7 +18,7 @@ public class FalseChargeRunState extends FalseKnightState {
     @Override
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.FalseKnight.create("Run Antic", PlayMode.NORMAL, 0.1f);
+        currentAnimation = Animations.FalseKnight.create("Run Antic", PlayMode.NORMAL, enemy.frameDuration);
         targetPosition = new Vector2(enemy.getFarSensors().knight.getBody().getPosition().x , enemy.getFarSensors().knight.getBody().getPosition().y);
         reCreateBody();
     }
@@ -28,7 +28,7 @@ public class FalseChargeRunState extends FalseKnightState {
         super.update(delta);
         if (currentAnimation.isAnimationFinished(stateTime) && theFirst) {
             stateTime = 0f;
-            currentAnimation = Animations.FalseKnight.create("Run", PlayMode.LOOP, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("Run", PlayMode.LOOP, enemy.frameDuration);
             theFirst = false;
             return;
         }
@@ -42,7 +42,7 @@ public class FalseChargeRunState extends FalseKnightState {
 
         }
 
-        float speed = 3f;
+        float speed = 3f * enemy.factor;
         if(enemy.isFacingRight()) {
             body.setLinearVelocity(speed, body.getLinearVelocity().y);
         } else {

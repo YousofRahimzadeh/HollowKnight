@@ -15,12 +15,15 @@ import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 public class FalseIdleState extends FalseKnightState {
 
     private boolean directionalDecisionMade = false;
+    private float duration = 1.5f;
 
     @Override
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.FalseKnight.create("Idle", PlayMode.LOOP, 0.1f);
+        currentAnimation = Animations.FalseKnight.create("Idle", PlayMode.LOOP, enemy.frameDuration);
         directionalDecisionMade = false;
+        
+        duration /= enemy.factor; 
         reCreateBody();
     }
 
@@ -30,7 +33,7 @@ public class FalseIdleState extends FalseKnightState {
 
         body.setLinearVelocity(0f, body.getLinearVelocity().y);
         
-        if(stateTime < 1.5f) return;
+        if(stateTime < duration) return;
 
         if(!directionalDecisionMade && enemy.getFarSensors().knight != null){
             Vector2 knightPos = enemy.getFarSensors().knight.getBody().getPosition();
@@ -42,37 +45,78 @@ public class FalseIdleState extends FalseKnightState {
             directionalDecisionMade = true;
             return; 
         }
+        
+        String lastMove = enemy.getLastPerformedMove(); // گرفتن نام آخرین حرکت از شیء دشمن
+        float rand = MathUtils.random();
 
+        // ۱. منطق محدوده نزدیک (Nearby)
         if(enemy.getNearbySensors().knight != null) {
-            enemy.changeState(new FalseMaceSlamState());
+            // مکانیزم ضد اسپم: اگر حرکت قبلی همین بود، به جای اسپم کردن، عقب‌نشینی کند (Defensive Leap)
+            if ("MaceSlam".equals(lastMove)) {
+                navigateToState(new FalseDefensiveLeapState(), "DefensiveLeap");
+            } else {
+                navigateToState(new FalseMaceSlamState(), "MaceSlam");
+            }
             return;
         }
 
         boolean inMiddle = enemy.getMiddleSensors().knight != null;
         boolean inFar = enemy.getFarSensors().knight != null;
 
+        // ۲. منطق محدوده متوسط و دور (Middle & Far)
         if (inMiddle || inFar) {
 
-            float rand = MathUtils.random(); 
-
             if (inMiddle) {
-
+                // شانس پایه: ۶۰٪ پرش هجومی، ۴۰٪ دویدن
                 if (rand < 0.60f) {
-                    enemy.changeState(new FalseOffensiveLeapState());
+                    // ضد اسپم برای Offensive Leap
+                    if ("OffensiveLeap".equals(lastMove)) {
+                        navigateToState(new FalseChargeRunState(), "ChargeRun");
+                    } else {
+                        navigateToState(new FalseOffensiveLeapState(), "OffensiveLeap");
+                    }
                 } else {
-                    enemy.changeState(new FalseChargeRunState());
+                    // ضد اسپم برای Charge Run
+                    if ("ChargeRun".equals(lastMove)) {
+                        navigateToState(new FalseOffensiveLeapState(), "OffensiveLeap");
+                    } else {
+                        navigateToState(new FalseChargeRunState(), "ChargeRun");
+                    }
                 }
             } 
             else if (inFar) {
-
+                // شانس پایه: ۷۰٪ دویدن / ۳۰٪ پرش یا ضربه قدرتی
                 if (rand < 0.70f) {
-                    enemy.changeState(new FalseChargeRunState());
+                    if ("ChargeRun".equals(lastMove)) {
+                        // اگر در فاز دوم بودیم (یعنی فاکتور دشمن تغییر کرده)، حرکت پنجم فعال شود
+                        if (enemy.factor > 1.0f) {
+                            navigateToState(new FalseChargeMaceSlamState(), "ChargeMaceSlam");
+                        } else {
+                            navigateToState(new FalseOffensiveLeapState(), "OffensiveLeap");
+                        }
+                    } else {
+                        navigateToState(new FalseChargeRunState(), "ChargeRun");
+                    }
                 } else {
-                    enemy.changeState(new FalseOffensiveLeapState());
+                    // ۳۰ درصد شانس مابقی در فاصله دور
+                    // فعال‌سازی حرکت پنجم در فاز دوم به عنوان گزینه جایگزین
+                    if (enemy.factor > 1.0f && !"ChargeMaceSlam".equals(lastMove)) {
+                        navigateToState(new FalseChargeMaceSlamState(), "ChargeMaceSlam");
+                    } else {
+                        navigateToState(new FalseOffensiveLeapState(), "OffensiveLeap");
+                    }
                 }
             }
             return;
         }
+    }
+
+    /**
+     * متد کمکی جهت ثبت حرکت انجام‌شده در تاریخچه و سوئیچ به استیت جدید
+     */
+    private void navigateToState(FalseKnightState nextState, String moveName) {
+        enemy.setLastPerformedMove(moveName); // ذخیره نام حرکت برای فریم‌های بعدی
+        enemy.changeState(nextState);
     }
 
     @Override

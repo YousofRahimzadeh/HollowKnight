@@ -13,14 +13,16 @@ import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 
 public class FalseStunState extends FalseKnightState {
 
-    public enum LeapPhase { FALLING , LANDING , IDLE ,  HITING}
+    public enum LeapPhase { FALLING , LANDING , IDLE ,  HITING , RECOVER}
     public LeapPhase currentPhase;
+    private float duration = 8f;
+    private float time = 0f;
     
     @Override
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
         
-        currentAnimation = Animations.FalseKnight.create("DeathFall", PlayMode.NORMAL, 0.1f);
+        currentAnimation = Animations.FalseKnight.create("DeathFall", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.FALLING;
 
         reCreateBody();
@@ -29,17 +31,32 @@ public class FalseStunState extends FalseKnightState {
     @Override
     public void update(float delta) {
         super.update(delta);
+        time += delta;
         body.setLinearVelocity(0 , body.getLinearVelocity().y);
 
+        if(time >= duration) {
+            if(currentPhase == LeapPhase.RECOVER){
+                if (currentAnimation.isAnimationFinished(stateTime)) {
+                    enemy.changeState(new FalseIdleState());
+                }
+                return;
+            }
+
+            currentAnimation = Animations.FalseKnight.create("Stun Recover", PlayMode.NORMAL, enemy.frameDuration);
+            currentPhase = LeapPhase.RECOVER;
+            stateTime = 0f;
+            return;
+        }
+
         if (currentAnimation.isAnimationFinished(stateTime) && currentPhase == LeapPhase.FALLING) {
-            currentAnimation = Animations.FalseKnight.create("DeathLand", PlayMode.NORMAL, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("DeathLand", PlayMode.NORMAL, enemy.frameDuration);
             currentPhase = LeapPhase.LANDING;
             stateTime = 0f;
             return;
         } 
 
         if (currentAnimation.isAnimationFinished(stateTime) && currentPhase == LeapPhase.LANDING) {
-            currentAnimation = Animations.FalseKnight.create("Body", PlayMode.LOOP, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("Body", PlayMode.LOOP, enemy.frameDuration);
             currentPhase = LeapPhase.IDLE;
             stateTime = 0f;
             return;
@@ -47,12 +64,12 @@ public class FalseStunState extends FalseKnightState {
 
         if(currentPhase == LeapPhase.HITING){
             currentPhase = LeapPhase.IDLE;
-            currentAnimation = Animations.FalseKnight.create("DeathHit", PlayMode.NORMAL, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("DeathHit", PlayMode.NORMAL, enemy.frameDuration);
             stateTime = 0f;
         }
 
         if (currentAnimation.isAnimationFinished(stateTime) && currentPhase == LeapPhase.IDLE) {
-            currentAnimation = Animations.FalseKnight.create("Body", PlayMode.LOOP, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("Body", PlayMode.LOOP, enemy.frameDuration);
             stateTime = 0f;
             return;
         } 

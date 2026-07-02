@@ -19,7 +19,7 @@ public class FalseOffensiveLeapState extends FalseKnightState {
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
         
-        currentAnimation = Animations.FalseKnight.create("Jump", PlayMode.NORMAL, 0.1f);
+        currentAnimation = Animations.FalseKnight.create("Jump", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.JUMPING;
 
         reCreateBody();
@@ -32,7 +32,8 @@ public class FalseOffensiveLeapState extends FalseKnightState {
 
         if (currentPhase == LeapPhase.JUMPING && enemy.getGroundSensors().groundSensor > 0 && currentAnimation.isAnimationFinished(stateTime)) {
             currentPhase = LeapPhase.LANDING;
-            currentAnimation = Animations.FalseKnight.create("Land", PlayMode.NORMAL, 0.1f);
+            body.setLinearVelocity(0 , body.getLinearVelocity().y);
+            currentAnimation = Animations.FalseKnight.create("Land", PlayMode.NORMAL, enemy.frameDuration);
             stateTime = 0f;
             return;
         } 

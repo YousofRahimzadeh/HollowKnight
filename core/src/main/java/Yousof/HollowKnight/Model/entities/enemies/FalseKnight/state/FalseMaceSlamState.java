@@ -18,7 +18,7 @@ public class FalseMaceSlamState extends FalseKnightState {
     @Override
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.FalseKnight.create("Attack Antic", PlayMode.NORMAL, 0.1f);
+        currentAnimation = Animations.FalseKnight.create("Attack Antic", PlayMode.NORMAL, enemy.frameDuration);
         reCreateBody();
     }
 
@@ -27,14 +27,14 @@ public class FalseMaceSlamState extends FalseKnightState {
         super.update(delta);
         if (currentAnimation.isAnimationFinished(stateTime) && theFirst) {
             stateTime = 0f;
-            currentAnimation = Animations.FalseKnight.create("Attack", PlayMode.NORMAL, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("Attack", PlayMode.NORMAL, enemy.frameDuration);
             theFirst = false;
             return;
         }
         if (currentAnimation.isAnimationFinished(stateTime) && theMiddle) {
             performAttack();
             stateTime = 0f;
-            currentAnimation = Animations.FalseKnight.create("Attack Recover", PlayMode.NORMAL, 0.1f);
+            currentAnimation = Animations.FalseKnight.create("Attack Recover", PlayMode.NORMAL, enemy.frameDuration);
             theMiddle = false;
             return;
         }
