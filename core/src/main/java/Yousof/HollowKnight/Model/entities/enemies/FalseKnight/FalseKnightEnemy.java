@@ -15,8 +15,11 @@ import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseFarSe
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseGroundSensors;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseMiddleSensors;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseNearbySensors;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseDeathState;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseIdleState;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseKnightState;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseKnockbackState;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseStunState;
 
 public class FalseKnightEnemy extends Enemy{
     
@@ -26,15 +29,14 @@ public class FalseKnightEnemy extends Enemy{
     private FalseKnightState currentState;
 
     private boolean facingRight = true;
+    private boolean hasStunYet = false;
+    private boolean onKnock = false;
     private boolean physicsCleanedUp = false;
-    private boolean firstUpdate = true;
 
     private FalseNearbySensors nearbySensors;
     private FalseMiddleSensors middleSensors;
     private FalseFarSensors farSensors;
     private FalseGroundSensors groundSensors;
-
-
 
     public FalseKnightEnemy(World world, float x, float y) {
         nearbySensors = new FalseNearbySensors();
@@ -60,13 +62,25 @@ public class FalseKnightEnemy extends Enemy{
     }
 
     @Override
-    public void takeDamage(Body body , int how){
+    public void takeDamage(Body body, int how) {
         this.health -= how;
-        if(health <= 0){
+    
+        if (health <= 0) {
             health = 0;
-            // changeState(new GroundDeathState());
-        }else{
-            // changeState(new GroundKnockbackState(body, currentState ,3f));
+            changeState(new FalseDeathState());
+            return;
+        }
+    
+        if (health <= 50 && !hasStunYet) {
+            hasStunYet = true;
+            changeState(new FalseStunState());
+            return;
+        }
+    
+        if (currentState instanceof FalseStunState) {
+            ((FalseStunState) currentState).currentPhase = FalseStunState.LeapPhase.HITING;
+        } else {
+            changeState(new FalseKnockbackState(body, currentState, 3f));
         }
     }
 
@@ -76,11 +90,15 @@ public class FalseKnightEnemy extends Enemy{
     }
     
     public void changeState(FalseKnightState newState){
+        if (onKnock && currentState instanceof FalseKnockbackState) {
+            ((FalseKnockbackState) currentState).changeState(newState);
+            return;
+        }
         if (currentState != null) {
             currentState.exit();
         }
         currentState = newState;
-        currentState.enter(this);
+        if(!currentState.isEntered()) currentState.enter(this);
     }
     
     private void createBody(World world, Vector2 spawnPos) {
@@ -155,5 +173,13 @@ public class FalseKnightEnemy extends Enemy{
     }
     public float getSpeed() {
         return speed;
+    }
+
+    public boolean isOnKnock() {
+        return onKnock;
+    }
+
+    public void setOnKnock(boolean onKnock) {
+        this.onKnock = onKnock;
     }
 }

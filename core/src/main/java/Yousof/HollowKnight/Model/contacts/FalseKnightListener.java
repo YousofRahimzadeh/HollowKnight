@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
-import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseNearbySensors;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class FalseKnightListener implements ContactListener{

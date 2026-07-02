@@ -13,9 +13,8 @@ import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 
 public class FalseOffensiveLeapState extends FalseKnightState {
 
-    private enum LeapPhase { JUMPING, FALLING, LANDING, ATTACKING }
+    private enum LeapPhase { JUMPING, LANDING}
     private LeapPhase currentPhase;
-
     @Override
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
@@ -31,27 +30,14 @@ public class FalseOffensiveLeapState extends FalseKnightState {
     public void update(float delta) {
         super.update(delta);
 
-        if (currentPhase == LeapPhase.JUMPING && body.getLinearVelocity().y < 0f) {
-            currentPhase = LeapPhase.FALLING;
+        if (currentPhase == LeapPhase.JUMPING && enemy.getGroundSensors().groundSensor > 0 && currentAnimation.isAnimationFinished(stateTime)) {
+            currentPhase = LeapPhase.LANDING;
+            currentAnimation = Animations.FalseKnight.create("Land", PlayMode.NORMAL, 0.1f);
+            stateTime = 0f;
             return;
         } 
 
-        if (currentPhase == LeapPhase.FALLING) {
-            if (body.getLinearVelocity().y == 0f) {
-                currentPhase = LeapPhase.LANDING;
-            }
-            return;
-        } 
-        if (currentPhase == LeapPhase.LANDING) {
-            if (enemy.getGroundSensors().groundSensor > 0) {
-                currentPhase = LeapPhase.ATTACKING;
-                currentAnimation = Animations.FalseKnight.create("Jump Attack", PlayMode.NORMAL, 0.1f);
-                stateTime = 0f;
-            }
-            return;
-        }
-
-        if (currentPhase == LeapPhase.ATTACKING && currentAnimation.isAnimationFinished(stateTime)) {
+        if (currentPhase == LeapPhase.LANDING && currentAnimation.isAnimationFinished(stateTime)) {
             enemy.changeState(new FalseIdleState());
             return;
         }

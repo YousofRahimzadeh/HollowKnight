@@ -19,7 +19,7 @@ public class FalseGroundSensors {
         fdef.shape = shape;
 
         float HSensorWidth = hx;
-        float HSensorHeight = 80f / Constants.PPM;
+        float HSensorHeight = 5f / Constants.PPM;
 
         fdef.isSensor = true;
         fdef.filter.categoryBits = Constants.BIT_ENEMY;

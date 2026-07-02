@@ -145,9 +145,9 @@ public class KnightAttackState extends KnightState{
             knight.changeState(new KnightPogoJumpState());
             return;
         }
-        
-        if(enemies != null && !enemies.isEmpty()){
-            for(Enemy enemy : enemies){
+        ArrayList<Enemy> targets = new ArrayList<>(enemies);
+        if(targets != null && !targets.isEmpty()){
+            for(Enemy enemy : targets){
                 if(enemy != null){
                     enemy.takeDamage(knight.getBody() , knight.getDamage());
                     knight.addCurrentSoul();

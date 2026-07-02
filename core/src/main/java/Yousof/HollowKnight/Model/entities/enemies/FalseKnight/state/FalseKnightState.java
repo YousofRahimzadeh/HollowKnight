@@ -12,11 +12,13 @@ public class FalseKnightState {
     protected float stateTime;
     protected FalseKnightEnemy enemy;
     protected Body body;
+    protected boolean entered = false;
 
     public void enter(FalseKnightEnemy enemy){
         stateTime = 0f;
         this.enemy = enemy;
         this.body = enemy.getBody();
+        this.entered = true;
     }
     public void update(float delta){
         stateTime += delta;
@@ -29,4 +31,7 @@ public class FalseKnightState {
     public void exit(){}
     public void draw(Batch batch){}
     public void drawEffects(Batch batch, float stateTime){}
+    public boolean isEntered(){
+        return this.entered;
+    }
 }

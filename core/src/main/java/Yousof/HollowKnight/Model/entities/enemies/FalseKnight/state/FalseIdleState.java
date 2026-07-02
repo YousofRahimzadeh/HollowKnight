@@ -30,7 +30,7 @@ public class FalseIdleState extends FalseKnightState {
 
         body.setLinearVelocity(0f, body.getLinearVelocity().y);
         
-        if(stateTime < 2f) return;
+        if(stateTime < 1.5f) return;
 
         if(!directionalDecisionMade && enemy.getFarSensors().knight != null){
             Vector2 knightPos = enemy.getFarSensors().knight.getBody().getPosition();
