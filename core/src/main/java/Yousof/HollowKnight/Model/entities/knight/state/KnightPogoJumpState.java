@@ -21,12 +21,13 @@ public class KnightPogoJumpState extends KnightState{
         super.enter(knight);
         animation = Animations.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
         effectAnimation = Animations.KnightEffects.create("DownSlashEffect", PlayMode.NORMAL, 0.06f);
-        knight.setCanDoubleJump(true);
-        knight.setCanDash(true);
+    
         boolean spikeDetected = knight.getAttackSensors().spikesOnDown > 0;
         boolean enemyDetected = !knight.getAttackSensors().downSensor.isEmpty();
 
         if (spikeDetected || enemyDetected) {
+            knight.setCanDoubleJump(true);
+            knight.setCanDash(true);
             knight.getBody().setLinearVelocity(knight.getBody().getLinearVelocity().x , 0f);
             knight.getBody().applyLinearImpulse(new Vector2(0f , 5f), knight.getBody().getWorldCenter(), true);
 

@@ -2,6 +2,7 @@ package Yousof.HollowKnight.Model.entities.knight.state;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -16,14 +17,15 @@ public class KnightDashState extends KnightState{
     public void enter(Knight knight) {  
         super.enter(knight);
         animation = Animations.Knight.create("Dash", PlayMode.NORMAL, 0.08f);
+        float speed = (knight.isFacingRight()) ? 12f : -12f;
+        body.applyLinearImpulse(new Vector2(speed , 0), body.getWorldCenter() , true);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
         
-        float speed = (knight.isFacingRight()) ? 12f : -12f;
-        body.setLinearVelocity(speed , 0f);
+        body.setLinearVelocity(body.getLinearVelocity().x , 0f);
         
         if(animation.isAnimationFinished(stateTime)){
             body.setLinearVelocity(0f, 0f);
@@ -31,7 +33,7 @@ public class KnightDashState extends KnightState{
                 knight.changeState(new KnightIdleState());
                 return;
             }
-
+            
             knight.setCanDoubleJump(true);
             knight.changeState(new KnightFallState());
         }

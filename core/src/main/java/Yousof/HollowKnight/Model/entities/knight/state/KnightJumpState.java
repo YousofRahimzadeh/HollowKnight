@@ -16,10 +16,13 @@ public class KnightJumpState extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Airborne", PlayMode.NORMAL, 0.08f);
+        if(knight.isCanDoubleJump()){
+            animation = Animations.Knight.create("Airborne", PlayMode.NORMAL, 0.08f);
+        }else{
+            animation = Animations.Knight.create("Double Jump", PlayMode.NORMAL, 0.08f);
+        }
         body.setLinearVelocity(body.getLinearVelocity().x , 0f);
         body.applyLinearImpulse(new Vector2(0f , 7.5f), body.getPosition(), true);
-        knight.setCanDoubleJump(true);
     }
 
     @Override
@@ -45,9 +48,12 @@ public class KnightJumpState extends KnightState{
         }
 
         if(Gdx.input.isKeyJustPressed(Keys.KNIGHTJUMP.key) && knight.isCanDoubleJump()){
+            animation = Animations.Knight.create("Double Jump", PlayMode.NORMAL, 0.08f);
+            stateTime = 0;
             body.setLinearVelocity(body.getLinearVelocity().x, 0);
-            body.applyLinearImpulse(new Vector2(0f , 5f), body.getPosition(), true);
+            body.applyLinearImpulse(new Vector2(0f , 7f), body.getPosition(), true);
             knight.setCanDoubleJump(false);
+            knight.setOnDoubleJump(true);
             return;
         }
 

@@ -39,6 +39,7 @@ public class Knight extends Entitie {
     private boolean facingRight = true;
     private boolean onKnock = false;
     private boolean canDoubleJump = true;
+    private boolean onDoubleJump = false;
     private boolean canDash = true;
 
 
@@ -152,6 +153,8 @@ public class Knight extends Entitie {
     public void setFacingRight(boolean facingRight) {this.facingRight = facingRight;}
     public boolean isCanDoubleJump() {return canDoubleJump;}
     public void setCanDoubleJump(boolean canDoubleJump) {this.canDoubleJump = canDoubleJump;}
+    public boolean isOnDoubleJump() {return onDoubleJump;}
+    public void setOnDoubleJump(boolean onDoubleJump) {this.onDoubleJump = onDoubleJump;}
     public boolean isCanDash() {return canDash;}
     public void setCanDash(boolean canDash) {this.canDash = canDash;}
     public float getFocusDuration() {return focusDuration;}

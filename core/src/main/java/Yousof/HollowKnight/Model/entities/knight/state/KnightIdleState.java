@@ -30,6 +30,7 @@ public class KnightIdleState extends KnightState{
             knight.changeState(new KnightRunState());
         }
         if(Gdx.input.isKeyJustPressed(Keys.KNIGHTJUMP.key)){
+            knight.setCanDoubleJump(true);
             knight.changeState(new KnightJumpState());
         }
         if(Gdx.input.isKeyPressed(Keys.KNIGHTDASH.key)){
