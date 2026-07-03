@@ -40,7 +40,7 @@ public class AbstractScreen implements Screen {
         Gdx.graphics.setCursor(customCursor);
         batch = new SpriteBatch();
         stageCamera = new OrthographicCamera();
-        stageViewport = new ScalingViewport(Scaling.fill, 960, 540, stageCamera);
+        stageViewport = new ScalingViewport(Scaling.fit, 1920, 1080, stageCamera);
         stage = new Stage(stageViewport);
         Image background = new Image(new Texture("background.png"));
         background.setFillParent(true);

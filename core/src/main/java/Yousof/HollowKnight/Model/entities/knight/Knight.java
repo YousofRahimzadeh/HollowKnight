@@ -75,7 +75,7 @@ public class Knight extends Entitie {
         fdef.shape = shape;
         fdef.friction = 0f;
         fdef.filter.categoryBits = Constants.BIT_KNIGHT;
-        fdef.filter.maskBits = Constants.BIT_ENEMY | Constants.BIT_GROUND;
+        fdef.filter.maskBits = Constants.BIT_ENEMY | Constants.BIT_GROUND | Constants.BIT_NPC;
         body.createFixture(fdef).setUserData("Knight_main_body");
         shape.dispose();
 
