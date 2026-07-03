@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Utils.CameraSession;
+import Yousof.HollowKnight.Utils.state.CameraVibrationState;
 
 public class FalseKnockbackState extends FalseKnightState {
 
@@ -50,6 +52,7 @@ public class FalseKnockbackState extends FalseKnightState {
                 true
             );
         }
+        CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
     }
 
     @Override

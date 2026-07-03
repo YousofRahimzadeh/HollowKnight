@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 
+import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 
 public class FalseKnightState {
@@ -26,7 +27,7 @@ public class FalseKnightState {
     public void reCreateBody(){
         while (body.getFixtureList().size > 0) {
             body.destroyFixture(body.getFixtureList().first());
-        }
+        }   
     }
     public void exit(){}
     public void draw(Batch batch){}

@@ -148,14 +148,16 @@ public class FalseIdleState extends FalseKnightState {
         shape.setAsBox(bodyHx, bodyHy);
         fdef.shape = shape;
         fdef.isSensor = false;
+        fdef.filter.categoryBits = Constants.BIT_ENEMY;
+        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT | Constants.BIT_PROJECTILE;
         body.createFixture(fdef).setUserData("Enemy_main_body");
 
-        float headHx = (125f / Constants.PPM) / 2f;
-        float headHy = (80f / Constants.PPM) / 2f;
-        shape.setAsBox(headHx, headHy , new Vector2(0f , bodyHy + headHy) , 0f);
-        fdef.shape = shape;
-        fdef.isSensor = false;
-        body.createFixture(fdef).setUserData("Enemy_main_body");
+        // float headHx = (125f / Constants.PPM) / 2f;
+        // float headHy = (80f / Constants.PPM) / 2f;
+        // shape.setAsBox(headHx, headHy , new Vector2(0f , bodyHy + headHy) , 0f);
+        // fdef.shape = shape;
+        // fdef.isSensor = false;
+        // body.createFixture(fdef).setUserData("Enemy_main_body");
         shape.dispose();
 
         enemy.getNearbySensors().createSensors(body, bodyHx, bodyHy);

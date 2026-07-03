@@ -38,7 +38,7 @@ public class ZoteIdleState extends ZoteState {
             drawE = true;
             if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.E)) {
                 // فرض می‌کنیم متد تغییر وضعیت رو اینطوری داری:
-                // enemy.getStateMachine().changeState(new ZoteDialogueState());
+                enemy.changeState(new ZoteDialogueState());
             }
         } else {
             drawE = false;

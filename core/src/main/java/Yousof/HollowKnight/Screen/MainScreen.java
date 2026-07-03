@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import Yousof.HollowKnight.Main;
-import Yousof.HollowKnight.Model.GameStore;
+import Yousof.HollowKnight.Model.GameSession;
 
 public class MainScreen extends AbstractScreen {
 
@@ -56,7 +56,7 @@ public class MainScreen extends AbstractScreen {
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(new GameScreen(new GameStore(null, null , null)));
+                Main.getInstance().setScreen(new GameScreen(new GameSession(null, null , null)));
             }
         });
 

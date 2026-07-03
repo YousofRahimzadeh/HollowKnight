@@ -9,6 +9,8 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Keys;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.CameraSession;
+import Yousof.HollowKnight.Utils.state.CameraVibrationState;
 
 public class KnightFocusState extends KnightState{
 
@@ -27,6 +29,7 @@ public class KnightFocusState extends KnightState{
     @Override
     public void update(float delta) {
         super.update(delta);
+        CameraSession.getInstance().changeState(new CameraVibrationState(0.5f, 4f));
 
         if(animation.isAnimationFinished(stateTime) && theStart){
             theStart = false;

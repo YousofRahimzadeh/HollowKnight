@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Utils.CameraSession;
+import Yousof.HollowKnight.Utils.state.CameraVibrationState;
 
 public class FalseOffensiveLeapState extends FalseKnightState {
 
@@ -24,6 +26,7 @@ public class FalseOffensiveLeapState extends FalseKnightState {
 
         reCreateBody();
         launchLeapWithImpulse();
+        CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
     }
 
     @Override
@@ -81,6 +84,8 @@ public class FalseOffensiveLeapState extends FalseKnightState {
         shape.setAsBox(bodyHx, bodyHy);
         fdef.shape = shape;
         fdef.isSensor = false;
+        fdef.filter.categoryBits = Constants.BIT_ENEMY;
+        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT | Constants.BIT_PROJECTILE;
         body.createFixture(fdef).setUserData("Enemy_main_body");
 
         enemy.getNearbySensors().createSensors(body, bodyHx, bodyHy);

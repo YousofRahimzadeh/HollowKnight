@@ -1,12 +1,12 @@
 package Yousof.HollowKnight.Model.entities.projectiles;
 
 import Yousof.HollowKnight.Controller.GameController;
-import Yousof.HollowKnight.Model.GameStore;
+import Yousof.HollowKnight.Model.GameSession;
 
 public class ProjectileFactory {
 
     public static Projectile createProjectile(String name){
-        GameStore game = GameController.getGame();
+        GameSession game = GameController.getGame();
         switch (name) {
             case "VengefulProjectile":
                 VengefulProjectile projectile = new VengefulProjectile(game.getWorld(), game.getKnight());

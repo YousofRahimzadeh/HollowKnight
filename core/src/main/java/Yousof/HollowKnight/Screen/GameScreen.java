@@ -11,19 +11,20 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.GameStore;
+import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.HUD.GameHUD;
+import Yousof.HollowKnight.Utils.CameraSession;
 
 public class GameScreen extends AbstractScreen {
-    private OrthographicCamera camera;
+    private CameraSession camera;
     private ScreenViewport viewport;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Box2DDebugRenderer worldDebuger;
 
-    private GameStore game;
+    private GameSession game;
     private GameHUD hud;
     
-    public GameScreen(GameStore game) {
+    public GameScreen(GameSession game) {
         this.game = game;
     }
 
@@ -32,11 +33,10 @@ public class GameScreen extends AbstractScreen {
         super.show();
 
         GameController.loadGame(game);
-        camera = new OrthographicCamera();
-        viewport = new ScreenViewport(camera);
+        camera = CameraSession.getInstance();
+        viewport = new ScreenViewport(camera.getCamera());
         mapRenderer = new OrthogonalTiledMapRenderer(game.getMap(), 1f);
         worldDebuger = new Box2DDebugRenderer();
-        camera.position.set(game.getKnight().getPos().x * Constants.PPM, game.getKnight().getPos().y * Constants.PPM, 0);
         hud = new GameHUD(game.getKnight());
     }
 
@@ -47,23 +47,21 @@ public class GameScreen extends AbstractScreen {
 
         GameController.updateGame(delta);
         
-        camera.position.x = MathUtils.lerp(camera.position.x, game.getKnight().getBody().getPosition().x * Constants.PPM, 0.1f);
-        camera.position.y = MathUtils.lerp(camera.position.y, game.getKnight().getBody().getPosition().y * Constants.PPM, 0.1f);
-        camera.update();
-        mapRenderer.setView(camera);
+        camera.update(delta);
+        mapRenderer.setView(camera.getCamera());
         mapRenderer.render();
         
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.getCamera().combined);
         batch.begin();
         GameController.drawGame(batch , delta);
         batch.end();
 
         hud.render(batch, delta);
 
-        Matrix4 debugMatrix = camera.combined.cpy();
+        Matrix4 debugMatrix = camera.getCamera().combined.cpy();
         debugMatrix.scale(Constants.PPM, Constants.PPM, 1f); 
-        worldDebuger.setDrawInactiveBodies(true);
-        worldDebuger.render(game.getWorld(), debugMatrix);
+        // worldDebuger.setDrawInactiveBodies(true);
+        // worldDebuger.render(game.getWorld(), debugMatrix);
 
     }
 

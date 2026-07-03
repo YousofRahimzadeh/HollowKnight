@@ -12,7 +12,8 @@ import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
 import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 
-public class GameStore implements Disposable{
+public class GameSession implements Disposable{
+	private static GameSession gameSession;
     private TiledMap map;
 	private World world;
 	private Zote zote;
@@ -21,7 +22,7 @@ public class GameStore implements Disposable{
     private ArrayList<Projectile> projectiles;
 	private ArrayList<Entitie> toRemove;
 
-	public GameStore(TiledMap map , World world, Knight knight) {
+	public GameSession(TiledMap map , World world, Knight knight) {
 		this.map = map;
 		this.world = world;
 		this.knight = knight;
@@ -29,6 +30,14 @@ public class GameStore implements Disposable{
 		this.enemies = new ArrayList<>();
 		this.projectiles = new ArrayList<>();
 		this.toRemove = new ArrayList<>();
+	}
+
+	public static void setInstance(GameSession game){
+		gameSession = game;
+	}
+
+	public static GameSession getInstance(){
+		return gameSession;
 	}
 
     public TiledMap getMap() {

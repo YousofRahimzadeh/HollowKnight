@@ -1,5 +1,7 @@
 package Yousof.HollowKnight.Model.entities.npc;
 
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -17,11 +19,14 @@ public class Zote extends Entitie{
     private ZoteSurroundSensor surroundSensor;
     private ZoteState currentState;
     private boolean facingRight = true;
+    private boolean tackedOnce = false;
+    private Camera hudCamera;
 
     public Zote(World world , float x, float y) {
         surroundSensor = new ZoteSurroundSensor();
         createBody(world , x, y);
         changeState(new ZoteIdleState());
+        hudCamera = new OrthographicCamera();
     }
 
     @Override
@@ -92,6 +97,22 @@ public class Zote extends Entitie{
 
     public void setFacingRight(boolean facingRight) {
         this.facingRight = facingRight;
+    }
+
+    public boolean hasTalkedOnce() {
+        return tackedOnce;
+    }
+
+    public void setTalkedOnce(boolean tackedOnce) {
+        this.tackedOnce = tackedOnce;
+    }
+
+    public Camera getHudCamera() {
+        return hudCamera;
+    }
+
+    public void setHudCamera(Camera hudCamera) {
+        this.hudCamera = hudCamera;
     }
     
 }

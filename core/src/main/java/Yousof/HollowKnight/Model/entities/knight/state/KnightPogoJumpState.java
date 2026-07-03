@@ -77,16 +77,31 @@ public class KnightPogoJumpState extends KnightState{
         batch.draw(effectFrame, effectX, effectY);
     }
 
-    private void performAttack(){
+    private void performAttack() {
         ArrayList<Enemy> enemies = knight.getAttackSensors().downSensor;
         
-        if(enemies != null && !enemies.isEmpty()){
-            for(Enemy enemy : enemies){
-                if(enemy != null){
-                    enemy.takeDamage(knight.getBody() , knight.getDamage());
+        if (enemies == null || enemies.isEmpty()) {
+            return;
+        }
+
+        java.util.Iterator<Enemy> iterator = enemies.iterator();
+
+        while (iterator.hasNext()) {
+            try {
+                Enemy enemy = iterator.next();
+
+                if (enemy != null && enemy.getBody() != null) {
+
+                    enemy.takeDamage(knight.getBody(), knight.getDamage());
                     knight.addCurrentSoul();
                     enemy.applyKnockback(body);
+
+                } else {
+                    iterator.remove();
                 }
+
+            } catch (Exception e) {
+                System.err.println("Error: " + e.getMessage());
             }
         }
     }

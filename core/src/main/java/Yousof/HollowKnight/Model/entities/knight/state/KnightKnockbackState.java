@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.CameraSession;
+import Yousof.HollowKnight.Utils.state.CameraVibrationState;
 
 public class KnightKnockbackState extends KnightState{
 
@@ -26,6 +28,7 @@ public class KnightKnockbackState extends KnightState{
         this.stateTime = lastState.stateTime;
         this.animation = lastState.animation;
         if(lastState instanceof KnightFocusState) changeState(new KnightIdleState());
+        CameraSession.getInstance().changeState(new CameraVibrationState(1f, 10f));
     }
 
     @Override

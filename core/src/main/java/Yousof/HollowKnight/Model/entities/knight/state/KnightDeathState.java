@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.CameraSession;
+import Yousof.HollowKnight.Utils.state.CameraVibrationState;
 
 public class KnightDeathState extends KnightState{
 
@@ -15,6 +17,7 @@ public class KnightDeathState extends KnightState{
     public void enter(Knight knight) {  
         super.enter(knight);
         animation = Animations.Knight.create("Death", PlayMode.NORMAL, 0.08f);
+        CameraSession.getInstance().changeState(new CameraVibrationState(1f, 16f));
         
     }
 

@@ -11,6 +11,8 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.CameraSession;
+import Yousof.HollowKnight.Utils.state.CameraVibrationState;
 
 public class KnightHowlingWraiths extends KnightState{
 
@@ -28,6 +30,7 @@ public class KnightHowlingWraiths extends KnightState{
         effecAnimation = Animations.KnightEffects.create("ShadowScream", PlayMode.NORMAL, 0.08f);
 
         performAttack();
+        CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
     }
 
     @Override

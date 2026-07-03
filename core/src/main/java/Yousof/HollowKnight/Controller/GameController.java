@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.GameStore;
+import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.contacts.CrystalEnemyListener;
 import Yousof.HollowKnight.Model.contacts.FalseKnightListener;
 import Yousof.HollowKnight.Model.contacts.FlyingEnemyListener;
@@ -36,13 +36,13 @@ import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 
 public class GameController {
 
-    private static GameStore game;
+    private static GameSession game;
 
-    public static GameStore getGame() {
+    public static GameSession getGame() {
         return game;
     }
 
-    public static void loadGame(GameStore Context){
+    public static void loadGame(GameSession Context){
         game = Context;
 
         TiledMap map = new TmxMapLoader().load("untitled.tmx");
@@ -59,7 +59,8 @@ public class GameController {
         game.setKnight(knight);
 
         loadContactListeners();
-        
+
+        GameSession.setInstance(game);        
     }
 
     public static void updateGame(float delta){

@@ -9,6 +9,8 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.projectiles.ProjectileFactory;
+import Yousof.HollowKnight.Utils.CameraSession;
+import Yousof.HollowKnight.Utils.state.CameraVibrationState;
 
 public class KnightVengefulSpiritState extends KnightState{
 
@@ -25,6 +27,7 @@ public class KnightVengefulSpiritState extends KnightState{
         animation = Animations.Knight.create("Fireball Cast", PlayMode.NORMAL, 0.08f);
         effecAnimation = Animations.KnightEffects.create("Blast", PlayMode.NORMAL, 0.08f);
         ProjectileFactory.createProjectile("VengefulProjectile");
+        CameraSession.getInstance().changeState(new CameraVibrationState(1f, 10f));
     }
 
     @Override

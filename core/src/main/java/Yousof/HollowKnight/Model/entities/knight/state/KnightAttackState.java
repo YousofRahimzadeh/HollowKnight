@@ -38,6 +38,7 @@ public class KnightAttackState extends KnightState{
             currentDir = Direction.HOR;
             animation = Animations.Knight.create("Slash", PlayMode.NORMAL, 0.08f);
         }
+
         performAttack();
     }
 
