@@ -20,11 +20,11 @@ public class KnightVengefulSpiritState extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        AudioManager.getInstance().playSound(AudioStore.HollowKnightFireBall.path);
         if(knight.getCurrentSoul() < 33) {
             knight.changeState(new KnightIdleState());
             return;
         }
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightFireBall.path);
         
         knight.setCurrentSoul(knight.getCurrentSoul() - 33);
         animation = AnimationManager.Knight.create("Fireball Cast", PlayMode.NORMAL, 0.08f);

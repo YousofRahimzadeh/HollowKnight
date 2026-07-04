@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
@@ -53,6 +55,7 @@ public class FalseKnockbackState extends FalseKnightState {
             );
         }
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
+        AudioManager.getInstance().playSound(AudioStore.EnemyDamage.path);
     }
 
     @Override

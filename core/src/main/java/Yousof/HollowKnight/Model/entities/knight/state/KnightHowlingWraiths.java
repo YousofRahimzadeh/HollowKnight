@@ -11,6 +11,8 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
@@ -20,6 +22,7 @@ public class KnightHowlingWraiths extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightScream.path);
         if(knight.getCurrentSoul() < 33) {
             knight.changeState(new KnightIdleState());
             return;

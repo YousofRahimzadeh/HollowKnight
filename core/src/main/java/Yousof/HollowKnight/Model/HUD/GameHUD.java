@@ -23,8 +23,8 @@ public class GameHUD {
     private FrameBuffer fbo;
     private TextureRegion fboRegion;
 
-    private Texture vesselMask;      // کادر داخلی یا ماسک دایره روح
-    private Texture vesselBorder;    // کادر ظاهری نقره‌ای (HealthBar.png)
+    private Texture vesselMask;    
+    private Texture vesselBorder;
     
     private Animation<TextureRegion> liquidAnimation; 
     private Animation<TextureRegion> containerAnimation;

@@ -9,6 +9,8 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
@@ -24,6 +26,7 @@ public class KnightFocusState extends KnightState{
             knight.changeState(new KnightIdleState());
             return;
         }
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightFocus.path);
     }
 
     @Override
@@ -59,6 +62,7 @@ public class KnightFocusState extends KnightState{
 
     @Override
     public void exit() {
+        AudioManager.getInstance().stopSound(AudioStore.HollowKnightFocus.path);
         
     }
 

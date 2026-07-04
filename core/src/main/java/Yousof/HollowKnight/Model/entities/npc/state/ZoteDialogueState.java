@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.Array;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.ZoteVoices;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraDialogueState;
 import Yousof.HollowKnight.Utils.camera.state.CameraKnightState;
@@ -99,6 +101,12 @@ public class ZoteDialogueState extends ZoteState {
         currentFullText = dialogueLines.get(index);
         displayText = "";
         typeTimer = 0;
+
+        ZoteVoices[] voices = ZoteVoices.values();
+        int randomIndex = MathUtils.random(0, voices.length - 1);
+        String selectedVoicePath = voices[randomIndex].getFilePath();
+
+        AudioManager.getInstance().playSound(selectedVoicePath);
     }
 
     @Override

@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class FalseStunState extends FalseKnightState {
 
@@ -68,6 +70,7 @@ public class FalseStunState extends FalseKnightState {
         if(currentPhase == LeapPhase.HITING){
             currentPhase = LeapPhase.IDLE;
             currentAnimation = AnimationManager.FalseKnight.create("DeathHit", PlayMode.NORMAL, enemy.frameDuration);
+            AudioManager.getInstance().playSound(AudioStore.EnemyDamage.path);
             stateTime = 0f;
         }
 

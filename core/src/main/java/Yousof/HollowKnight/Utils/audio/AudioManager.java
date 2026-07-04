@@ -19,6 +19,7 @@ public class AudioManager {
     
     private float fadeSpeed = 1f;
     private float maxTargetVolume = VolumeSettings.MUSIC.getVolume();
+    private float maxSfxVolume = VolumeSettings.SFX.getVolume(); 
     private boolean nextMusicLoop = true;
 
     private AudioManager() {
@@ -61,6 +62,7 @@ public class AudioManager {
     }
 
     public void update(float delta) {
+        updateVolumeSettings();
         if (fadeState == FadeState.NONE || currentMusic == null) return;
 
         if (fadeState == FadeState.FADING_OUT) {
@@ -101,7 +103,8 @@ public class AudioManager {
         } else {
             sound = sounds.get(filePath);
         }
-        sound.play();
+
+        sound.play(maxSfxVolume);
     }
 
     public void stopSound(String filePath) {
@@ -113,6 +116,15 @@ public class AudioManager {
             sound = sounds.get(filePath);
         }
         sound.stop();
+    }
+
+    public void updateVolumeSettings() {
+        this.maxTargetVolume = VolumeSettings.MUSIC.getVolume();
+        this.maxSfxVolume = VolumeSettings.SFX.getVolume();
+        
+        if (currentMusic != null && currentMusic.isPlaying() && fadeState == FadeState.NONE) {
+            currentMusic.setVolume(this.maxTargetVolume);
+        }
     }
 
     public void dispose() {

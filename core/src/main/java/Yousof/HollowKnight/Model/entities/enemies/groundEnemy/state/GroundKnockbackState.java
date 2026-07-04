@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.groundEnemy.GroundEnemy;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class GroundKnockbackState extends GroundEnemyState{
 
@@ -45,6 +47,8 @@ public class GroundKnockbackState extends GroundEnemyState{
                 true
             );
         }
+
+        AudioManager.getInstance().playSound(AudioStore.EnemyDamage.path);
     }
 
     @Override

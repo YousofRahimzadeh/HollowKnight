@@ -18,8 +18,6 @@ public class MainScreen extends AbstractScreen {
     public void show() {
         super.show();
 
-        AudioManager.getInstance().transitionToMusic(AudioStore.HollowKnight.path, true);
-
         Table table = new Table();
         table.setFillParent(true);
 

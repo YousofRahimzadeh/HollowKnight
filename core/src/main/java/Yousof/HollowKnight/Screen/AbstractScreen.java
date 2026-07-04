@@ -19,6 +19,8 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
 
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+
 
 public class AbstractScreen implements Screen {
     public static Music music;
@@ -57,6 +59,7 @@ public class AbstractScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        AudioManager.getInstance().update(delta);
         ScreenUtils.clear(new Color(0 , 0 ,0 ,1));
         stage.act(delta);
         stage.draw();

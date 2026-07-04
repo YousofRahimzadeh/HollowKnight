@@ -18,6 +18,8 @@ import Yousof.HollowKnight.Model.entities.knight.state.KnightDeathState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightIdleState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightKnockbackState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class Knight extends Entitie {
     private int currentMasks = 5;
@@ -132,6 +134,7 @@ public class Knight extends Entitie {
 
     public void addCurrentSoul(){
         if(currentSoul >= 99) return;
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightSoulGain.path);
         currentSoul += 11;
     }
 
@@ -141,6 +144,7 @@ public class Knight extends Entitie {
 
         currentSoul -= 33;
         currentMasks += 1;
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightHealthHeal.path);
     }
 
     public void dispose() {}

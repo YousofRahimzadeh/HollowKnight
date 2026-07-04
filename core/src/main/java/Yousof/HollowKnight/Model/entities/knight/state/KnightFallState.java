@@ -2,7 +2,6 @@ package Yousof.HollowKnight.Model.entities.knight.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -20,7 +19,7 @@ public class KnightFallState extends KnightState{
     public void enter(Knight knight) {  
         super.enter(knight);
         animation = AnimationManager.Knight.create("Fall", PlayMode.LOOP, 0.08f);
-        AudioManager.getInstance().playSound(AudioStore.HollowKnightFly.path);
+        // AudioManager.getInstance().playSound(AudioStore.HollowKnightFly.path);
     }
 
     @Override
@@ -89,7 +88,7 @@ public class KnightFallState extends KnightState{
 
     @Override
     public void exit() {
-        AudioManager.getInstance().stopSound(AudioStore.HollowKnightFly.path);
+        // AudioManager.getInstance().stopSound(AudioStore.HollowKnightFly.path);
     }
 
     @Override

@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import Yousof.HollowKnight.Main;
+import Yousof.HollowKnight.Enum.VolumeSettings;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class SettingScreen extends AbstractScreen {
     private Preferences preferences;
@@ -70,6 +72,7 @@ public class SettingScreen extends AbstractScreen {
 
     private void updateVolume(float newVolume) {
         volume = MathUtils.clamp(newVolume, 0f, 1f);
+        VolumeSettings.MUSIC.setVolume(newVolume);
         preferences.putFloat("soundVolume", volume);
         preferences.flush();
         volumeLabel.setText("Sound Volume: " + (int) (volume * 100) + "%");

@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class CrystalKnockbackState extends CrystalEnemyState{
 
@@ -45,6 +47,8 @@ public class CrystalKnockbackState extends CrystalEnemyState{
                 true
             );
         }
+
+        AudioManager.getInstance().playSound(AudioStore.EnemyDamage.path);
     }
 
     @Override

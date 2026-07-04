@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class WingedKnockbackState extends WingedSentryState {
 
@@ -45,6 +47,7 @@ public class WingedKnockbackState extends WingedSentryState {
                 true
             );
         }
+        AudioManager.getInstance().playSound(AudioStore.EnemyDamage.path);
     }
 
     @Override
