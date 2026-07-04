@@ -6,16 +6,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class WingedIdleState extends WingedSentryState{
 
     @Override
     public void enter(WingedSentry enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.WingedSentry.create("Idle", PlayMode.LOOP, 0.08f);
+        currentAnimation = AnimationManager.WingedSentry.create("Idle", PlayMode.LOOP, 0.08f);
     }
 
     @Override

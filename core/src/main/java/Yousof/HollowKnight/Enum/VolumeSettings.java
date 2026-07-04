@@ -1,8 +1,8 @@
 package Yousof.HollowKnight.Enum;
 
 public enum VolumeSettings {
-    MUSIC(50f , true),
-    SFX(50f , true);
+    MUSIC(1f , true),
+    SFX(1f , true);
 
     private float volume;
     private boolean on;

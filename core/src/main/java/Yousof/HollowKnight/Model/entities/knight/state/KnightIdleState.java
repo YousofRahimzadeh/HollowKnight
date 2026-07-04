@@ -7,15 +7,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class KnightIdleState extends KnightState{
 
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Idle", PlayMode.LOOP, 0.08f);
+        animation = AnimationManager.Knight.create("Idle", PlayMode.LOOP, 0.08f);
     }
 
     @Override

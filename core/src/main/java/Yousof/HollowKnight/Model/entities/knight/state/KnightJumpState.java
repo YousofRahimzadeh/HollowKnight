@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class KnightJumpState extends KnightState{
 
@@ -17,9 +17,9 @@ public class KnightJumpState extends KnightState{
     public void enter(Knight knight) {  
         super.enter(knight);
         if(knight.isCanDoubleJump()){
-            animation = Animations.Knight.create("Airborne", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("Airborne", PlayMode.NORMAL, 0.08f);
         }else{
-            animation = Animations.Knight.create("Double Jump", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("Double Jump", PlayMode.NORMAL, 0.08f);
         }
         body.setLinearVelocity(body.getLinearVelocity().x , 0f);
         body.applyLinearImpulse(new Vector2(0f , 7.5f), body.getPosition(), true);
@@ -48,7 +48,7 @@ public class KnightJumpState extends KnightState{
         }
 
         if(Gdx.input.isKeyJustPressed(KeysSettings.KNIGHTJUMP.key) && knight.isCanDoubleJump()){
-            animation = Animations.Knight.create("Double Jump", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("Double Jump", PlayMode.NORMAL, 0.08f);
             stateTime = 0;
             body.setLinearVelocity(body.getLinearVelocity().x, 0);
             body.applyLinearImpulse(new Vector2(0f , 7f), body.getPosition(), true);

@@ -1,11 +1,11 @@
-package Yousof.HollowKnight.Enum.Animations;
+package Yousof.HollowKnight.Utils.animation;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public enum Animations {
+public enum AnimationManager {
     Soul("Animations/Atlas/HUD/SoulAnim.atlas"),
     SoulContainer("Animations/Atlas/HUD/SoulContainer.atlas"),
     Mask("Animations/Atlas/HUD/KnightHp.atlas"),
@@ -24,13 +24,13 @@ public enum Animations {
     private String atlasPath;
     private static AssetManager assetManager;
     
-    Animations(String atlasPath) {
+    AnimationManager(String atlasPath) {
         this.atlasPath = atlasPath;
     }
 
     public static void loadAll(AssetManager assetsManager) {
         assetManager = assetsManager;
-        for (Animations type : values()) {
+        for (AnimationManager type : values()) {
             assetManager.load(type.atlasPath, TextureAtlas.class);
         }
         assetManager.finishLoading();

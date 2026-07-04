@@ -10,8 +10,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class VengefulProjectile extends Projectile{
     private Animation<TextureRegion> animation;
@@ -23,7 +23,7 @@ public class VengefulProjectile extends Projectile{
 
     public VengefulProjectile(World world ,Knight knight){
         isFacingRight = knight.isFacingRight();
-        animation = Animations.KnightProjectile.create("SoulBall", PlayMode.LOOP_PINGPONG, 0.08f);
+        animation = AnimationManager.KnightProjectile.create("SoulBall", PlayMode.LOOP_PINGPONG, 0.08f);
         createBody(world , knight);
         speed = (isFacingRight) ? maxSpeed : -maxSpeed;
     }

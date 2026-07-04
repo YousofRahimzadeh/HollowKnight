@@ -17,7 +17,7 @@ public class AudioManager {
     private enum FadeState { NONE, FADING_OUT, FADING_IN }
     private FadeState fadeState = FadeState.NONE;
     
-    private float fadeSpeed = 1.2f;
+    private float fadeSpeed = 1f;
     private float maxTargetVolume = VolumeSettings.MUSIC.getVolume();
     private boolean nextMusicLoop = true;
 
@@ -33,6 +33,10 @@ public class AudioManager {
     }
 
     public void transitionToMusic(String nextFilePath, boolean loop) {
+        if (fadeState != FadeState.NONE) {
+            return; 
+        }
+        
         if (currentMusic == null || !currentMusic.isPlaying()) {
             playMusicImmediate(nextFilePath, loop);
             return;
@@ -98,6 +102,17 @@ public class AudioManager {
             sound = sounds.get(filePath);
         }
         sound.play();
+    }
+
+    public void stopSound(String filePath) {
+        Sound sound;
+        if (!sounds.containsKey(filePath)) {
+            sound = Gdx.audio.newSound(Gdx.files.internal(filePath));
+            sounds.put(filePath, sound);
+        } else {
+            sound = sounds.get(filePath);
+        }
+        sound.stop();
     }
 
     public void dispose() {

@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSeeSensors;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.sensors.HuskSurroundSensors;
@@ -20,11 +19,12 @@ import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskDeathSt
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskEnemyState;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskKnockbackState;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.state.HuskRunState;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class HuskHornheadEnemy extends Enemy {
     private int health;
 
-    private Animations animation;
+    private AnimationManager animation;
 
     private float yOffset;
 
@@ -40,7 +40,7 @@ public class HuskHornheadEnemy extends Enemy {
     private HuskSeeSensors seeSensors;
 
 
-    public HuskHornheadEnemy(World world, float x, float y, float width, float height, float speed , int health , Animations anim , float yOffset) {
+    public HuskHornheadEnemy(World world, float x, float y, float width, float height, float speed , int health , AnimationManager anim , float yOffset) {
         this.speed = speed;
         this.halfWidth = width / 2f;
         this.halfHeight = height / 2f;
@@ -105,7 +105,7 @@ public class HuskHornheadEnemy extends Enemy {
         fdef.friction = 0f;
         fdef.restitution = 0f;
         fdef.filter.categoryBits = Constants.BIT_ENEMY;
-        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT;
+        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT | Constants.BIT_PROJECTILE;
 
         PolygonShape shape = new PolygonShape();
         float hx = halfWidth / Constants.PPM;
@@ -158,10 +158,10 @@ public class HuskHornheadEnemy extends Enemy {
     public void setSeeSensors(HuskSeeSensors seeSensors) {
         this.seeSensors = seeSensors;
     }
-    public Animations getAnimation() {
+    public AnimationManager getAnimation() {
         return animation;
     }
-    public void setAnimation(Animations animation) {
+    public void setAnimation(AnimationManager animation) {
         this.animation = animation;
     }
     public boolean isFacingRight() {

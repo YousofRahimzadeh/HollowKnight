@@ -8,8 +8,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
@@ -22,7 +22,7 @@ public class FalseChargeMaceSlamState extends FalseKnightState{
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
         
-        currentAnimation = Animations.FalseKnight.create("Jump", PlayMode.NORMAL, enemy.frameDuration);
+        currentAnimation = AnimationManager.FalseKnight.create("Jump", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.JUMPING;
 
         launchLeapWithImpulse();
@@ -51,7 +51,7 @@ public class FalseChargeMaceSlamState extends FalseKnightState{
         if (currentPhase == LeapPhase.LANDING) {
             if (enemy.getGroundSensors().groundSensor > 0) {
                 currentPhase = LeapPhase.ATTACKING;
-                currentAnimation = Animations.FalseKnight.create("Jump Attack", PlayMode.NORMAL, enemy.frameDuration);
+                currentAnimation = AnimationManager.FalseKnight.create("Jump Attack", PlayMode.NORMAL, enemy.frameDuration);
                 stateTime = 0f;
             }
             return;

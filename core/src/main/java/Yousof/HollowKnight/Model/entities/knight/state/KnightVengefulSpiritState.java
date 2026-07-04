@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.projectiles.ProjectileFactory;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
@@ -18,14 +20,15 @@ public class KnightVengefulSpiritState extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightFireBall.path);
         if(knight.getCurrentSoul() < 33) {
             knight.changeState(new KnightIdleState());
             return;
         }
         
         knight.setCurrentSoul(knight.getCurrentSoul() - 33);
-        animation = Animations.Knight.create("Fireball Cast", PlayMode.NORMAL, 0.08f);
-        effecAnimation = Animations.KnightEffects.create("Blast", PlayMode.NORMAL, 0.08f);
+        animation = AnimationManager.Knight.create("Fireball Cast", PlayMode.NORMAL, 0.08f);
+        effecAnimation = AnimationManager.KnightEffects.create("Blast", PlayMode.NORMAL, 0.08f);
         ProjectileFactory.createProjectile("VengefulProjectile");
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 10f));
     }

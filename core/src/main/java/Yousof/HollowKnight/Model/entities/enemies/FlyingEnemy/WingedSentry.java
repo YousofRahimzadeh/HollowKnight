@@ -84,7 +84,7 @@ public class WingedSentry extends Enemy{
         fdef.friction = 0f;
         fdef.restitution = 0f;
         fdef.filter.categoryBits = Constants.BIT_ENEMY;
-        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT;
+        fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT | Constants.BIT_PROJECTILE;
 
         PolygonShape shape = new PolygonShape();
         float hx = halfWidth / Constants.PPM;

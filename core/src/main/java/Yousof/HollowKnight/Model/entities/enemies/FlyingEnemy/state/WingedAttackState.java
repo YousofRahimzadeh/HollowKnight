@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class WingedAttackState extends WingedSentryState{
 
@@ -16,7 +16,7 @@ public class WingedAttackState extends WingedSentryState{
     @Override
     public void enter(WingedSentry enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.WingedSentry.create("Charge Antic", PlayMode.NORMAL, 0.09f);
+        currentAnimation = AnimationManager.WingedSentry.create("Charge Antic", PlayMode.NORMAL, 0.09f);
         body.setLinearVelocity(0, 0);
         targetX = enemy.getSensor().knight.getBody().getPosition().x;
         isRight = (targetX > body.getPosition().x);
@@ -28,7 +28,7 @@ public class WingedAttackState extends WingedSentryState{
         super.update(delta);
         if(!isChargingFinish){
             if(currentAnimation.isAnimationFinished(stateTime)){
-                currentAnimation = Animations.WingedSentry.create("Charge", PlayMode.LOOP, 0.08f);
+                currentAnimation = AnimationManager.WingedSentry.create("Charge", PlayMode.LOOP, 0.08f);
                 isChargingFinish = true;
                 stateTime = 0;
             }else {

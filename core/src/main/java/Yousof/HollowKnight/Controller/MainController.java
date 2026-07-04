@@ -2,10 +2,10 @@ package Yousof.HollowKnight.Controller;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import Yousof.HollowKnight.Enum.Animations.Animations;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class MainController {
     public static void loadAllAssests(AssetManager assetManager){
-        Animations.loadAll(assetManager);
+        AnimationManager.loadAll(assetManager);
     }
 }

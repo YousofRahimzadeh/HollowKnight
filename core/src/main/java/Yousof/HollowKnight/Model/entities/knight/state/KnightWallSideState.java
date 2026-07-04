@@ -8,15 +8,15 @@ import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class KnightWallSideState extends KnightState{
 
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Wall Slide", PlayMode.LOOP, 0.08f);
+        animation = AnimationManager.Knight.create("Wall Slide", PlayMode.LOOP, 0.08f);
     }
 
     @Override

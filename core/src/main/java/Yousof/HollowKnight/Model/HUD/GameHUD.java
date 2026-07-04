@@ -13,8 +13,8 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class GameHUD {
     private OrthographicCamera hudCamera;
@@ -39,8 +39,8 @@ public class GameHUD {
 
     public GameHUD(Knight knight) {
         this.knight = knight;
-        this.liquidAnimation = Animations.Soul.create("Soulorb", PlayMode.LOOP, 0.1f);
-        this.containerAnimation = Animations.SoulContainer.create("HealthBar", PlayMode.NORMAL, 0.1f);
+        this.liquidAnimation = AnimationManager.Soul.create("Soulorb", PlayMode.LOOP, 0.1f);
+        this.containerAnimation = AnimationManager.SoulContainer.create("HealthBar", PlayMode.NORMAL, 0.1f);
         
         hudCamera = new OrthographicCamera();
         hudViewport = new ScreenViewport(hudCamera);

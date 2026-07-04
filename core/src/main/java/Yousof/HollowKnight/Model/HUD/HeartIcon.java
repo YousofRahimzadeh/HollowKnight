@@ -2,9 +2,10 @@ package Yousof.HollowKnight.Model.HUD;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import Yousof.HollowKnight.Enum.Animations.Animations;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class HeartIcon {
     public enum HeartState { FILLED, EMPTY, BREAKING, REFILLING }
@@ -19,10 +20,10 @@ public class HeartIcon {
     private float stateTime = 0f;
 
     public HeartIcon() {
-        FilledHealth = Animations.Mask.create("FilledHealth", PlayMode.NORMAL, 0.1f);
-        EmptyHealth = Animations.Mask.create("EmptyHealth", PlayMode.NORMAL, 0.1f);
-        breakAnimation = Animations.Mask.create("BreakHealth", PlayMode.NORMAL, 0.1f);
-        refillAnimation = Animations.Mask.create("HealthRefill", PlayMode.NORMAL, 0.1f);
+        FilledHealth = AnimationManager.Mask.create("FilledHealth", PlayMode.NORMAL, 0.1f);
+        EmptyHealth = AnimationManager.Mask.create("EmptyHealth", PlayMode.NORMAL, 0.1f);
+        breakAnimation = AnimationManager.Mask.create("BreakHealth", PlayMode.NORMAL, 0.1f);
+        refillAnimation = AnimationManager.Mask.create("HealthRefill", PlayMode.NORMAL, 0.1f);
     }
 
     public void update(float delta) {

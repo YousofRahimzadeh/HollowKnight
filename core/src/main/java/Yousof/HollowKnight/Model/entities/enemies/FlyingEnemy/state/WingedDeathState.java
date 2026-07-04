@@ -5,15 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.WingedSentry;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class WingedDeathState extends WingedSentryState{
 
     @Override
     public void enter(WingedSentry enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.WingedSentry.create("Death", PlayMode.NORMAL, 0.08f);
+        currentAnimation = AnimationManager.WingedSentry.create("Death", PlayMode.NORMAL, 0.08f);
         enemy.getBody().setGravityScale(1f);
         enemy.cleanUpPhysicsOnDeath();
     }

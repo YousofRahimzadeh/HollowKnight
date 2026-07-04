@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class ZoteIdleState extends ZoteState {
 
@@ -24,7 +24,7 @@ public class ZoteIdleState extends ZoteState {
     @Override
     public void enter(Zote enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.Zote.create("Idle", PlayMode.LOOP, 0.08f);
+        currentAnimation = AnimationManager.Zote.create("Idle", PlayMode.LOOP, 0.08f);
     }
 
     @Override

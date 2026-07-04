@@ -2,13 +2,16 @@ package Yousof.HollowKnight.Model.entities.knight.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class KnightFallState extends KnightState{
 
@@ -16,7 +19,8 @@ public class KnightFallState extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Fall", PlayMode.LOOP, 0.08f);
+        animation = AnimationManager.Knight.create("Fall", PlayMode.LOOP, 0.08f);
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightFly.path);
     }
 
     @Override
@@ -31,7 +35,7 @@ public class KnightFallState extends KnightState{
         if(!isLanding && knight.getSurroundSensors().downSensor > 0){
             isLanding = true;
             stateTime = 0f;
-            animation = Animations.Knight.create("Landing", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("Landing", PlayMode.NORMAL, 0.08f);
             body.setLinearVelocity(0f , 0f);
             return;
         }
@@ -85,7 +89,7 @@ public class KnightFallState extends KnightState{
 
     @Override
     public void exit() {
-        
+        AudioManager.getInstance().stopSound(AudioStore.HollowKnightFly.path);
     }
 
     @Override

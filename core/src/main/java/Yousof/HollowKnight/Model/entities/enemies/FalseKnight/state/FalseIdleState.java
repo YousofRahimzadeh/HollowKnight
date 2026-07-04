@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class FalseIdleState extends FalseKnightState {
 
@@ -20,7 +20,7 @@ public class FalseIdleState extends FalseKnightState {
     @Override
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.FalseKnight.create("Idle", PlayMode.LOOP, enemy.frameDuration);
+        currentAnimation = AnimationManager.FalseKnight.create("Idle", PlayMode.LOOP, enemy.frameDuration);
         directionalDecisionMade = false;
         
         duration /= enemy.factor; 

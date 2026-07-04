@@ -13,8 +13,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraDialogueState;
 import Yousof.HollowKnight.Utils.camera.state.CameraKnightState;
@@ -64,7 +64,7 @@ public class ZoteDialogueState extends ZoteState {
     @Override
     public void enter(Zote enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.Zote.create("Talk", PlayMode.LOOP, 0.08f);
+        currentAnimation = AnimationManager.Zote.create("Talk", PlayMode.LOOP, 0.08f);
         body.setLinearVelocity(0, body.getLinearVelocity().y);
         enemy.getSurroundSensor().knight.setCanMove(false);
 

@@ -9,9 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class KnightPogoJumpState extends KnightState{
 
@@ -19,8 +19,8 @@ public class KnightPogoJumpState extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
-        effectAnimation = Animations.KnightEffects.create("DownSlashEffect", PlayMode.NORMAL, 0.06f);
+        animation = AnimationManager.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
+        effectAnimation = AnimationManager.KnightEffects.create("DownSlashEffect", PlayMode.NORMAL, 0.06f);
     
         boolean spikeDetected = knight.getAttackSensors().spikesOnDown > 0;
         boolean enemyDetected = !knight.getAttackSensors().downSensor.isEmpty();

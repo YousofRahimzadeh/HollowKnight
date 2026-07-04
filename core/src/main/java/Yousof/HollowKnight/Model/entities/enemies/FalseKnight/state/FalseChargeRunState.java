@@ -8,8 +8,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
@@ -20,7 +20,7 @@ public class FalseChargeRunState extends FalseKnightState {
     @Override
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
-        currentAnimation = Animations.FalseKnight.create("Run Antic", PlayMode.NORMAL, enemy.frameDuration);
+        currentAnimation = AnimationManager.FalseKnight.create("Run Antic", PlayMode.NORMAL, enemy.frameDuration);
         targetPosition = new Vector2(enemy.getFarSensors().knight.getBody().getPosition().x , enemy.getFarSensors().knight.getBody().getPosition().y);
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
     }
@@ -45,7 +45,7 @@ public class FalseChargeRunState extends FalseKnightState {
 
         if (currentAnimation.isAnimationFinished(stateTime) && theFirst) {
             stateTime = 0f;
-            currentAnimation = Animations.FalseKnight.create("Run", PlayMode.LOOP, enemy.frameDuration);
+            currentAnimation = AnimationManager.FalseKnight.create("Run", PlayMode.LOOP, enemy.frameDuration);
             theFirst = false;
             return;
         }

@@ -11,6 +11,8 @@ import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.HUD.GameHUD;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 
 public class GameScreen extends AbstractScreen {
@@ -36,12 +38,14 @@ public class GameScreen extends AbstractScreen {
         mapRenderer = new OrthogonalTiledMapRenderer(game.getMap(), 1f);
         worldDebuger = new Box2DDebugRenderer();
         hud = new GameHUD(game.getKnight());
+        AudioManager.getInstance().transitionToMusic(AudioStore.CityOfTears.path, true);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        AudioManager.getInstance().update(delta);
 
         GameController.updateGame(delta);
         

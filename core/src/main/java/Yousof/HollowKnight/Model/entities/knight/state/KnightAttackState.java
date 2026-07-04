@@ -9,10 +9,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class KnightAttackState extends KnightState{
 
@@ -30,14 +32,16 @@ public class KnightAttackState extends KnightState{
 
         if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTUP.key)){
             currentDir = Direction.UP;
-            animation = Animations.Knight.create("UpSlash", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("UpSlash", PlayMode.NORMAL, 0.08f);
         }else if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTDOWN.key) && knight.getSurroundSensors().downSensor == 0){
             currentDir = Direction.DOWN;
-            animation = Animations.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
         }else{
             currentDir = Direction.HOR;
-            animation = Animations.Knight.create("Slash", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("Slash", PlayMode.NORMAL, 0.08f);
         }
+
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightSword.path);
 
         performAttack();
     }
@@ -85,7 +89,7 @@ public class KnightAttackState extends KnightState{
 
         switch (currentDir) {
             case Direction.HOR:
-                effectFrame = Animations.KnightEffects.create("SlashEffect", PlayMode.NORMAL, 0.06f).getKeyFrame(stateTime, false);
+                effectFrame = AnimationManager.KnightEffects.create("SlashEffect", PlayMode.NORMAL, 0.06f).getKeyFrame(stateTime, false);
 
                 float attackOffset = 45f; 
 
@@ -100,7 +104,7 @@ public class KnightAttackState extends KnightState{
                 break;
 
             case Direction.UP:
-                effectFrame = Animations.KnightEffects.create("UpSlashEffect", PlayMode.NORMAL, 0.06f).getKeyFrame(stateTime, false);
+                effectFrame = AnimationManager.KnightEffects.create("UpSlashEffect", PlayMode.NORMAL, 0.06f).getKeyFrame(stateTime, false);
 
                 float upOffset = 65f; 
                 effectX = knightCenterX - (effectFrame.getRegionWidth() / 2f);
@@ -112,7 +116,7 @@ public class KnightAttackState extends KnightState{
                 break;
 
             case Direction.DOWN:
-                effectFrame = Animations.KnightEffects.create("DownSlashEffect", PlayMode.NORMAL, 0.06f).getKeyFrame(stateTime, false);
+                effectFrame = AnimationManager.KnightEffects.create("DownSlashEffect", PlayMode.NORMAL, 0.06f).getKeyFrame(stateTime, false);
 
                 float downOffset = 45f;
                 effectX = knightCenterX - (effectFrame.getRegionWidth() / 2f);

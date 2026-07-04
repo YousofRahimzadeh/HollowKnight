@@ -9,12 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Model.GameSession;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class MainScreen extends AbstractScreen {
 
     @Override
     public void show() {
         super.show();
+
+        AudioManager.getInstance().transitionToMusic(AudioStore.HollowKnight.path, true);
 
         Table table = new Table();
         table.setFillParent(true);
@@ -92,6 +96,7 @@ public class MainScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
+        AudioManager.getInstance().update(delta);
     }
 
     @Override

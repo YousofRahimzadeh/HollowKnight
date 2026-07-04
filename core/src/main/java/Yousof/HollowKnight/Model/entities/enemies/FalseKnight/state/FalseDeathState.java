@@ -8,8 +8,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class FalseDeathState extends FalseKnightState {
 
@@ -20,7 +20,7 @@ public class FalseDeathState extends FalseKnightState {
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
         
-        currentAnimation = Animations.FalseKnight.create("DeathFall", PlayMode.NORMAL, enemy.frameDuration);
+        currentAnimation = AnimationManager.FalseKnight.create("DeathFall", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.FALLING;
 
     }
@@ -35,14 +35,14 @@ public class FalseDeathState extends FalseKnightState {
         body.setLinearVelocity(0 , body.getLinearVelocity().y);
 
         if (currentAnimation.isAnimationFinished(stateTime) && currentPhase == LeapPhase.FALLING) {
-            currentAnimation = Animations.FalseKnight.create("DeathLand", PlayMode.NORMAL, enemy.frameDuration);
+            currentAnimation = AnimationManager.FalseKnight.create("DeathLand", PlayMode.NORMAL, enemy.frameDuration);
             currentPhase = LeapPhase.LANDING;
             stateTime = 0f;
             return;
         } 
 
         if (currentAnimation.isAnimationFinished(stateTime) && currentPhase == LeapPhase.LANDING) {
-            currentAnimation = Animations.FalseKnight.create("Body", PlayMode.LOOP, enemy.frameDuration);
+            currentAnimation = AnimationManager.FalseKnight.create("Body", PlayMode.LOOP, enemy.frameDuration);
             currentPhase = LeapPhase.IDLE;
             stateTime = 0f;
             return;

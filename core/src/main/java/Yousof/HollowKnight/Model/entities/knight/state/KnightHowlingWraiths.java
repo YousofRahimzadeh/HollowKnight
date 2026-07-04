@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
@@ -26,8 +26,8 @@ public class KnightHowlingWraiths extends KnightState{
         }
         
         knight.setCurrentSoul(knight.getCurrentSoul() - 33);
-        animation = Animations.Knight.create("Scream", PlayMode.NORMAL, 0.08f);
-        effecAnimation = Animations.KnightEffects.create("ShadowScream", PlayMode.NORMAL, 0.08f);
+        animation = AnimationManager.Knight.create("Scream", PlayMode.NORMAL, 0.08f);
+        effecAnimation = AnimationManager.KnightEffects.create("ShadowScream", PlayMode.NORMAL, 0.08f);
 
         performAttack();
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));

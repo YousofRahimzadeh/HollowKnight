@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.sensors.CrystalSeeSensors;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.sensors.CrystalSurroundSensors;
@@ -20,11 +19,12 @@ import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalD
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalEnemyState;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalEnragedState;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.state.CrystalKnockbackState;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class CrystalGuardian extends Enemy {
     private int health;
 
-    private Animations animation;
+    private AnimationManager animation;
 
     private float yOffset;
 
@@ -40,7 +40,7 @@ public class CrystalGuardian extends Enemy {
     private CrystalSeeSensors seeSensors;
 
 
-    public CrystalGuardian(World world, float x, float y, Animations anim , float yOffset) {
+    public CrystalGuardian(World world, float x, float y, AnimationManager anim , float yOffset) {
         this.speed = 2f;
         this.halfWidth = 96f / 2f;
         this.halfHeight = 140 / 2f;
@@ -158,10 +158,10 @@ public class CrystalGuardian extends Enemy {
     public void setSeeSensors(CrystalSeeSensors seeSensors) {
         this.seeSensors = seeSensors;
     }
-    public Animations getAnimation() {
+    public AnimationManager getAnimation() {
         return animation;
     }
-    public void setAnimation(Animations animation) {
+    public void setAnimation(AnimationManager animation) {
         this.animation = animation;
     }
     public boolean isFacingRight() {

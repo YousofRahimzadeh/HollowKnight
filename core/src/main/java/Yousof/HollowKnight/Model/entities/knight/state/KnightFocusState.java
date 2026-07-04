@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
-import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
@@ -19,7 +19,7 @@ public class KnightFocusState extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = Animations.Knight.create("Focus Start", PlayMode.LOOP, 0.08f);
+        animation = AnimationManager.Knight.create("Focus Start", PlayMode.LOOP, 0.08f);
         if(knight.getCurrentSoul() < 33){
             knight.changeState(new KnightIdleState());
             return;
@@ -33,12 +33,12 @@ public class KnightFocusState extends KnightState{
 
         if(animation.isAnimationFinished(stateTime) && theStart){
             theStart = false;
-            animation = Animations.Knight.create("Focus", PlayMode.LOOP, 0.08f);
+            animation = AnimationManager.Knight.create("Focus", PlayMode.LOOP, 0.08f);
             return;
         }
         
         if(stateTime >= knight.getFocusDuration() && !theEnd){
-            animation = Animations.Knight.create("Focus Get", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("Focus Get", PlayMode.NORMAL, 0.08f);
             stateTime = 0;
             theEnd = true;
             knight.addMaskRemoveSoul();
