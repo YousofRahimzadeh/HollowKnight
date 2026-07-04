@@ -1,31 +1,28 @@
 package Yousof.HollowKnight.Model.entities.npc.state;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
-public class ZoteIdleState extends ZoteState {
+public class ZoteAttackState extends ZoteState {
 
-    private boolean drawE = false;
-    private BitmapFont font;
+    private float speed = 60f /Constants.PPM;
 
-    public ZoteIdleState() {
-        Skin skin = new Skin(Gdx.files.internal("ui/uiSkin.json"));
-        this.font = skin.getFont("title");
-    }
+    public ZoteAttackState() {}
 
     @Override
     public void enter(Zote enemy) {
         super.enter(enemy);
-        currentAnimation = AnimationManager.Zote.create("Idle", PlayMode.LOOP, 0.08f);
+        currentAnimation = AnimationManager.Zote.create("Attack", PlayMode.LOOP, 0.08f);
+        enemy.getBody().getFixtureList().forEach(f ->{
+            if(f.getUserData().equals("Zote_main_body"))
+                f.setSensor(false);
+                f.getFilterData().maskBits |= Constants.BIT_KNIGHT;
+        });
     }
 
     @Override
@@ -34,23 +31,15 @@ public class ZoteIdleState extends ZoteState {
         body.setLinearVelocity(0, body.getLinearVelocity().y);
         
         if (enemy.getSurroundSensor().knight != null) {
-            drawE = true;
-            if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                enemy.changeState(new ZoteDialogueState());
-                return;
-            }
-
-            if(enemy.getHealt() <= 0){
-                enemy.changeState(new ZoteDeathState());
-                return;
-            }
-
-            if(enemy.getHealt() < 20){
-                enemy.changeState(new ZoteAttackState());
-                return;
-            }
-        } else {
-            drawE = false;
+            if(enemy.getBody().getPosition().x > enemy.getSurroundSensor().knight.getBody().getPosition().x){
+                enemy.setFacingRight(false);
+                enemy.getBody().setLinearVelocity(-speed, enemy.getBody().getLinearVelocity().y);
+            }else{
+                enemy.setFacingRight(true);
+                enemy.getBody().setLinearVelocity(speed, enemy.getBody().getLinearVelocity().y);
+           }
+        }else{
+            enemy.changeState(new ZoteIdleState());
         }
     }
 
@@ -66,13 +55,5 @@ public class ZoteIdleState extends ZoteState {
         float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
         float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + 35f;
         batch.draw(currentFrame, drawX, drawY);
-        if(drawE){
-            float eX = body.getPosition().x * Constants.PPM - 10f;
-            float eY = drawY + currentFrame.getRegionHeight(); 
-            
-            font.draw(batch, "E", eX, eY);
-        }
-
-        drawEffects(batch, stateTime);
     }
 }

@@ -19,8 +19,8 @@ public class ZoteSurroundSensor {
         fdef.isSensor = true;
         fdef.shape = shape;
 
-        float HSensorWidth = (200f / Constants.PPM) / 2f;
-        float HSensorHeight = hy;
+        float HSensorWidth = (300f / Constants.PPM) / 2f;
+        float HSensorHeight = hy + 100f / Constants.PPM;
 
         fdef.isSensor = true;
         fdef.filter.categoryBits = Constants.BIT_ENEMY;

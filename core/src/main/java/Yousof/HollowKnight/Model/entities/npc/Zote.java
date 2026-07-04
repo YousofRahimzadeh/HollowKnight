@@ -3,18 +3,21 @@ package Yousof.HollowKnight.Model.entities.npc;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.entities.Entitie;
+import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.npc.sensors.ZoteSurroundSensor;
+import Yousof.HollowKnight.Model.entities.npc.state.ZoteDeathState;
 import Yousof.HollowKnight.Model.entities.npc.state.ZoteIdleState;
 import Yousof.HollowKnight.Model.entities.npc.state.ZoteState;
 
-public class Zote extends Entitie{
+public class Zote extends Enemy{
+    private int healt = 20;
 
     private ZoteSurroundSensor surroundSensor;
     private ZoteState currentState;
@@ -72,6 +75,17 @@ public class Zote extends Entitie{
     }
 
     @Override
+    public void takeDamage(Body body, int how) {
+        super.takeDamage(body, how);
+        this.healt -= how;
+        if(healt <= 0){
+            healt = 0;
+            changeState(new ZoteDeathState());
+            return;
+        }
+    }
+
+    @Override
     public void dispose() {        
     }
 
@@ -113,6 +127,14 @@ public class Zote extends Entitie{
 
     public void setHudCamera(Camera hudCamera) {
         this.hudCamera = hudCamera;
+    }
+
+    public int getHealt() {
+        return healt;
+    }
+
+    public void setHealt(int healt) {
+        this.healt = healt;
     }
     
 }

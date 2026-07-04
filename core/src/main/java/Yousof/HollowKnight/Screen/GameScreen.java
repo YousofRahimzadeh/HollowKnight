@@ -61,8 +61,8 @@ public class GameScreen extends AbstractScreen {
 
         Matrix4 debugMatrix = camera.getCamera().combined.cpy();
         debugMatrix.scale(Constants.PPM, Constants.PPM, 1f); 
-        // worldDebuger.setDrawInactiveBodies(true);
-        // worldDebuger.render(game.getWorld(), debugMatrix);
+        worldDebuger.setDrawInactiveBodies(true);
+        worldDebuger.render(game.getWorld(), debugMatrix);
 
     }
 

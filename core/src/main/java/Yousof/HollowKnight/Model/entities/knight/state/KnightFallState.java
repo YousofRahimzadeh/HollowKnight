@@ -9,8 +9,6 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
-import Yousof.HollowKnight.Utils.audio.AudioManager;
-import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class KnightFallState extends KnightState{
 
