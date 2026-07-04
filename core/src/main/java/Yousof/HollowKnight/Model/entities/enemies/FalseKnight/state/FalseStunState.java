@@ -25,12 +25,15 @@ public class FalseStunState extends FalseKnightState {
         currentAnimation = Animations.FalseKnight.create("DeathFall", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.FALLING;
 
-        reCreateBody();
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+        if(firstUpdate){
+            reCreateBody();
+            firstUpdate = false;
+        } 
         time += delta;
         body.setLinearVelocity(0 , body.getLinearVelocity().y);
 

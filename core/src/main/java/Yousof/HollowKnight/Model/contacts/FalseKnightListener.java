@@ -71,6 +71,16 @@ public class FalseKnightListener implements ContactListener{
             FalseKnightEnemy enemy = (FalseKnightEnemy) sensor.getBody().getUserData();
             enemy.getGroundSensors().groundSensor += (Begin) ? 1 : -1;
         }
+
+        if("grounds".equals(ground.getUserData()) && sensor.getUserData().equals("FalseKnight_sensor_wall_right")) {
+            FalseKnightEnemy enemy = (FalseKnightEnemy) sensor.getBody().getUserData();
+            enemy.getGroundSensors().rightSensor += (Begin) ? 1 : -1;
+        }
+
+        if("grounds".equals(ground.getUserData()) && sensor.getUserData().equals("FalseKnight_sensor_wall_left")) {
+            FalseKnightEnemy enemy = (FalseKnightEnemy) sensor.getBody().getUserData();
+            enemy.getGroundSensors().leftSensor += (Begin) ? 1 : -1;
+        }
     }
 
     @Override

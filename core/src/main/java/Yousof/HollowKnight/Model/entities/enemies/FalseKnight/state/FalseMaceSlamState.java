@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
-import Yousof.HollowKnight.Utils.CameraSession;
-import Yousof.HollowKnight.Utils.state.CameraVibrationState;
+import Yousof.HollowKnight.Utils.camera.CameraSession;
+import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
 public class FalseMaceSlamState extends FalseKnightState {
 
@@ -21,13 +21,16 @@ public class FalseMaceSlamState extends FalseKnightState {
     public void enter(FalseKnightEnemy enemy) {
         super.enter(enemy);
         currentAnimation = Animations.FalseKnight.create("Attack Antic", PlayMode.NORMAL, enemy.frameDuration);
-        reCreateBody();
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+        if(firstUpdate){
+            reCreateBody();
+            firstUpdate = false;
+        }
         if (currentAnimation.isAnimationFinished(stateTime) && theFirst) {
             stateTime = 0f;
             currentAnimation = Animations.FalseKnight.create("Attack", PlayMode.NORMAL, enemy.frameDuration);

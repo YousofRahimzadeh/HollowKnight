@@ -1,0 +1,111 @@
+package Yousof.HollowKnight.Utils.audio;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.ObjectMap;
+
+import Yousof.HollowKnight.Enum.VolumeSettings;
+
+public class AudioManager {
+    private static AudioManager instance;
+
+    private ObjectMap<String, Sound> sounds;
+    private Music currentMusic;
+    private Music nextMusic;
+
+    private enum FadeState { NONE, FADING_OUT, FADING_IN }
+    private FadeState fadeState = FadeState.NONE;
+    
+    private float fadeSpeed = 1.2f;
+    private float maxTargetVolume = VolumeSettings.MUSIC.getVolume();
+    private boolean nextMusicLoop = true;
+
+    private AudioManager() {
+        sounds = new ObjectMap<>();
+    }
+
+    public static AudioManager getInstance() {
+        if (instance == null) {
+            instance = new AudioManager();
+        }
+        return instance;
+    }
+
+    public void transitionToMusic(String nextFilePath, boolean loop) {
+        if (currentMusic == null || !currentMusic.isPlaying()) {
+            playMusicImmediate(nextFilePath, loop);
+            return;
+        }
+
+        this.nextMusic = Gdx.audio.newMusic(Gdx.files.internal(nextFilePath));
+        this.nextMusicLoop = loop;
+        
+        this.fadeState = FadeState.FADING_OUT;
+    }
+
+    private void playMusicImmediate(String filePath, boolean loop) {
+        if (currentMusic != null) {
+            currentMusic.stop();
+            currentMusic.dispose();
+        }
+        currentMusic = Gdx.audio.newMusic(Gdx.files.internal(filePath));
+        currentMusic.setLooping(loop);
+        currentMusic.setVolume(this.maxTargetVolume);
+        currentMusic.play();
+        fadeState = FadeState.NONE;
+    }
+
+    public void update(float delta) {
+        if (fadeState == FadeState.NONE || currentMusic == null) return;
+
+        if (fadeState == FadeState.FADING_OUT) {
+            float newVolume = currentMusic.getVolume() - (fadeSpeed * delta);
+            
+            if (newVolume <= 0f) {
+                currentMusic.stop();
+                currentMusic.dispose();
+                
+                currentMusic = nextMusic;
+                currentMusic.setLooping(nextMusicLoop);
+                currentMusic.setVolume(0f);
+                currentMusic.play();
+                
+                nextMusic = null;
+                fadeState = FadeState.FADING_IN;
+            } else {
+                currentMusic.setVolume(newVolume);
+            }
+        } 
+        else if (fadeState == FadeState.FADING_IN) {
+            float newVolume = currentMusic.getVolume() + (fadeSpeed * delta);
+            
+            if (newVolume >= maxTargetVolume) {
+                currentMusic.setVolume(maxTargetVolume);
+                fadeState = FadeState.NONE;
+            } else {
+                currentMusic.setVolume(newVolume);
+            }
+        }
+    }
+
+    public void playSound(String filePath) {
+        Sound sound;
+        if (!sounds.containsKey(filePath)) {
+            sound = Gdx.audio.newSound(Gdx.files.internal(filePath));
+            sounds.put(filePath, sound);
+        } else {
+            sound = sounds.get(filePath);
+        }
+        sound.play();
+    }
+
+    public void dispose() {
+        if (currentMusic != null) currentMusic.dispose();
+        if (nextMusic != null) nextMusic.dispose();
+        for (Sound sound : sounds.values()) {
+            sound.dispose();
+        }
+        sounds.clear();
+    }
+}

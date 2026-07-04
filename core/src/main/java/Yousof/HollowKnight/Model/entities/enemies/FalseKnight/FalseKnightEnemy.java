@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseFarSensors;
-import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseGroundSensors;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseSurroundSensors;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseMiddleSensors;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.sensors.FalseNearbySensors;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseDeathState;
@@ -40,13 +40,13 @@ public class FalseKnightEnemy extends Enemy{
     private FalseNearbySensors nearbySensors;
     private FalseMiddleSensors middleSensors;
     private FalseFarSensors farSensors;
-    private FalseGroundSensors groundSensors;
+    private FalseSurroundSensors groundSensors;
 
     public FalseKnightEnemy(World world, float x, float y) {
         nearbySensors = new FalseNearbySensors();
         middleSensors = new FalseMiddleSensors();
         farSensors = new FalseFarSensors();
-        groundSensors = new FalseGroundSensors();
+        groundSensors = new FalseSurroundSensors();
         createBody(world, new Vector2(x, y));
         this.changeState(new FalseIdleState());
     }
@@ -158,11 +158,11 @@ public class FalseKnightEnemy extends Enemy{
     public void setFarSensors(FalseFarSensors surroundSensors) {
         this.farSensors = surroundSensors;
     }
-    public FalseGroundSensors getGroundSensors() {
+    public FalseSurroundSensors getGroundSensors() {
         return groundSensors;
     }
 
-    public void setGroundSensors(FalseGroundSensors groundSensors) {
+    public void setGroundSensors(FalseSurroundSensors groundSensors) {
         this.groundSensors = groundSensors;
     }
     public int getDamage() {

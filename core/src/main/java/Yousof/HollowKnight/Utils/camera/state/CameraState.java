@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Utils.state;
+package Yousof.HollowKnight.Utils.camera.state;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 

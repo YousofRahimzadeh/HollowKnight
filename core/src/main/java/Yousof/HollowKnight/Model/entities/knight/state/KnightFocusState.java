@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Keys;
+import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
-import Yousof.HollowKnight.Utils.CameraSession;
-import Yousof.HollowKnight.Utils.state.CameraVibrationState;
+import Yousof.HollowKnight.Utils.camera.CameraSession;
+import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
 public class KnightFocusState extends KnightState{
 
@@ -51,7 +51,7 @@ public class KnightFocusState extends KnightState{
         }
         
         body.setLinearVelocity(0 , body.getLinearVelocity().y);
-        if(!Gdx.input.isKeyPressed(Keys.KNIGHTFOCUS.key)){
+        if(!Gdx.input.isKeyPressed(KeysSettings.KNIGHTFOCUS.key)){
             knight.changeState(new KnightIdleState());
             return;
         }

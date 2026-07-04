@@ -24,12 +24,15 @@ public class FalseIdleState extends FalseKnightState {
         directionalDecisionMade = false;
         
         duration /= enemy.factor; 
-        reCreateBody();
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+        if(firstUpdate){
+            reCreateBody();
+            firstUpdate = false;
+        }
 
         body.setLinearVelocity(0f, body.getLinearVelocity().y);
         
@@ -46,12 +49,10 @@ public class FalseIdleState extends FalseKnightState {
             return; 
         }
         
-        String lastMove = enemy.getLastPerformedMove(); // گرفتن نام آخرین حرکت از شیء دشمن
+        String lastMove = enemy.getLastPerformedMove(); 
         float rand = MathUtils.random();
 
-        // ۱. منطق محدوده نزدیک (Nearby)
         if(enemy.getNearbySensors().knight != null) {
-            // مکانیزم ضد اسپم: اگر حرکت قبلی همین بود، به جای اسپم کردن، عقب‌نشینی کند (Defensive Leap)
             if ("MaceSlam".equals(lastMove)) {
                 navigateToState(new FalseDefensiveLeapState(), "DefensiveLeap");
             } else {
@@ -63,20 +64,16 @@ public class FalseIdleState extends FalseKnightState {
         boolean inMiddle = enemy.getMiddleSensors().knight != null;
         boolean inFar = enemy.getFarSensors().knight != null;
 
-        // ۲. منطق محدوده متوسط و دور (Middle & Far)
         if (inMiddle || inFar) {
 
             if (inMiddle) {
-                // شانس پایه: ۶۰٪ پرش هجومی، ۴۰٪ دویدن
                 if (rand < 0.60f) {
-                    // ضد اسپم برای Offensive Leap
                     if ("OffensiveLeap".equals(lastMove)) {
                         navigateToState(new FalseChargeRunState(), "ChargeRun");
                     } else {
                         navigateToState(new FalseOffensiveLeapState(), "OffensiveLeap");
                     }
                 } else {
-                    // ضد اسپم برای Charge Run
                     if ("ChargeRun".equals(lastMove)) {
                         navigateToState(new FalseOffensiveLeapState(), "OffensiveLeap");
                     } else {
@@ -85,10 +82,8 @@ public class FalseIdleState extends FalseKnightState {
                 }
             } 
             else if (inFar) {
-                // شانس پایه: ۷۰٪ دویدن / ۳۰٪ پرش یا ضربه قدرتی
                 if (rand < 0.70f) {
                     if ("ChargeRun".equals(lastMove)) {
-                        // اگر در فاز دوم بودیم (یعنی فاکتور دشمن تغییر کرده)، حرکت پنجم فعال شود
                         if (enemy.factor > 1.0f) {
                             navigateToState(new FalseChargeMaceSlamState(), "ChargeMaceSlam");
                         } else {
@@ -98,8 +93,6 @@ public class FalseIdleState extends FalseKnightState {
                         navigateToState(new FalseChargeRunState(), "ChargeRun");
                     }
                 } else {
-                    // ۳۰ درصد شانس مابقی در فاصله دور
-                    // فعال‌سازی حرکت پنجم در فاز دوم به عنوان گزینه جایگزین
                     if (enemy.factor > 1.0f && !"ChargeMaceSlam".equals(lastMove)) {
                         navigateToState(new FalseChargeMaceSlamState(), "ChargeMaceSlam");
                     } else {
@@ -111,11 +104,8 @@ public class FalseIdleState extends FalseKnightState {
         }
     }
 
-    /**
-     * متد کمکی جهت ثبت حرکت انجام‌شده در تاریخچه و سوئیچ به استیت جدید
-     */
     private void navigateToState(FalseKnightState nextState, String moveName) {
-        enemy.setLastPerformedMove(moveName); // ذخیره نام حرکت برای فریم‌های بعدی
+        enemy.setLastPerformedMove(moveName);
         enemy.changeState(nextState);
     }
 
@@ -152,12 +142,6 @@ public class FalseIdleState extends FalseKnightState {
         fdef.filter.maskBits = Constants.BIT_GROUND | Constants.BIT_KNIGHT | Constants.BIT_PROJECTILE;
         body.createFixture(fdef).setUserData("Enemy_main_body");
 
-        // float headHx = (125f / Constants.PPM) / 2f;
-        // float headHy = (80f / Constants.PPM) / 2f;
-        // shape.setAsBox(headHx, headHy , new Vector2(0f , bodyHy + headHy) , 0f);
-        // fdef.shape = shape;
-        // fdef.isSensor = false;
-        // body.createFixture(fdef).setUserData("Enemy_main_body");
         shape.dispose();
 
         enemy.getNearbySensors().createSensors(body, bodyHx, bodyHy);

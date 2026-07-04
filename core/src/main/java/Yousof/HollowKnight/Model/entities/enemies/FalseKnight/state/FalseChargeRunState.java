@@ -10,8 +10,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
-import Yousof.HollowKnight.Utils.CameraSession;
-import Yousof.HollowKnight.Utils.state.CameraVibrationState;
+import Yousof.HollowKnight.Utils.camera.CameraSession;
+import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
 public class FalseChargeRunState extends FalseKnightState {
 
@@ -22,13 +22,27 @@ public class FalseChargeRunState extends FalseKnightState {
         super.enter(enemy);
         currentAnimation = Animations.FalseKnight.create("Run Antic", PlayMode.NORMAL, enemy.frameDuration);
         targetPosition = new Vector2(enemy.getFarSensors().knight.getBody().getPosition().x , enemy.getFarSensors().knight.getBody().getPosition().y);
-        reCreateBody();
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+        if(firstUpdate){
+            reCreateBody();
+            firstUpdate = false;
+        }
+
+        if(enemy.isFacingRight() && enemy.getGroundSensors().rightSensor > 0){
+            enemy.setFacingRight(false);
+            enemy.changeState(new FalseIdleState());
+            return;
+        }else if(!enemy.isFacingRight() && enemy.getGroundSensors().leftSensor > 0){
+            enemy.setFacingRight(true);
+            enemy.changeState(new FalseIdleState());
+            return;
+        }
+
         if (currentAnimation.isAnimationFinished(stateTime) && theFirst) {
             stateTime = 0f;
             currentAnimation = Animations.FalseKnight.create("Run", PlayMode.LOOP, enemy.frameDuration);

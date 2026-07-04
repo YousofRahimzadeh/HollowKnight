@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 
-import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 
 public class FalseKnightState {
@@ -14,6 +13,7 @@ public class FalseKnightState {
     protected FalseKnightEnemy enemy;
     protected Body body;
     protected boolean entered = false;
+    protected boolean firstUpdate = true;
 
     public void enter(FalseKnightEnemy enemy){
         stateTime = 0f;

@@ -10,8 +10,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
-import Yousof.HollowKnight.Utils.CameraSession;
-import Yousof.HollowKnight.Utils.state.CameraVibrationState;
+import Yousof.HollowKnight.Utils.camera.CameraSession;
+import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 
 public class FalseOffensiveLeapState extends FalseKnightState {
 
@@ -24,7 +24,6 @@ public class FalseOffensiveLeapState extends FalseKnightState {
         currentAnimation = Animations.FalseKnight.create("Jump", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.JUMPING;
 
-        reCreateBody();
         launchLeapWithImpulse();
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
     }
@@ -32,6 +31,10 @@ public class FalseOffensiveLeapState extends FalseKnightState {
     @Override
     public void update(float delta) {
         super.update(delta);
+        if(firstUpdate){
+            reCreateBody();
+            firstUpdate = false;
+        }
 
         if (currentPhase == LeapPhase.JUMPING && enemy.getGroundSensors().groundSensor > 0 && currentAnimation.isAnimationFinished(stateTime)) {
             currentPhase = LeapPhase.LANDING;

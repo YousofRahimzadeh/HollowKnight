@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Keys;
+import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
@@ -22,36 +22,36 @@ public class KnightRunState extends KnightState{
     public void update(float delta) {
         super.update(delta);
 
-        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTATTACK.key)){
+        if(Gdx.input.isKeyJustPressed(KeysSettings.KNIGHTATTACK.key)){
             knight.changeState(new KnightAttackState());
             return;
         }
 
-        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTJUMP.key)){
+        if(Gdx.input.isKeyJustPressed(KeysSettings.KNIGHTJUMP.key)){
             knight.setCanDoubleJump(true);
             knight.changeState(new KnightJumpState());
             return;
         }
 
-        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTDASH.key)){
+        if(Gdx.input.isKeyJustPressed(KeysSettings.KNIGHTDASH.key)){
             knight.changeState(new KnightDashState());
             return;
         }
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTVENGEFUL.key)){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTVENGEFUL.key)){
             knight.changeState(new KnightVengefulSpiritState());
         }
         
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTSCREAM.key)){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTSCREAM.key)){
             knight.changeState(new KnightHowlingWraiths());
         }
         
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key)){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTRIGHT.key)){
             knight.setFacingRight(true);
             body.setLinearVelocity(knight.getMaxSpeed() , body.getLinearVelocity().y);
             return;
         }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key)){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTLEFT.key)){
             knight.setFacingRight(false);
             body.setLinearVelocity(-knight.getMaxSpeed() , body.getLinearVelocity().y);
             return;

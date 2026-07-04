@@ -1,12 +1,10 @@
-package Yousof.HollowKnight.Utils;
+package Yousof.HollowKnight.Utils.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
 
-import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameSession;
-import Yousof.HollowKnight.Utils.state.CameraKnightState;
-import Yousof.HollowKnight.Utils.state.CameraState;
+import Yousof.HollowKnight.Utils.camera.state.CameraKnightState;
+import Yousof.HollowKnight.Utils.camera.state.CameraState;
 
 public class CameraSession {
     private static CameraSession session;

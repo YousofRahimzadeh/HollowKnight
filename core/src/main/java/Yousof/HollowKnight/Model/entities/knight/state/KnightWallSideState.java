@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Keys;
+import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
@@ -28,34 +28,34 @@ public class KnightWallSideState extends KnightState{
             return;
         }
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key) && knight.getSurroundSensors().rightSensor > 0){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTRIGHT.key) && knight.getSurroundSensors().rightSensor > 0){
             body.setLinearVelocity( 0f , body.getLinearVelocity().y * 0.8f);
             return;
         }
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key) && knight.getSurroundSensors().leftSensor > 0){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTLEFT.key) && knight.getSurroundSensors().leftSensor > 0){
             body.setLinearVelocity( 0f , body.getLinearVelocity().y * 0.8f);
             return;
         }
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTJUMP.key) && knight.getSurroundSensors().rightSensor > 0){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTJUMP.key) && knight.getSurroundSensors().rightSensor > 0){
             body.applyLinearImpulse(new Vector2(-1f , 2f), body.getPosition(), true);
             knight.setFacingRight(false);
             return;
         }
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTJUMP.key) && knight.getSurroundSensors().leftSensor > 0){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTJUMP.key) && knight.getSurroundSensors().leftSensor > 0){
             body.applyLinearImpulse(new Vector2(1f , 2f), body.getPosition(), true);
             knight.setFacingRight(true);
             return;
         }
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key) && knight.getSurroundSensors().leftSensor > 0){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTRIGHT.key) && knight.getSurroundSensors().leftSensor > 0){
             body.applyLinearImpulse(new Vector2(1f , 0f), body.getPosition(), true);
             return;
         }
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key) && knight.getSurroundSensors().rightSensor > 0){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTLEFT.key) && knight.getSurroundSensors().rightSensor > 0){
             body.applyLinearImpulse(new Vector2(-1f , 0f), body.getPosition(), true);
             return;
         }

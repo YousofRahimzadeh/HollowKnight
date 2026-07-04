@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Keys;
+import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
@@ -28,10 +28,10 @@ public class KnightAttackState extends KnightState{
     public void enter(Knight knight) {  
         super.enter(knight);
 
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTUP.key)){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTUP.key)){
             currentDir = Direction.UP;
             animation = Animations.Knight.create("UpSlash", PlayMode.NORMAL, 0.08f);
-        }else if(Gdx.input.isKeyPressed(Keys.KNIGHTDOWN.key) && knight.getSurroundSensors().downSensor == 0){
+        }else if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTDOWN.key) && knight.getSurroundSensors().downSensor == 0){
             currentDir = Direction.DOWN;
             animation = Animations.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
         }else{

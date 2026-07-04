@@ -41,7 +41,7 @@ public class Knight extends Entitie {
     private boolean canDoubleJump = true;
     private boolean onDoubleJump = false;
     private boolean canDash = true;
-
+    private boolean canMove = true;
 
     public Knight(World world, Vector2 spawnPos) {
         surroundSensors = new KnightSurroundSensors();
@@ -177,4 +177,11 @@ public class Knight extends Entitie {
     public void setAttackSensors(KnightAttackSensors attackSensors) {this.attackSensors = attackSensors;}
     public KnightScreamSensros getScreamSensros() {return screamSensros;}
     public void setScreamSensros(KnightScreamSensros screamSensros) {this.screamSensros = screamSensros;}
+    public boolean isCanMove() {
+        return canMove;
+    }
+
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
+    }
 }

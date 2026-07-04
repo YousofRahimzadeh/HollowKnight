@@ -3,7 +3,7 @@ package Yousof.HollowKnight.Enum;
 import com.badlogic.gdx.Input;
 
 
-public enum Keys {
+public enum KeysSettings {
     KNIGHTUP(Input.Keys.UP),
     KNIGHTDOWN(Input.Keys.DOWN),
     KNIGHTRIGHT(Input.Keys.RIGHT),
@@ -19,7 +19,7 @@ public enum Keys {
 
     public int key;
 
-	private Keys(int key){
+	private KeysSettings(int key){
         this.key = key;
     }
     public int getKey() {

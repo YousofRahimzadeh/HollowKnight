@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Enum.Keys;
+import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Enum.Animations.Animations;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
@@ -21,29 +21,31 @@ public class KnightIdleState extends KnightState{
     @Override
     public void update(float delta) {
         super.update(delta);
+        if(knight.isCanMove()){
 
-        body.setLinearVelocity(0 , body.getLinearVelocity().y);
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTFOCUS.key)){
-            knight.changeState(new KnightFocusState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTRIGHT.key) || Gdx.input.isKeyPressed(Keys.KNIGHTLEFT.key)){
-            knight.changeState(new KnightRunState());
-        }
-        if(Gdx.input.isKeyJustPressed(Keys.KNIGHTJUMP.key)){
-            knight.setCanDoubleJump(true);
-            knight.changeState(new KnightJumpState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTDASH.key)){
-            knight.changeState(new KnightDashState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTATTACK.key)){
-            knight.changeState(new KnightAttackState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTVENGEFUL.key)){
-            knight.changeState(new KnightVengefulSpiritState());
-        }
-        if(Gdx.input.isKeyPressed(Keys.KNIGHTSCREAM.key)){
-            knight.changeState(new KnightHowlingWraiths());
+            body.setLinearVelocity(0 , body.getLinearVelocity().y);
+            if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTFOCUS.key)){
+                knight.changeState(new KnightFocusState());
+            }
+            if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTRIGHT.key) || Gdx.input.isKeyPressed(KeysSettings.KNIGHTLEFT.key)){
+                knight.changeState(new KnightRunState());
+            }
+            if(Gdx.input.isKeyJustPressed(KeysSettings.KNIGHTJUMP.key)){
+                knight.setCanDoubleJump(true);
+                knight.changeState(new KnightJumpState());
+            }
+            if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTDASH.key)){
+                knight.changeState(new KnightDashState());
+            }
+            if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTATTACK.key)){
+                knight.changeState(new KnightAttackState());
+            }
+            if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTVENGEFUL.key)){
+                knight.changeState(new KnightVengefulSpiritState());
+            }
+            if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTSCREAM.key)){
+                knight.changeState(new KnightHowlingWraiths());
+            }
         }
     }
 
