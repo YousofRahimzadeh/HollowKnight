@@ -68,13 +68,13 @@ public class CrystalGuardian extends Enemy {
     }
 
     @Override
-    public void takeDamage(Body body , int how){
+    public void takeDamage(Body body , int how , float strength){
         this.health -= how;
         if(health <= 0){
             health = 0;
             changeState(new CrystalDeathState());
         }else{
-            changeState(new CrystalKnockbackState(body, currentState ,3f));
+            changeState(new CrystalKnockbackState(body, currentState ,strength));
         }
     }
 

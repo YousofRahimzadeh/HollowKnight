@@ -66,13 +66,13 @@ public class GroundEnemy extends Enemy {
     }
 
     @Override
-    public void takeDamage(Body body , int how){
+    public void takeDamage(Body body , int how , float strength){
         this.health -= how;
         if(health <= 0){
             health = 0;
             changeState(new GroundDeathState());
         }else{
-            changeState(new GroundKnockbackState(body, currentState ,3f));
+            changeState(new GroundKnockbackState(body, currentState ,strength));
         }
     }
 

@@ -68,13 +68,13 @@ public class HuskHornheadEnemy extends Enemy {
     }
 
     @Override
-    public void takeDamage(Body body , int how){
+    public void takeDamage(Body body , int how , float strength){
         this.health -= how;
         if(health <= 0){
             health = 0;
             changeState(new HuskDeathState());
         }else{
-            changeState(new HuskKnockbackState(body, currentState ,3f));
+            changeState(new HuskKnockbackState(body, currentState ,strength));
         }
     }
 

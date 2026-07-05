@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
@@ -29,14 +30,13 @@ public class Knight extends Entitie {
 
     private int damage = 5; 
     private float maxSpeed = 3.0f;
-
+    
+    private KnightInventory inventory;
     private KnightState currentState;
     
     private KnightSurroundSensors surroundSensors;
     private KnightAttackSensors attackSensors;
     private KnightScreamSensros screamSensros;
-
-    private float focusDuration = 1.5f;
 
     private boolean facingRight = true;
     private boolean onKnock = false;
@@ -49,6 +49,7 @@ public class Knight extends Entitie {
         surroundSensors = new KnightSurroundSensors();
         attackSensors = new KnightAttackSensors();
         screamSensros = new KnightScreamSensros();
+        inventory = new KnightInventory();
         createBody(world, spawnPos);
         changeState(new KnightIdleState());
     }
@@ -136,6 +137,8 @@ public class Knight extends Entitie {
         if(currentSoul >= 99) return;
         AudioManager.getInstance().playSound(AudioStore.HollowKnightSoulGain.path);
         currentSoul += 11;
+        if(inventory.isEquipped(CharmEnum.SOUL_CATCHER)) currentSoul += 4;
+        if(currentSoul >= 99) currentSoul = 99;
     }
 
     public void addMaskRemoveSoul(){
@@ -161,8 +164,6 @@ public class Knight extends Entitie {
     public void setOnDoubleJump(boolean onDoubleJump) {this.onDoubleJump = onDoubleJump;}
     public boolean isCanDash() {return canDash;}
     public void setCanDash(boolean canDash) {this.canDash = canDash;}
-    public float getFocusDuration() {return focusDuration;}
-    public void setFocusDuration(float focousDuration) {this.focusDuration = focousDuration;}
     public int getMaxSoul() {return maxSoul;}
     public int getMaxMasks() {return maxMasks;}
     public int getCurrentMasks() {return currentMasks;}
@@ -184,8 +185,14 @@ public class Knight extends Entitie {
     public boolean isCanMove() {
         return canMove;
     }
-
     public void setCanMove(boolean canMove) {
         this.canMove = canMove;
     }
+    public KnightInventory getInventory() {
+        return inventory;
+    }
+    public void setInventory(KnightInventory inventory) {
+        this.inventory = inventory;
+    }
+
 }

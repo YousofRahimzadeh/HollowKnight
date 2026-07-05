@@ -86,10 +86,9 @@ public class KnightHowlingWraiths extends KnightState{
         if(enemies != null && !enemies.isEmpty()){
             for(Enemy enemy : enemies){
                 if(enemy != null){
-                    enemy.takeDamage(knight.getBody() , knight.getDamage());
-                    enemy.takeDamage(knight.getBody() , knight.getDamage());
-                    enemy.takeDamage(knight.getBody() , knight.getDamage());
-                    enemy.applyKnockback(body);
+                    enemy.takeDamage(knight.getBody() , knight.getDamage() , 10f);
+                    enemy.takeDamage(knight.getBody() , knight.getDamage() , 10f);
+                    enemy.takeDamage(knight.getBody() , knight.getDamage() , 10f);
                 }
             }
         }

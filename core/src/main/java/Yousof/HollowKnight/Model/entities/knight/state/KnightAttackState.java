@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
@@ -25,20 +26,24 @@ public class KnightAttackState extends KnightState{
         UP;
     }
 
+    float frameRate = 0.08f;
+
 
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-
+        if(knight.getInventory().isEquipped(CharmEnum.QUICK_SLASH)){
+            frameRate /= 2;
+        }
         if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTUP.key)){
             currentDir = Direction.UP;
-            animation = AnimationManager.Knight.create("UpSlash", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("UpSlash", PlayMode.NORMAL, frameRate);
         }else if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTDOWN.key) && knight.getSurroundSensors().downSensor == 0){
             currentDir = Direction.DOWN;
-            animation = AnimationManager.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("DownSlash", PlayMode.NORMAL, frameRate);
         }else{
             currentDir = Direction.HOR;
-            animation = AnimationManager.Knight.create("Slash", PlayMode.NORMAL, 0.08f);
+            animation = AnimationManager.Knight.create("Slash", PlayMode.NORMAL, frameRate);
         }
 
         AudioManager.getInstance().playSound(AudioStore.HollowKnightSword.path);
@@ -150,13 +155,20 @@ public class KnightAttackState extends KnightState{
             knight.changeState(new KnightPogoJumpState());
             return;
         }
+        float strength = 5f;
+        int damage = knight.getDamage();
+        if(knight.getInventory().isEquipped(CharmEnum.HEAVY_BLOW)){
+            strength += 5f;
+        }
+        if(knight.getInventory().isEquipped(CharmEnum.UNBREAKABLE_STRENGTH)){
+            damage += 5;
+        }
         ArrayList<Enemy> targets = new ArrayList<>(enemies);
         if(targets != null && !targets.isEmpty()){
             for(Enemy enemy : targets){
                 if(enemy != null){
-                    enemy.takeDamage(knight.getBody() , knight.getDamage());
+                    enemy.takeDamage(knight.getBody() , damage , strength);
                     knight.addCurrentSoul();
-                    enemy.applyKnockback(body);
                 }
             }
         }

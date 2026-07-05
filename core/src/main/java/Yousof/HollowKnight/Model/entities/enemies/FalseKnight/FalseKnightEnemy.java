@@ -66,7 +66,7 @@ public class FalseKnightEnemy extends Enemy{
     }
 
     @Override
-    public void takeDamage(Body body, int how) {
+    public void takeDamage(Body body, int how , float strength) {
         this.health -= how;
     
         if (health <= 0 && !(currentState instanceof FalseDeathState)) {
@@ -86,7 +86,7 @@ public class FalseKnightEnemy extends Enemy{
         if (currentState instanceof FalseStunState) {
             ((FalseStunState) currentState).currentPhase = FalseStunState.LeapPhase.HITING;
         } else {
-            changeState(new FalseKnockbackState(body, currentState, 3f));
+            changeState(new FalseKnockbackState(body, currentState, strength));
         }
     }
 

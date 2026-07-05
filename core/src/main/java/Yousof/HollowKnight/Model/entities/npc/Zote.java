@@ -75,8 +75,8 @@ public class Zote extends Enemy{
     }
 
     @Override
-    public void takeDamage(Body body, int how) {
-        super.takeDamage(body, how);
+    public void takeDamage(Body body, int how , float strength) {
+        super.takeDamage(body, how , strength);
         this.healt -= how;
         if(healt <= 0){
             healt = 0;

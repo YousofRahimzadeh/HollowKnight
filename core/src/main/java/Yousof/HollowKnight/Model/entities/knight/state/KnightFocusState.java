@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
@@ -18,30 +19,35 @@ public class KnightFocusState extends KnightState{
 
     private boolean theEnd = false;
     private boolean theStart = true;
+    private float factor = 1f;
+    private float frameRate = 0.08f;
+    private float duration = 1.5f;
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = AnimationManager.Knight.create("Focus Start", PlayMode.LOOP, 0.08f);
         if(knight.getCurrentSoul() < 33){
             knight.changeState(new KnightIdleState());
             return;
         }
+        if(knight.getInventory().isEquipped(CharmEnum.QUICK_FOCUS)) factor = 2f;
+        duration /= factor;
+        animation = AnimationManager.Knight.create("Focus Start", PlayMode.LOOP, frameRate);
         AudioManager.getInstance().playSound(AudioStore.HollowKnightFocus.path);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        CameraSession.getInstance().changeState(new CameraVibrationState(0.5f, 4f));
+        CameraSession.getInstance().changeState(new CameraVibrationState(0.5f / factor, 4f));
 
         if(animation.isAnimationFinished(stateTime) && theStart){
             theStart = false;
-            animation = AnimationManager.Knight.create("Focus", PlayMode.LOOP, 0.08f);
+            animation = AnimationManager.Knight.create("Focus", PlayMode.LOOP, frameRate);
             return;
         }
         
-        if(stateTime >= knight.getFocusDuration() && !theEnd){
-            animation = AnimationManager.Knight.create("Focus Get", PlayMode.NORMAL, 0.08f);
+        if(stateTime >= duration && !theEnd){
+            animation = AnimationManager.Knight.create("Focus Get", PlayMode.NORMAL, frameRate);
             stateTime = 0;
             theEnd = true;
             knight.addMaskRemoveSoul();

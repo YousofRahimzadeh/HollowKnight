@@ -40,7 +40,7 @@ public class ProjectileContactListener implements ContactListener {
             Enemy enemy = (Enemy) fixtureA.getBody().getUserData();
             VengefulProjectile projectile = (VengefulProjectile) fixtureB.getBody().getUserData();
             
-            enemy.takeDamage(projectile.getBody(), projectile.getDamage());
+            enemy.takeDamage(projectile.getBody(), projectile.getDamage() , 10f);
         }
     }
 

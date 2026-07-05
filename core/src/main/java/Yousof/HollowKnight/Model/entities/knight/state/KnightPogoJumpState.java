@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
+import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
@@ -16,11 +17,15 @@ import Yousof.HollowKnight.Utils.animation.AnimationManager;
 public class KnightPogoJumpState extends KnightState{
 
     private Animation<TextureRegion> effectAnimation;
+    private float frameRate = 0.08f;
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        animation = AnimationManager.Knight.create("DownSlash", PlayMode.NORMAL, 0.08f);
-        effectAnimation = AnimationManager.KnightEffects.create("DownSlashEffect", PlayMode.NORMAL, 0.06f);
+        if(knight.getInventory().isEquipped(CharmEnum.QUICK_SLASH)){
+            frameRate /= 2;
+        }
+        animation = AnimationManager.Knight.create("DownSlash", PlayMode.NORMAL, frameRate);
+        effectAnimation = AnimationManager.KnightEffects.create("DownSlashEffect", PlayMode.NORMAL, frameRate);
     
         boolean spikeDetected = knight.getAttackSensors().spikesOnDown > 0;
         boolean enemyDetected = !knight.getAttackSensors().downSensor.isEmpty();
@@ -84,17 +89,24 @@ public class KnightPogoJumpState extends KnightState{
             return;
         }
 
+        float strength = 5f;
+        int damage = knight.getDamage();
+        if(knight.getInventory().isEquipped(CharmEnum.HEAVY_BLOW)){
+            strength += 5f;
+        }
+        if(knight.getInventory().isEquipped(CharmEnum.UNBREAKABLE_STRENGTH)){
+            damage += 5;
+        }
+        
         java.util.Iterator<Enemy> iterator = enemies.iterator();
-
         while (iterator.hasNext()) {
             try {
                 Enemy enemy = iterator.next();
-
+                if(knight.getInventory().isEquipped(CharmEnum.HEAVY_BLOW)) strength += 5f;
                 if (enemy != null && enemy.getBody() != null) {
 
-                    enemy.takeDamage(knight.getBody(), knight.getDamage());
+                    enemy.takeDamage(knight.getBody(), damage , strength);
                     knight.addCurrentSoul();
-                    enemy.applyKnockback(body);
 
                 } else {
                     iterator.remove();

@@ -50,7 +50,7 @@ public class WingedSentry extends Enemy{
     }
 
     @Override
-    public void takeDamage(Body body , int how){
+    public void takeDamage(Body body , int how , float strength){
         if(health == 0){
             return;
         }
@@ -59,7 +59,7 @@ public class WingedSentry extends Enemy{
             health = 0;
             changeState(new WingedDeathState());
         }else{
-            changeState(new WingedKnockbackState(body, currentState ,12f));
+            changeState(new WingedKnockbackState(body, currentState ,strength));
         }
     }
 
