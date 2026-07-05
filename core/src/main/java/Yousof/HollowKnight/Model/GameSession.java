@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.GearJoint;
 import com.badlogic.gdx.utils.Disposable;
 
 import Yousof.HollowKnight.Model.entities.Entitie;
@@ -22,21 +23,21 @@ public class GameSession implements Disposable{
     private ArrayList<Projectile> projectiles;
 	private ArrayList<Entitie> toRemove;
 
-	public GameSession(TiledMap map , World world, Knight knight) {
-		this.map = map;
-		this.world = world;
-		this.knight = knight;
-		this.zote = null;
-		this.enemies = new ArrayList<>();
-		this.projectiles = new ArrayList<>();
-		this.toRemove = new ArrayList<>();
-	}
-
-	public static void setInstance(GameSession game){
-		gameSession = game;
+	private GameSession(){
+		enemies = new ArrayList<>();
+		projectiles = new ArrayList<>();
+		toRemove = new ArrayList<>();
 	}
 
 	public static GameSession getInstance(){
+		if(gameSession == null){
+			gameSession = new GameSession();
+		}
+		return gameSession;
+	}
+
+	public static GameSession createInstance(){
+		gameSession = new GameSession();
 		return gameSession;
 	}
 

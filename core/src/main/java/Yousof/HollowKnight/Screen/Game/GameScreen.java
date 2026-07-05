@@ -1,6 +1,7 @@
-package Yousof.HollowKnight.Screen;
+package Yousof.HollowKnight.Screen.Game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -11,33 +12,39 @@ import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.HUD.GameHUD;
+import Yousof.HollowKnight.Screen.AbstractScreen;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
 import Yousof.HollowKnight.Utils.audio.AudioStore;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 
 public class GameScreen extends AbstractScreen {
+
     private CameraSession camera;
     private ScreenViewport viewport;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Box2DDebugRenderer worldDebuger;
 
-    private GameSession game;
     private GameHUD hud;
     
-    public GameScreen(GameSession game) {
-        this.game = game;
-    }
+    private GameState state;
+
+    public GameScreen() {}
 
     @Override
     public void show() {
         super.show();
 
-        GameController.loadGame(game);
+        GameController.loadGame();
         camera = CameraSession.getInstance();
         viewport = new ScreenViewport(camera.getCamera());
-        mapRenderer = new OrthogonalTiledMapRenderer(game.getMap(), 1f);
+        mapRenderer = new OrthogonalTiledMapRenderer(GameSession.getInstance().getMap(), 1f);
         worldDebuger = new Box2DDebugRenderer();
-        hud = new GameHUD(game.getKnight());
+        hud = new GameHUD(GameSession.getInstance().getKnight());
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        GameProcessor gameProcessor = new GameProcessor();
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(gameProcessor);
+        Gdx.input.setInputProcessor(multiplexer);
         AudioManager.getInstance().transitionToMusic(AudioStore.CityOfTears.path, true);
     }
 
@@ -61,9 +68,10 @@ public class GameScreen extends AbstractScreen {
 
         Matrix4 debugMatrix = camera.getCamera().combined.cpy();
         debugMatrix.scale(Constants.PPM, Constants.PPM, 1f); 
-        worldDebuger.setDrawInactiveBodies(true);
-        worldDebuger.render(game.getWorld(), debugMatrix);
-
+        // worldDebuger.setDrawInactiveBodies(true);
+        // worldDebuger.render(GameSession.getInstance().getWorld(), debugMatrix);
+        
+        super.render(delta);
     }
 
     @Override
@@ -78,6 +86,14 @@ public class GameScreen extends AbstractScreen {
         GameController.disposeGame();
         hud.dispose();
         mapRenderer.dispose();
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
     }
 
 }

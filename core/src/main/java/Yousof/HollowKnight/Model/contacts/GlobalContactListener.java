@@ -26,7 +26,7 @@ public class GlobalContactListener implements ContactListener {
 
     private void checkEnemyToKnightContact(Fixture fixtureA, Fixture fixtureB) {
                 
-        if ("Enemy_main_body".equals(fixtureA.getBody().getUserData()) && fixtureB.getBody().getUserData() instanceof Knight && !fixtureA.isSensor() && !fixtureB.isSensor()) {
+        if (fixtureA.getBody().getUserData() instanceof Enemy && !("Zote_main_body".equals(fixtureA.getUserData())) && fixtureB.getBody().getUserData() instanceof Knight && !fixtureA.isSensor() && !fixtureB.isSensor()) {
             
             Enemy enemy = (Enemy) fixtureA.getBody().getUserData();
             Knight knight = (Knight) fixtureB.getBody().getUserData();

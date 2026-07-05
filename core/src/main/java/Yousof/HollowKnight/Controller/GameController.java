@@ -2,6 +2,7 @@ package Yousof.HollowKnight.Controller;
 
 import java.util.Iterator;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.contacts.CrystalEnemyListener;
@@ -33,6 +35,9 @@ import Yousof.HollowKnight.Model.entities.enemies.EnemyFactory;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
 import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
+import Yousof.HollowKnight.Screen.Game.GameScreen;
+import Yousof.HollowKnight.Screen.Game.GameState;
+import Yousof.HollowKnight.Utils.camera.CameraSession;
 
 public class GameController {
 
@@ -42,8 +47,9 @@ public class GameController {
         return game;
     }
 
-    public static void loadGame(GameSession Context){
-        game = Context;
+    public static void loadGame(){
+        game = GameSession.createInstance();
+        CameraSession.createInstance();
 
         TiledMap map = new TmxMapLoader().load("untitled.tmx");
         game.setMap(map); 
@@ -58,13 +64,13 @@ public class GameController {
         Knight knight = new Knight(world, spawnPos);
         game.setKnight(knight);
 
-        loadContactListeners();
-
-        GameSession.setInstance(game);        
+        loadContactListeners();        
     }
 
     public static void updateGame(float delta){
         // System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+        if(((GameScreen) Main.getInstance().getScreen()).getState() == GameState.pause) return;
+
         game.getWorld().step(1/60f, 6, 2);
 
         for(Projectile projectile : game.getProjectiles()){
@@ -210,8 +216,11 @@ public class GameController {
         game.getWorld().setContactListener(manager);
     }
 
+    public static void saveGame(){}
+    
     public static void disposeGame(){
         game.dispose();
-        game.dispose();
     }
+
+
 }

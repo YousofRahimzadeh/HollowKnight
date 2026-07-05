@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.ObjectMap;
 
-import Yousof.HollowKnight.Enum.VolumeSettings;
+import Yousof.HollowKnight.Enum.Settings;
 
 public class AudioManager {
     private static AudioManager instance;
@@ -18,8 +18,8 @@ public class AudioManager {
     private FadeState fadeState = FadeState.NONE;
     
     private float fadeSpeed = 1f;
-    private float maxTargetVolume = VolumeSettings.MUSIC.getVolume();
-    private float maxSfxVolume = VolumeSettings.SFX.getVolume(); 
+    private float maxTargetVolume = Settings.musicVolume;
+    private float maxSfxVolume = Settings.sfxVolume; 
     private boolean nextMusicLoop = true;
 
     private AudioManager() {
@@ -119,8 +119,8 @@ public class AudioManager {
     }
 
     public void updateVolumeSettings() {
-        this.maxTargetVolume = VolumeSettings.MUSIC.getVolume();
-        this.maxSfxVolume = VolumeSettings.SFX.getVolume();
+        this.maxTargetVolume = Settings.musicVolume;
+        this.maxSfxVolume = Settings.sfxVolume; 
         
         if (currentMusic != null && currentMusic.isPlaying() && fadeState == FadeState.NONE) {
             currentMusic.setVolume(this.maxTargetVolume);

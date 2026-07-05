@@ -1,8 +1,9 @@
-package Yousof.HollowKnight.Screen;
+package Yousof.HollowKnight.Screen.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,14 +12,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import Yousof.HollowKnight.Main;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import Yousof.HollowKnight.Screen.Modal;
 import Yousof.HollowKnight.Enum.Settings;
 import Yousof.HollowKnight.Enum.KeysSettings;
 
-public class SettingScreen extends AbstractScreen {
+public class SettingModal extends Modal {
     private Preferences preferences;
     
-    // اِلِمان‌های متنی صوتی و تصویری
+    // المان‌های متنی صوتی و تصویری
     private Label musicVolLabel;
     private Label sfxVolLabel;
     private Label musicToggleLabel;
@@ -36,12 +38,19 @@ public class SettingScreen extends AbstractScreen {
     private final String[] languages = {"English", "Persian", "Spanish"};
     private int currentLangIndex = 0;
 
-    @Override
-    public void show() {
-        super.show();
+    public SettingModal() {
+        super();
         preferences = Gdx.app.getPreferences("hollowknight");
-        
-        // ۱. لود کردن و همگام‌سازی صدا و گرافیک
+
+        this.setFillParent(true);
+        this.center();
+
+        // ست کردن پس‌زمینه مدال (دقیقاً مثل PauseModal)
+        Texture myTexture = new Texture(Gdx.files.internal("ui/modalBackgrounds.png")); 
+        TextureRegionDrawable myDrawable = new TextureRegionDrawable(myTexture); 
+        this.setBackground(myDrawable);
+
+        // ۱. همگام‌سازی اولیه مقادیر صدا، تصویر و دکمه‌ها
         Settings.musicVolume = preferences.getFloat("musicVolume", 0.5f);
         Settings.sfxVolume = preferences.getFloat("sfxVolume", 1.0f);
         Settings.musicOn = preferences.getBoolean("musicOn", true);
@@ -49,20 +58,16 @@ public class SettingScreen extends AbstractScreen {
         Settings.brightness = preferences.getFloat("brightness", 0.9f);
         currentLangIndex = preferences.getInteger("languageIndex", 0);
 
-        // ۲. لود کردن دکمه‌ها از پرفرنسز و ست کردن روی KeysSettings (اگر قبلاً ذخیره شده باشند)
         for (KeysSettings keyBind : KeysSettings.values()) {
             int savedKey = preferences.getInteger("KEY_" + keyBind.name(), keyBind.getKey());
             keyBind.setKey(savedKey);
         }
 
-        // ساخت جدول اصلی
-        Table table = new Table();
-        table.setFillParent(true);
-        table.center().pad(25);
+        // ۲. جدول کانتینر داخلی برای مرتب‌سازی کل المان‌ها
+        Table container = new Table(skin);
+        container.center();
 
-        // ==========================================
-        // 🎵 بخش تنظیمات صدا (AUDIO)
-        // ==========================================
+        // --- بخش تنظیمات صدا (AUDIO) ---
         musicVolLabel = new Label("", skin);
         Slider musicSlider = new Slider(0f, 1f, 0.01f, false, skin);
         musicSlider.setValue(Settings.musicVolume);
@@ -137,9 +142,7 @@ public class SettingScreen extends AbstractScreen {
             }
         });
 
-        // ==========================================
-        // 📺 بخش تصویر و زبان (VIDEO & LANGUAGE)
-        // ==========================================
+        // --- بخش تصویر و زبان (DISPLAY) ---
         brightnessLabel = new Label("Brightness: " + (int)(Settings.brightness * 100) + "%", skin);
         Slider brightnessSlider = new Slider(0.4f, 1.6f, 0.05f, false, skin);
         brightnessSlider.setValue(Settings.brightness);
@@ -165,13 +168,9 @@ public class SettingScreen extends AbstractScreen {
             }
         });
 
-        // ==========================================
-        // 🎮 بخش کنترلرها داینامیک بر اساس ENUM شما
-        // ==========================================
+        // --- بخش کنترلرها (CONTROLS GRID) ---
         KeysSettings[] allBinds = KeysSettings.values();
         keyLabels = new Label[allBinds.length];
-        
-        // ساخت یک جدول فرعی مخصوص کلیدها تا چیدمانش فشرده و ۲ ستونه باشد
         Table controlsGrid = new Table();
 
         for (int i = 0; i < allBinds.length; i++) {
@@ -181,16 +180,13 @@ public class SettingScreen extends AbstractScreen {
             keyLabels[i] = new Label("", skin);
             updateKeyText(index, currentBind);
 
-            // قابلیت کلیک مستقیم روی متن کلید برای تعویض آن
             keyLabels[i].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    // اگر از قبل منتظر کلید دیگری بودیم، آن را به حالت عادی برگردان
                     if (selectedLabelIndex != -1) {
                         keyLabels[selectedLabelIndex].setColor(Color.WHITE);
                         updateKeyText(selectedLabelIndex, KeysSettings.values()[selectedLabelIndex]);
                     }
-                    
                     selectedKeyToChange = currentBind;
                     selectedLabelIndex = index;
                     keyLabels[index].setText(getCleanName(currentBind.name()) + ": [ Press Any Key... ]");
@@ -198,25 +194,19 @@ public class SettingScreen extends AbstractScreen {
                 }
             });
 
-            // چیدن کلیدها در ۲ ستون مجزا بغل هم (هر ۲ کلید یک ردیف جدید)
-            controlsGrid.add(keyLabels[i]).left().width(260).pad(6);
-            if ((i + 1) % 2 == 0) {
-                controlsGrid.row();
-            }
+            controlsGrid.add(keyLabels[i]).left().width(220).pad(4);
+            if ((i + 1) % 2 == 0) controlsGrid.row();
         }
 
         TextButton resetControlsBtn = new TextButton("Reset Controls", skin);
         resetControlsBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // پاک کردن تنظیمات ذخیره شده برای برگشتن به هاردکد پیش‌فرض داخل Enum
                 for (KeysSettings bind : KeysSettings.values()) {
                     preferences.remove("KEY_" + bind.name());
                 }
                 preferences.flush();
                 
-                // لود مجدد مقادیر اولیه اصلی جاوا
-                // از آنجا که enum در جاوا مقداردهی اولیه سختی دارد، مقادیر پیش‌فرض اورجینال شما را اینجا ست می‌کنیم
                 KeysSettings.KNIGHTUP.setKey(com.badlogic.gdx.Input.Keys.UP);
                 KeysSettings.KNIGHTDOWN.setKey(com.badlogic.gdx.Input.Keys.DOWN);
                 KeysSettings.KNIGHTRIGHT.setKey(com.badlogic.gdx.Input.Keys.RIGHT);
@@ -236,59 +226,53 @@ public class SettingScreen extends AbstractScreen {
             }
         });
 
+        // دکمه بازگشت برای بستن مدال تنظیمات و برگشتن به مدال قبلی (یا خود بازی)
         TextButton backButton = new TextButton("Back", skin);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(new MainScreen());
+                onBack();
             }
         });
 
-        // ==========================================
-        // 📐 تزریق المان‌ها به جدول اصلی صفحه با پدینگ مرتب
-        // ==========================================
-        table.add(new Label("[ AUDIO & DISPLAY ]", skin)).colspan(2).padBottom(10).center().row();
-        table.add(musicVolLabel).left().padBottom(5);
-        table.add(musicSlider).width(250).fillX().padBottom(5).row();
-        table.add(sfxVolLabel).left().padBottom(5);
-        table.add(sfxSlider).width(250).fillX().padBottom(5).row();
-        table.add(musicToggleLabel).left().padBottom(5);
-        table.add(sfxToggleLabel).left().padBottom(5).row();
-        table.add(brightnessLabel).left().padBottom(5);
-        table.add(brightnessSlider).width(250).fillX().padBottom(5).row();
-        table.add(languageLabel).colspan(2).left().padBottom(10).row();
-        table.add(resetAudioBtn).colspan(2).center().padBottom(20).row();
+        // --- چیدمان منظم المان‌ها داخل container مدال ---
+        float pad = 6f;
+        container.add(new Label("--- AUDIO & DISPLAY ---", skin)).colspan(2).padBottom(10).row();
+        container.add(musicVolLabel).left().padBottom(pad);
+        container.add(musicSlider).width(220).fillX().padBottom(pad).row();
+        container.add(sfxVolLabel).left().padBottom(pad);
+        container.add(sfxSlider).width(220).fillX().padBottom(pad).row();
+        container.add(musicToggleLabel).left().padBottom(pad);
+        container.add(sfxToggleLabel).left().padBottom(pad).row();
+        container.add(brightnessLabel).left().padBottom(pad);
+        container.add(brightnessSlider).width(220).fillX().padBottom(pad).row();
+        container.add(languageLabel).colspan(2).left().padBottom(8).row();
+        container.add(resetAudioBtn).colspan(2).center().padBottom(15).row();
 
-        table.add(new Label("[ GAME CONTROLS ]", skin)).colspan(2).padBottom(10).center().row();
-        table.add(controlsGrid).colspan(2).center().padBottom(10).row();
-        table.add(resetControlsBtn).colspan(2).center().padBottom(20).row();
+        container.add(new Label("--- CONTROLS ---", skin)).colspan(2).padBottom(10).row();
+        container.add(controlsGrid).colspan(2).center().padBottom(8).row();
+        container.add(resetControlsBtn).colspan(2).center().padBottom(15).row();
         
-        table.add(backButton).colspan(2).width(200).center();
+        container.add(backButton).colspan(2).width(160).center();
 
-        stage.addActor(table);
-        Gdx.input.setInputProcessor(stage);
+        this.add(container);
     }
 
+    // استفاده از متد نیتیو act در سنس‌تودی به عنوان هوک فرام رندر برای گوش دادن به کلید جدید
     @Override
-    public void render(float delta) {
-        super.render(delta);
+    public void act(float delta) {
+        super.act(delta);
         
-        // گوش دادن زنده به کیبورد جهت جایگزینی کلید جدید در فریم جاری
         if (selectedKeyToChange != null && selectedLabelIndex != -1) {
             for (int i = 0; i < 256; i++) {
                 if (Gdx.input.isKeyJustPressed(i)) {
-                    // ۱. تغییر زنده مقدار کلید درون خود Enum شما!
                     selectedKeyToChange.setKey(i);
-                    
-                    // ۲. ذخیره دائمی کلید روی هارد دیسک
                     preferences.putInteger("KEY_" + selectedKeyToChange.name(), i);
                     preferences.flush();
                     
-                    // ۳. بازگرداندن وضعیت گرافیکی لیبل به حالت عادی
                     keyLabels[selectedLabelIndex].setColor(Color.WHITE);
                     updateKeyText(selectedLabelIndex, selectedKeyToChange);
                     
-                    // ریسِت کردن فلگ‌ها برای کلید بعدی
                     selectedKeyToChange = null;
                     selectedLabelIndex = -1;
                     break;
@@ -297,15 +281,13 @@ public class SettingScreen extends AbstractScreen {
         }
     }
 
-    // ==========================================
-    // 📝 متدهای فرعی برای فرمت‌دهی متون منو
-    // ==========================================
+    // متدهای فرمت‌دهی متون پویا
     private void updateMusicVolText(float val) {
-        musicVolLabel.setText("Music Volume: " + (int) (val * 100) + "%");
+        musicVolLabel.setText("Music Vol: " + (int) (val * 100) + "%");
     }
 
     private void updateSFXVolText(float val) {
-        sfxVolLabel.setText("SFX Volume: " + (int) (val * 100) + "%");
+        sfxVolLabel.setText("SFX Vol: " + (int) (val * 100) + "%");
     }
 
     private void updateMusicToggleText() {
@@ -325,11 +307,15 @@ public class SettingScreen extends AbstractScreen {
         keyLabels[labelIndex].setText(getCleanName(bind.name()) + ": " + keyName);
     }
 
-    // متد کمکی برای حذف کلمه KNIGHT از اول اسم متغیرها جهت زیباتر شدن ظاهر منو
     private String getCleanName(String enumName) {
         if(enumName.startsWith("KNIGHT")) {
             return enumName.substring(6);
         }
         return enumName;
+    }
+
+    // متد کلیک دکمه بک که می‌توانید در کلاس PauseModal آن را اورراید کنید
+    public void onBack() {
+        hide();
     }
 }

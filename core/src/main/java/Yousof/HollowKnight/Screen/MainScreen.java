@@ -10,7 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Model.GameSession;
+import Yousof.HollowKnight.Screen.Game.GameScreen;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
+import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class MainScreen extends AbstractScreen {
 
@@ -20,6 +22,8 @@ public class MainScreen extends AbstractScreen {
 
         Table table = new Table();
         table.setFillParent(true);
+
+        AudioManager.getInstance().transitionToMusic(AudioStore.HollowKnight.path, true);
 
         Texture HollowKnightHeader = new Texture("Sprites/Menu/SpriteAtlasTexture-Title-2048x2048-fmt12.png");
         Image header = new Image(HollowKnightHeader);
@@ -58,7 +62,7 @@ public class MainScreen extends AbstractScreen {
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(new GameScreen(new GameSession(null, null , null)));
+                Main.getInstance().setScreen(new GameScreen());
             }
         });
 

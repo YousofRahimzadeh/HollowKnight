@@ -26,8 +26,9 @@ public class CameraSession {
         return session;
     }
 
-    public static void setInstance(CameraSession session) {
-        CameraSession.session = session;
+    public static CameraSession createInstance(){
+        session = new CameraSession();
+        return session;
     }
 
     public void update(float delta){
