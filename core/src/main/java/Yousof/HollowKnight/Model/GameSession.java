@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.joints.GearJoint;
 import com.badlogic.gdx.utils.Disposable;
 
 import Yousof.HollowKnight.Model.entities.Entitie;

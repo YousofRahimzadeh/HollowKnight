@@ -2,7 +2,6 @@ package Yousof.HollowKnight.Controller;
 
 import java.util.Iterator;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;

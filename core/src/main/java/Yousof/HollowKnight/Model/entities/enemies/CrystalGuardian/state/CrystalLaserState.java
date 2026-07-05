@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 
@@ -31,6 +30,10 @@ public class CrystalLaserState extends CrystalEnemyState {
     private float laserThickness = 0.9f;
     private float originX;
     private float originY;
+
+    // References to track the closest hit object
+    private Fixture closestFixture;
+    private final Vector2 tempHitPoint = new Vector2();
 
     @Override
     public void enter(CrystalGuardian enemy) {
@@ -91,32 +94,43 @@ public class CrystalLaserState extends CrystalEnemyState {
             startPoint.set(body.getPosition().x + offsetXInMeters, body.getPosition().y + offsetYInMeters);
 
             Vector2 direction = new Vector2(target).sub(startPoint).nor();
-            
             float maxRange = 30f; 
             Vector2 endPoint = new Vector2(startPoint).add(direction.scl(maxRange));
             
+            // Reset raycast results for this frame
+            closestFixture = null;
             hitPoint.set(endPoint);
 
+            // Execute raycast to find the absolute closest solid object
             enemy.getBody().getWorld().rayCast(new RayCastCallback() {
                 @Override
                 public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
                     Object userData = fixture.getUserData();
-                    Body targetBody = fixture.getBody();
                     
                     if (userData != null && !fixture.isSensor()) {
-                        if (userData.equals("grounds") || userData.equals("wall")) {
-                            hitPoint.set(point);
-                            return fraction;
-                        }
-                        if (userData.equals("Knight_main_body")) {
-                            hitPoint.set(point);
-                            ((Knight)targetBody.getUserData()).takeDamage(enemy);
-                            return fraction;
+                        if (userData.equals("grounds") || userData.equals("wall") || userData.equals("Knight_main_body")) {
+                            closestFixture = fixture;
+                            tempHitPoint.set(point);
+                            return fraction; // Clip the ray to this point
                         }
                     }
-                    return -1;
+                    return -1; // Ignore irrelevant fixtures
                 }
             }, startPoint, endPoint);
+
+            // Process calculations after raycast ensures closest object structure
+            if (closestFixture != null) {
+                hitPoint.set(tempHitPoint);
+                Object finalUserData = closestFixture.getUserData();
+                
+                // Damage Knight only if it was the closest object hit by the laser
+                if (finalUserData.equals("Knight_main_body")) {
+                    Knight knight = (Knight) closestFixture.getBody().getUserData();
+                    if (knight != null) {
+                        knight.takeDamage(enemy);
+                    }
+                }
+            }
 
             updateLaserSprite();
 

@@ -34,7 +34,7 @@ public class KnightPogoJumpState extends KnightState{
             knight.setCanDoubleJump(true);
             knight.setCanDash(true);
             knight.getBody().setLinearVelocity(knight.getBody().getLinearVelocity().x , 0f);
-            knight.getBody().applyLinearImpulse(new Vector2(0f , 5f), knight.getBody().getWorldCenter(), true);
+            knight.getBody().applyLinearImpulse(new Vector2(0f , 6f), knight.getBody().getWorldCenter(), true);
 
             if (enemyDetected) performAttack();
         }

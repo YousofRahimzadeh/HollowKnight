@@ -1,7 +1,6 @@
 package Yousof.HollowKnight.Model.entities.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
-import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class VengefulProjectile extends Projectile{
     private Animation<TextureRegion> animation;

@@ -21,8 +21,8 @@ public class KnightShadowDashSensors {
         fdef.filter.categoryBits = Constants.BIT_KNIGHT;
         fdef.filter.maskBits = Constants.BIT_ENEMY;
 
-        float SensorWidth = hx * 0.8f;
-        float SensorHeight = hy * 1.2f;
+        float SensorWidth = hx * 1.4f;
+        float SensorHeight = hy * 0.7f;
         
 
         shape.setAsBox(SensorWidth, SensorHeight, new Vector2(0, SensorHeight - hy), 0);

@@ -1,8 +1,7 @@
 package Yousof.HollowKnight.Screen.Game;
 
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 
 import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Controller.GameController;

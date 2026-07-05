@@ -33,7 +33,7 @@ public class KnightFallState extends KnightState{
             isLanding = true;
             stateTime = 0f;
             animation = AnimationManager.Knight.create("Landing", PlayMode.NORMAL, 0.08f);
-            body.setLinearVelocity(0f , 0f);
+            body.setLinearVelocity(0f , body.getLinearVelocity().y);
             return;
         }
 
