@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Screen;
+package Yousof.HollowKnight.Screen.Main;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Enum.Settings;
+import Yousof.HollowKnight.Screen.AbstractScreen;
 import Yousof.HollowKnight.Enum.KeysSettings;
 
 public class SettingScreen extends AbstractScreen {

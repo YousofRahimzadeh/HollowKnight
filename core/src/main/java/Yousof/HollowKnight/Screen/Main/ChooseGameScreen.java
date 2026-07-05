@@ -1,6 +1,8 @@
-package Yousof.HollowKnight.Screen;
+package Yousof.HollowKnight.Screen.Main;
 
-public class GuideScreen extends AbstractScreen {
+import Yousof.HollowKnight.Screen.AbstractScreen;
+
+public class ChooseGameScreen extends AbstractScreen{
     @Override
     public void show() {
         super.show();

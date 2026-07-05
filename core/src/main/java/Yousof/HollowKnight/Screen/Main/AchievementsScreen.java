@@ -1,6 +1,8 @@
-package Yousof.HollowKnight.Screen;
+package Yousof.HollowKnight.Screen.Main;
 
-public class ChooseGameScreen extends AbstractScreen{
+import Yousof.HollowKnight.Screen.AbstractScreen;
+
+public class AchievementsScreen extends AbstractScreen {
     @Override
     public void show() {
         super.show();
@@ -15,4 +17,5 @@ public class ChooseGameScreen extends AbstractScreen{
     public void resize(int width, int height) {
         super.resize(width, height);
     }
+    
 }

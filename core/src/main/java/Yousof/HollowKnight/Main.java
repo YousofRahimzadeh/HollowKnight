@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import Yousof.HollowKnight.Controller.MainController;
 import Yousof.HollowKnight.Enum.Settings;
 import Yousof.HollowKnight.Model.Assets;
-import Yousof.HollowKnight.Screen.MainScreen;
+import Yousof.HollowKnight.Screen.Main.MainScreen;
 
 public class Main extends Game {
     public static Main main;
@@ -41,13 +41,10 @@ public class Main extends Game {
     public void render() {
         ScreenUtils.clear(0, 0, 0, 1);
         super.render();
-         // فرضا این مقدار بین 0.0 (تاریک) تا 2.0 (خیلی روشن) توسط اسلایدر تنظیم می‌شود
-        // عدد 1.0 یعنی حالت نرمال و طبیعی بازی
         float brightness = Settings.brightness; 
         SpriteBatch batch = new SpriteBatch();
         batch.begin();
         if (brightness < 1.0f) {
-            // حالت تاریک‌کننده: رنگ مشکی با شفافیتی مابین ۰ تا ۱
             batch.setColor(0, 0, 0, 1.0f - brightness); 
             batch.draw(whiteOverlay, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         } 

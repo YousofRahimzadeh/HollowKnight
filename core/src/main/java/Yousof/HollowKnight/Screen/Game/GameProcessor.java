@@ -6,8 +6,8 @@ import com.badlogic.gdx.InputAdapter;
 import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Screen.AbstractScreen;
-import Yousof.HollowKnight.Screen.MainScreen;
 import Yousof.HollowKnight.Screen.Modal;
+import Yousof.HollowKnight.Screen.Main.MainScreen;
 
 public class GameProcessor extends InputAdapter{
 

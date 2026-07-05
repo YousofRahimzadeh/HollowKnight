@@ -35,7 +35,7 @@ public class SettingModal extends Modal {
     private KeysSettings selectedKeyToChange = null;
     private int selectedLabelIndex = -1;
 
-    private final String[] languages = {"English", "Persian", "Spanish"};
+    private final String[] languages = {"English", "Spanish"};
     private int currentLangIndex = 0;
 
     public SettingModal() {
