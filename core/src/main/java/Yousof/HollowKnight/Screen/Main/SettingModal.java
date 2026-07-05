@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Screen.Game;
+package Yousof.HollowKnight.Screen.Main;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;

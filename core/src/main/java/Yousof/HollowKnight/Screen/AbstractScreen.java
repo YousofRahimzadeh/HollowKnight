@@ -58,7 +58,7 @@ public class AbstractScreen implements Screen {
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(stage);
         Gdx.input.setInputProcessor(inputMultiplexer);
-        stage.setDebugAll(true);
+        // stage.setDebugAll(true);
     }
 
     @Override
