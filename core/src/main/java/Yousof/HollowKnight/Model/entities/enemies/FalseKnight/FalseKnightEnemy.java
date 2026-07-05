@@ -85,6 +85,8 @@ public class FalseKnightEnemy extends Enemy{
     
         if (currentState instanceof FalseStunState) {
             ((FalseStunState) currentState).currentPhase = FalseStunState.LeapPhase.HITING;
+        }else if(currentState instanceof FalseDeathState){
+            return;
         } else {
             changeState(new FalseKnockbackState(body, currentState, strength));
         }

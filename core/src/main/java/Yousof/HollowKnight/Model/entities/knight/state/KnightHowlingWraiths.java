@@ -24,11 +24,11 @@ public class KnightHowlingWraiths extends KnightState{
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        AudioManager.getInstance().playSound(AudioStore.HollowKnightScream.path);
         if(knight.getCurrentSoul() < 33) {
             knight.changeState(new KnightIdleState());
             return;
         }
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightScream.path);
         String effectName = "SoulScream";
         damage = knight.getDamage();
         if(knight.getInventory().isEquipped(CharmEnum.VOID_HEART)){
@@ -93,9 +93,9 @@ public class KnightHowlingWraiths extends KnightState{
         if(enemies != null && !enemies.isEmpty()){
             for(Enemy enemy : enemies){
                 if(enemy != null){
-                    enemy.takeDamage(knight.getBody() , damage , 10f);
-                    enemy.takeDamage(knight.getBody() , damage , 10f);
-                    enemy.takeDamage(knight.getBody() , damage , 10f);
+                    enemy.takeDamage(knight.getBody() , damage , 14f);
+                    enemy.takeDamage(knight.getBody() , damage , 14f);
+                    enemy.takeDamage(knight.getBody() , damage , 14f);
                 }
             }
         }

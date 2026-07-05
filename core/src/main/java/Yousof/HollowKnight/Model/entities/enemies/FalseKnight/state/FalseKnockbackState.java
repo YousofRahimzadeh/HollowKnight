@@ -46,10 +46,10 @@ public class FalseKnockbackState extends FalseKnightState {
             
             float dirX = (enemyPos.x - attackerPos.x) > 0 ? 1f : -1f;
 
-            body.setLinearVelocity(0, body.getLinearVelocity().y);
+            body.setLinearVelocity(0, 0);
 
             body.applyLinearImpulse(
-                new Vector2(dirX * strength, strength * 0.2f),
+                new Vector2(dirX * strength, strength),
                 body.getWorldCenter(),
                 true
             );
