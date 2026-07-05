@@ -67,8 +67,9 @@ public class GameController {
     }
 
     public static void updateGame(float delta){
-        // System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
         if(((GameScreen) Main.getInstance().getScreen()).getState() == GameState.pause) return;
+
+        CheatCodeManager.handleCheats(GameSession.getInstance().getKnight());
 
         game.getWorld().step(1/60f, 6, 2);
 

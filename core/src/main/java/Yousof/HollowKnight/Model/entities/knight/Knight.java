@@ -17,6 +17,7 @@ import Yousof.HollowKnight.Model.entities.knight.sensors.KnightScreamSensros;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightShadowDashSensors;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightSurroundSensors;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightDeathState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightSpectatorModeState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightIdleState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightKnockbackState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightShadowDashState;
@@ -47,6 +48,8 @@ public class Knight extends Entitie {
     private boolean onDoubleJump = false;
     private boolean canDash = true;
     private boolean canMove = true;
+    private boolean onGodMode = false;
+    private boolean onSpectator = false;
     private float dashCooldwon = 0f;
 
     public Knight(World world, Vector2 spawnPos) {
@@ -100,6 +103,7 @@ public class Knight extends Entitie {
     }
 
     public void takeDamage(Enemy enemy){
+        if(onGodMode) return;
         if(onKnock) return;
         
         this.currentMasks -= 1;
@@ -112,6 +116,7 @@ public class Knight extends Entitie {
     }
 
     public void takeDamage(){
+        if(onGodMode) return;
         if(onKnock) return;
         
         this.currentMasks -= 1;
@@ -122,6 +127,7 @@ public class Knight extends Entitie {
     }
 
     public void takeDamage(Body body ,int how){
+        if(onGodMode) return;
         if(onKnock) return;
         
         this.currentMasks -= how;
@@ -213,6 +219,10 @@ public class Knight extends Entitie {
     public KnightState getCurrentState() {
         return currentState;
     }
+    public boolean isOnGodMode() {return onGodMode;}
+    public void setOnGodMode(boolean onGodMode) {this.onGodMode = onGodMode;}
+    public boolean isOnSpectator() {return onSpectator;}
+    public void setOnSpectator(boolean onSpectator) {this.onSpectator = onSpectator;}
     public boolean isStrikingWithSharpShadow() {
         return this.currentState instanceof KnightShadowDashState;
     }

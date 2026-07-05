@@ -35,10 +35,10 @@ public class KnightAttackState extends KnightState{
         if(knight.getInventory().isEquipped(CharmEnum.QUICK_SLASH)){
             frameRate /= 2;
         }
-        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTUP.key)){
+        if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTLOOKUP.key)){
             currentDir = Direction.UP;
             animation = AnimationManager.Knight.create("UpSlash", PlayMode.NORMAL, frameRate);
-        }else if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTDOWN.key) && knight.getSurroundSensors().downSensor == 0){
+        }else if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTLOOKDOWN.key) && knight.getSurroundSensors().downSensor == 0){
             currentDir = Direction.DOWN;
             animation = AnimationManager.Knight.create("DownSlash", PlayMode.NORMAL, frameRate);
         }else{

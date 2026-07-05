@@ -27,5 +27,6 @@ public class Enemy extends Entitie{
     }
 
     public void takeDamage(Body body , int how , float strength){}
+    public void takeDamage(int how){}
     
 }

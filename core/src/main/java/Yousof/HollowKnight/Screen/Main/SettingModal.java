@@ -20,7 +20,6 @@ import Yousof.HollowKnight.Enum.KeysSettings;
 public class SettingModal extends Modal {
     private Preferences preferences;
     
-    // المان‌های متنی صوتی و تصویری
     private Label musicVolLabel;
     private Label sfxVolLabel;
     private Label musicToggleLabel;
@@ -28,10 +27,8 @@ public class SettingModal extends Modal {
     private Label brightnessLabel;
     private Label languageLabel;
     
-    // آرایه‌ای از لیبل‌ها برای کلیدهای بازی
     private Label[] keyLabels;
     
-    // مدیریت وضعیت بایندینگ کلیدها
     private KeysSettings selectedKeyToChange = null;
     private int selectedLabelIndex = -1;
 
@@ -45,12 +42,10 @@ public class SettingModal extends Modal {
         this.setFillParent(true);
         this.center();
 
-        // ست کردن پس‌زمینه مدال (دقیقاً مثل PauseModal)
         Texture myTexture = new Texture(Gdx.files.internal("ui/modalBackgrounds.png")); 
         TextureRegionDrawable myDrawable = new TextureRegionDrawable(myTexture); 
         this.setBackground(myDrawable);
 
-        // ۱. همگام‌سازی اولیه مقادیر صدا، تصویر و دکمه‌ها
         Settings.musicVolume = preferences.getFloat("musicVolume", 0.5f);
         Settings.sfxVolume = preferences.getFloat("sfxVolume", 1.0f);
         Settings.musicOn = preferences.getBoolean("musicOn", true);
@@ -63,11 +58,9 @@ public class SettingModal extends Modal {
             keyBind.setKey(savedKey);
         }
 
-        // ۲. جدول کانتینر داخلی برای مرتب‌سازی کل المان‌ها
         Table container = new Table(skin);
         container.center();
 
-        // --- بخش تنظیمات صدا (AUDIO) ---
         musicVolLabel = new Label("", skin);
         Slider musicSlider = new Slider(0f, 1f, 0.01f, false, skin);
         musicSlider.setValue(Settings.musicVolume);
@@ -142,7 +135,7 @@ public class SettingModal extends Modal {
             }
         });
 
-        // --- بخش تصویر و زبان (DISPLAY) ---
+
         brightnessLabel = new Label("Brightness: " + (int)(Settings.brightness * 100) + "%", skin);
         Slider brightnessSlider = new Slider(0.4f, 1.6f, 0.05f, false, skin);
         brightnessSlider.setValue(Settings.brightness);
@@ -207,8 +200,6 @@ public class SettingModal extends Modal {
                 }
                 preferences.flush();
                 
-                KeysSettings.KNIGHTUP.setKey(com.badlogic.gdx.Input.Keys.UP);
-                KeysSettings.KNIGHTDOWN.setKey(com.badlogic.gdx.Input.Keys.DOWN);
                 KeysSettings.KNIGHTRIGHT.setKey(com.badlogic.gdx.Input.Keys.RIGHT);
                 KeysSettings.KNIGHTLEFT.setKey(com.badlogic.gdx.Input.Keys.LEFT);
                 KeysSettings.KNIGHTLOOKUP.setKey(com.badlogic.gdx.Input.Keys.UP);
@@ -226,7 +217,7 @@ public class SettingModal extends Modal {
             }
         });
 
-        // دکمه بازگشت برای بستن مدال تنظیمات و برگشتن به مدال قبلی (یا خود بازی)
+
         TextButton backButton = new TextButton("Back", skin);
         backButton.addListener(new ClickListener() {
             @Override
@@ -235,7 +226,7 @@ public class SettingModal extends Modal {
             }
         });
 
-        // --- چیدمان منظم المان‌ها داخل container مدال ---
+
         float pad = 6f;
         container.add(new Label("--- AUDIO & DISPLAY ---", skin)).colspan(2).padBottom(10).row();
         container.add(musicVolLabel).left().padBottom(pad);
@@ -258,7 +249,7 @@ public class SettingModal extends Modal {
         this.add(container);
     }
 
-    // استفاده از متد نیتیو act در سنس‌تودی به عنوان هوک فرام رندر برای گوش دادن به کلید جدید
+
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -281,7 +272,7 @@ public class SettingModal extends Modal {
         }
     }
 
-    // متدهای فرمت‌دهی متون پویا
+
     private void updateMusicVolText(float val) {
         musicVolLabel.setText("Music Vol: " + (int) (val * 100) + "%");
     }
@@ -314,7 +305,7 @@ public class SettingModal extends Modal {
         return enumName;
     }
 
-    // متد کلیک دکمه بک که می‌توانید در کلاس PauseModal آن را اورراید کنید
+
     public void onBack() {
         hide();
     }

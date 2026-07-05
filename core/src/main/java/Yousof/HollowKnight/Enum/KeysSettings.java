@@ -4,8 +4,6 @@ import com.badlogic.gdx.Input;
 
 
 public enum KeysSettings {
-    KNIGHTUP(Input.Keys.UP),
-    KNIGHTDOWN(Input.Keys.DOWN),
     KNIGHTRIGHT(Input.Keys.RIGHT),
     KNIGHTLEFT(Input.Keys.LEFT),
     KNIGHTLOOKUP(Input.Keys.UP),
