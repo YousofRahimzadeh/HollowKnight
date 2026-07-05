@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
@@ -19,6 +20,7 @@ import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
 public class KnightHowlingWraiths extends KnightState{
 
     private Animation<TextureRegion> effecAnimation;
+    private int damage;
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
@@ -27,10 +29,15 @@ public class KnightHowlingWraiths extends KnightState{
             knight.changeState(new KnightIdleState());
             return;
         }
-        
+        String effectName = "SoulScream";
+        damage = knight.getDamage();
+        if(knight.getInventory().isEquipped(CharmEnum.VOID_HEART)){
+            effectName = "ShadowScream";
+            damage = (int)(damage * 1.5f);
+        }
         knight.setCurrentSoul(knight.getCurrentSoul() - 33);
         animation = AnimationManager.Knight.create("Scream", PlayMode.NORMAL, 0.08f);
-        effecAnimation = AnimationManager.KnightEffects.create("ShadowScream", PlayMode.NORMAL, 0.08f);
+        effecAnimation = AnimationManager.KnightEffects.create(effectName, PlayMode.NORMAL, 0.08f);
 
         performAttack();
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
@@ -86,9 +93,9 @@ public class KnightHowlingWraiths extends KnightState{
         if(enemies != null && !enemies.isEmpty()){
             for(Enemy enemy : enemies){
                 if(enemy != null){
-                    enemy.takeDamage(knight.getBody() , knight.getDamage() , 10f);
-                    enemy.takeDamage(knight.getBody() , knight.getDamage() , 10f);
-                    enemy.takeDamage(knight.getBody() , knight.getDamage() , 10f);
+                    enemy.takeDamage(knight.getBody() , damage , 10f);
+                    enemy.takeDamage(knight.getBody() , damage , 10f);
+                    enemy.takeDamage(knight.getBody() , damage , 10f);
                 }
             }
         }

@@ -12,6 +12,7 @@ public enum AnimationManager {
     Zote("Animations/Atlas/NPC/Zote.atlas"),
     Knight("Animations/Atlas/Knight/Knight.atlas"),
     KnightProjectile("Animations/Atlas/Knight/KnightProjectile.atlas"),
+    KnightShadowDash("Animations/Atlas/Knight/shadowDash.atlas"),
     KnightEffects("Animations/Atlas/Knight/Effects.atlas"),
     Crawlid("Animations/Atlas/Enemies/Crawlid/Crawlid.atlas"),
     WingedSentry("Animations/Atlas/Enemies/WingedSentry/WingedSentry.atlas"),

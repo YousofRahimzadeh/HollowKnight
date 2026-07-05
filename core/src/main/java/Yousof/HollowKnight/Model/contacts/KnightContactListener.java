@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightShadowDashState;
 
 public class KnightContactListener implements ContactListener{
 
@@ -22,6 +23,8 @@ public class KnightContactListener implements ContactListener{
         attackSensor(fb, fa, true); 
         screamSensor(fa, fb, true);
         screamSensor(fb, fa, true); 
+        shadowDashContact(fa, fb, true);
+        shadowDashContact(fb, fa, true);
         
     }
 
@@ -36,6 +39,8 @@ public class KnightContactListener implements ContactListener{
         attackSensor(fb, fa, false);
         screamSensor(fa, fb, false);
         screamSensor(fb, fa, false); 
+        shadowDashContact(fa, fb, false);
+        shadowDashContact(fb, fa, false);
         
     }
 
@@ -106,6 +111,16 @@ public class KnightContactListener implements ContactListener{
             } else {
                 knight.getScreamSensros().wholeSensor.remove(enem);
             }
+        }
+    }
+
+    private void shadowDashContact(Fixture enemy , Fixture sensor , boolean Begin){
+        if("knight_shadow_dash_sensor".equals(sensor.getUserData()) && ("Enemy_main_body".equals(enemy.getUserData()) || "Zote_main_body".equals(enemy.getUserData()))){
+            Enemy enem = (Enemy) enemy.getBody().getUserData();
+            Knight knight = (Knight) sensor.getBody().getUserData();
+            if(Begin && knight.isStrikingWithSharpShadow()) {
+                ((KnightShadowDashState) knight.getCurrentState()).performAttack(enem);
+            } 
         }
     }
 

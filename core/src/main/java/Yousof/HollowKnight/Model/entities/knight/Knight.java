@@ -14,10 +14,12 @@ import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightScreamSensros;
+import Yousof.HollowKnight.Model.entities.knight.sensors.KnightShadowDashSensors;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightSurroundSensors;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightDeathState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightIdleState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightKnockbackState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightShadowDashState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
 import Yousof.HollowKnight.Utils.audio.AudioStore;
@@ -33,10 +35,11 @@ public class Knight extends Entitie {
     
     private KnightInventory inventory;
     private KnightState currentState;
-    
+
     private KnightSurroundSensors surroundSensors;
     private KnightAttackSensors attackSensors;
     private KnightScreamSensros screamSensros;
+    private KnightShadowDashSensors shadowDashSensors;
 
     private boolean facingRight = true;
     private boolean onKnock = false;
@@ -50,6 +53,7 @@ public class Knight extends Entitie {
         surroundSensors = new KnightSurroundSensors();
         attackSensors = new KnightAttackSensors();
         screamSensros = new KnightScreamSensros();
+        shadowDashSensors = new KnightShadowDashSensors();
         inventory = new KnightInventory();
         createBody(world, spawnPos);
         changeState(new KnightIdleState());
@@ -92,6 +96,7 @@ public class Knight extends Entitie {
         surroundSensors.createSensors(body, hx, hy);
         attackSensors.createSensors(body, hx, hy);
         screamSensros.createSensors(body, hx, hy);
+        shadowDashSensors.createSensors(body, hx, hy);
     }
 
     public void takeDamage(Enemy enemy){
@@ -205,5 +210,10 @@ public class Knight extends Entitie {
     public void setInventory(KnightInventory inventory) {
         this.inventory = inventory;
     }
-
+    public KnightState getCurrentState() {
+        return currentState;
+    }
+    public boolean isStrikingWithSharpShadow() {
+        return this.currentState instanceof KnightShadowDashState;
+    }
 }

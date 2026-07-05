@@ -1,32 +1,38 @@
 package Yousof.HollowKnight.Model.entities.knight.state;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
-import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
-public class KnightDashState extends KnightState{
+public class KnightShadowDashState extends KnightState{
 
     private Animation<TextureRegion> dashAnim;
+    private ArrayList<Enemy> hasAttacked;
+    private float speedMulti = 1.4f;
 
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
-        if(knight.getInventory().isEquipped(CharmEnum.SHARP_SHADOW)){
-            knight.changeState(new KnightShadowDashState());
-            return;
-        }
-        animation = AnimationManager.Knight.create("Dash", PlayMode.NORMAL, 0.08f);
+        hasAttacked = new ArrayList<>();
+        animation = AnimationManager.KnightShadowDash.create("Shadow Dash", PlayMode.NORMAL, 0.08f);
         dashAnim = AnimationManager.KnightEffects.create("Dash Effect", Animation.PlayMode.NORMAL, 0.06f);
         knight.startDashCooldown();
+        knight.getBody().getFixtureList().forEach(f -> {
+            if("Knight_main_body".equals(f.getUserData())){
+                f.getFilterData().categoryBits = Constants.BIT_KNIGHT_DEAD;
+            }
+        });
         float speed = (knight.isFacingRight()) ? 12f : -12f;
-        body.applyLinearImpulse(new Vector2(speed , 0), body.getWorldCenter() , true);
+        body.applyLinearImpulse(new Vector2(speed * speedMulti , 0), body.getWorldCenter() , true);
     }
 
     @Override
@@ -47,9 +53,19 @@ public class KnightDashState extends KnightState{
         }
     }
 
+    public void performAttack(Enemy enemy){
+        if(hasAttacked.contains(enemy)) return;
+        hasAttacked.add(enemy);
+        enemy.takeDamage(body, 5, 12f);
+    }
+
     @Override
     public void exit() {
-        
+        knight.getBody().getFixtureList().forEach(f -> {
+            if("Knight_main_body".equals(f.getUserData())){
+                f.getFilterData().categoryBits = Constants.BIT_KNIGHT;
+            }
+        });
     }
 
     @Override

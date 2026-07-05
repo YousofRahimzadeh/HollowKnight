@@ -103,7 +103,7 @@ public class CrystalLaserState extends CrystalEnemyState {
                     Object userData = fixture.getUserData();
                     Body targetBody = fixture.getBody();
                     
-                    if (userData != null) {
+                    if (userData != null && !fixture.isSensor()) {
                         if (userData.equals("grounds") || userData.equals("wall")) {
                             hitPoint.set(point);
                             return fraction;

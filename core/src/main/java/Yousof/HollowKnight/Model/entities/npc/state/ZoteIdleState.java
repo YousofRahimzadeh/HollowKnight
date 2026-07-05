@@ -34,6 +34,11 @@ public class ZoteIdleState extends ZoteState {
         body.setLinearVelocity(0, body.getLinearVelocity().y);
         
         if (enemy.getSurroundSensor().knight != null) {
+            if(enemy.getSurroundSensor().knight.getBody().getPosition().x > body.getPosition().x){
+                enemy.setFacingRight(true);
+            }else{
+                enemy.setFacingRight(false);
+            }
             drawE = true;
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
                 enemy.changeState(new ZoteDialogueState());

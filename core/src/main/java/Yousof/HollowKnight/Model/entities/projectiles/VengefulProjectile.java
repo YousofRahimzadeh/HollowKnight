@@ -21,9 +21,10 @@ public class VengefulProjectile extends Projectile{
     private float speed;
     private static final float maxSpeed = 8f;
 
-    public VengefulProjectile(World world ,Knight knight){
+    public VengefulProjectile(World world ,Knight knight , int damage , Animation<TextureRegion> animation){
         isFacingRight = knight.isFacingRight();
-        animation = AnimationManager.KnightProjectile.create("SoulBall", PlayMode.LOOP_PINGPONG, 0.08f);
+        this.damage = damage;
+        this.animation = animation;
         createBody(world , knight);
         speed = (isFacingRight) ? maxSpeed : -maxSpeed;
     }
