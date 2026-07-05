@@ -12,11 +12,15 @@ import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class KnightDashState extends KnightState{
 
+    private Animation<TextureRegion> dashAnim;
 
     @Override
     public void enter(Knight knight) {  
         super.enter(knight);
+
         animation = AnimationManager.Knight.create("Dash", PlayMode.NORMAL, 0.08f);
+        dashAnim = AnimationManager.KnightEffects.create("Dash Effect", Animation.PlayMode.NORMAL, 0.06f);
+        knight.startDashCooldown();
         float speed = (knight.isFacingRight()) ? 12f : -12f;
         body.applyLinearImpulse(new Vector2(speed , 0), body.getWorldCenter() , true);
     }
@@ -66,8 +70,6 @@ public class KnightDashState extends KnightState{
 
         float knightCenterX = body.getPosition().x * Constants.PPM;
         float knightCenterY = body.getPosition().y * Constants.PPM;
-
-        Animation<TextureRegion> dashAnim = AnimationManager.KnightEffects.create("Dash Effect", Animation.PlayMode.NORMAL, 0.06f);
     
         effectFrame = dashAnim.getKeyFrame(stateTime, false);
         float dOffset = 250f;

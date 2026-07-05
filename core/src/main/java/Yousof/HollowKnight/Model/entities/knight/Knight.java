@@ -44,6 +44,7 @@ public class Knight extends Entitie {
     private boolean onDoubleJump = false;
     private boolean canDash = true;
     private boolean canMove = true;
+    private float dashCooldwon = 0f;
 
     public Knight(World world, Vector2 spawnPos) {
         surroundSensors = new KnightSurroundSensors();
@@ -56,7 +57,13 @@ public class Knight extends Entitie {
 
     public void update(float delta) {
         currentState.update(delta);
-        
+        if(!canDash && dashCooldwon > 0f){
+            dashCooldwon -= delta;
+            if(dashCooldwon <= 0f){
+                dashCooldwon = 0f;
+                canDash = true;
+            }
+        }
     }
 
     public void draw(Batch batch) {
@@ -164,6 +171,10 @@ public class Knight extends Entitie {
     public void setOnDoubleJump(boolean onDoubleJump) {this.onDoubleJump = onDoubleJump;}
     public boolean isCanDash() {return canDash;}
     public void setCanDash(boolean canDash) {this.canDash = canDash;}
+    public void startDashCooldown() {
+        canDash = false;
+        dashCooldwon = inventory.isEquipped(CharmEnum.DASHMASTER) ? 0.1f : 1f;
+    }
     public int getMaxSoul() {return maxSoul;}
     public int getMaxMasks() {return maxMasks;}
     public int getCurrentMasks() {return currentMasks;}

@@ -34,7 +34,7 @@ public class KnightIdleState extends KnightState{
                 knight.setCanDoubleJump(true);
                 knight.changeState(new KnightJumpState());
             }
-            if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTDASH.key)){
+            if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTDASH.key) && knight.isCanDash()){
                 knight.changeState(new KnightDashState());
             }
             if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTATTACK.key)){

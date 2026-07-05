@@ -72,7 +72,7 @@ public class KnightFallState extends KnightState{
             return;
         }
 
-        if(Gdx.input.isKeyJustPressed(KeysSettings.KNIGHTDASH.key)){
+        if(Gdx.input.isKeyJustPressed(KeysSettings.KNIGHTDASH.key) && knight.isCanDash()){
             knight.changeState(new KnightDashState());
             return;
         }
