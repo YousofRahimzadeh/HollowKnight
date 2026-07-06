@@ -9,7 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import Yousof.HollowKnight.Main;
+import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Screen.Modal;
+import Yousof.HollowKnight.Screen.Game.GameScreen;
 import Yousof.HollowKnight.Utils.save.GameData;
 import Yousof.HollowKnight.Utils.save.SaveManager;
 
@@ -47,6 +50,8 @@ public class SaveSlotsModal extends Modal {
                 loadButton.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
+                        GameController.loadGame(slotNumber);
+                        Main.getInstance().setScreen(new GameScreen());
                         hide();
                     }
                 });
@@ -61,6 +66,8 @@ public class SaveSlotsModal extends Modal {
                 newGameButton.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
+                        GameController.loadGame(slotNumber);
+                        Main.getInstance().setScreen(new GameScreen());
                         hide();
                     }
                 });

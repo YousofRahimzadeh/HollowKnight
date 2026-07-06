@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Utils.audio;
+package Yousof.HollowKnight.Enum;
 
 public enum AudioStore {
     CityOfTears("audio/CityOfTears.mp3"),

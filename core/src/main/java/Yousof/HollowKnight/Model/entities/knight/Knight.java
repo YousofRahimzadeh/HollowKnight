@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import Yousof.HollowKnight.Enum.AudioStore;
 import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.Entitie;
@@ -23,7 +24,6 @@ import Yousof.HollowKnight.Model.entities.knight.state.KnightKnockbackState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightShadowDashState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
-import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class Knight extends Entitie {
     private int currentMasks = 5;

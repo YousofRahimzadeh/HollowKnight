@@ -9,12 +9,12 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import Yousof.HollowKnight.Controller.GameController;
+import Yousof.HollowKnight.Enum.AudioStore;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.HUD.GameHUD;
 import Yousof.HollowKnight.Screen.AbstractScreen;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
-import Yousof.HollowKnight.Utils.audio.AudioStore;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 
 public class GameScreen extends AbstractScreen {
@@ -33,8 +33,7 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void show() {
         super.show();
-
-        GameController.loadGame();
+        
         camera = CameraSession.getInstance();
         viewport = new ScreenViewport(camera.getCamera());
         mapRenderer = new OrthogonalTiledMapRenderer(GameSession.getInstance().getMap(), 1f);

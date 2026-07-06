@@ -2,19 +2,19 @@ package Yousof.HollowKnight.Utils.save;
 
 import java.util.ArrayList;
 
+import Yousof.HollowKnight.Enum.AchievementTypes;
+import Yousof.HollowKnight.Enum.GameMap;
+
 public class GameData {
-    // آمار شوالیه
     public int currentMasks;
     public int maxMasks;
     public int currentSoul;
     public float knightX;
     public float knightY;
     
-    // وضعیت جهان بازی
-    public String currentMapName;
+    public GameMap currentMapName;
     public boolean isFalseKnightDefeated;
     public int currentPhase;
     
-    // دستاوردها
-    public ArrayList<String> unlockedAchievements = new ArrayList<>();
+    public ArrayList<AchievementTypes> unlockedAchievements = new ArrayList<>();
 }

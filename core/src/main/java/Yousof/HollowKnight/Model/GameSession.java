@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
+import Yousof.HollowKnight.Enum.GameMap;
 import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
@@ -14,7 +15,9 @@ import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 
 public class GameSession implements Disposable{
 	private static GameSession gameSession;
-    private TiledMap map;
+	private int slot;
+	private GameMap mapName;
+	private TiledMap map;
 	private World world;
 	private Zote zote;
 	private Knight knight;
@@ -95,4 +98,20 @@ public class GameSession implements Disposable{
     public void dispose(){
         map.dispose();
     }
+
+	public int getSlot() {
+		return slot;
+	}
+
+	public void setSlot(int slot) {
+		this.slot = slot;
+	}
+
+	public GameMap getMapName() {
+		return mapName;
+	}
+
+	public void setMapName(GameMap mapName) {
+		this.mapName = mapName;
+	}
 }

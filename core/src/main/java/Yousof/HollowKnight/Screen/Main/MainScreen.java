@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import Yousof.HollowKnight.Enum.AudioStore;
 import Yousof.HollowKnight.Screen.AbstractScreen;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
-import Yousof.HollowKnight.Utils.audio.AudioStore;
 
 public class MainScreen extends AbstractScreen {
 

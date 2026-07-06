@@ -13,10 +13,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Enum.ZoteVoices;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
-import Yousof.HollowKnight.Utils.audio.ZoteVoices;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraDialogueState;
 import Yousof.HollowKnight.Utils.camera.state.CameraKnightState;

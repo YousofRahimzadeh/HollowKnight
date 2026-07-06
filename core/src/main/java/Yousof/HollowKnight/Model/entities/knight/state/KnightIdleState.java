@@ -46,6 +46,9 @@ public class KnightIdleState extends KnightState{
             if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTSCREAM.key)){
                 knight.changeState(new KnightHowlingWraiths());
             }
+            if(body.getLinearVelocity().y < 0 && knight.getSurroundSensors().downSensor <= 0){
+                knight.changeState(new KnightFallState());
+            }
         }
     }
 

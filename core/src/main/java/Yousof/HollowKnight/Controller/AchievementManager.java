@@ -10,10 +10,9 @@ public class AchievementManager {
     public static void unlockAchievement(AchievementTypes achievement) {
         Preferences prefs = Gdx.app.getPreferences("hollowknight_achievements");
         
-        // اگر از قبل باز نشده است، آن را باز کن
         if (!prefs.getBoolean("ACH_" + achievement.name(), false)) {
             prefs.putBoolean("ACH_" + achievement.name(), true);
-            prefs.flush(); // ذخیره آنی روی هارد دیسک
+            prefs.flush();
             Gdx.app.log("ACHIEVEMENT", "Unlocked: " + achievement.getTitle());
         }
     }

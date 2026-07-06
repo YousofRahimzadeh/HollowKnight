@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Enum.GameMap;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.contacts.CrystalEnemyListener;
 import Yousof.HollowKnight.Model.contacts.FalseKnightListener;
@@ -37,6 +38,8 @@ import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 import Yousof.HollowKnight.Screen.Game.GameScreen;
 import Yousof.HollowKnight.Screen.Game.GameState;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
+import Yousof.HollowKnight.Utils.save.GameData;
+import Yousof.HollowKnight.Utils.save.SaveManager;
 
 public class GameController {
 
@@ -46,11 +49,44 @@ public class GameController {
         return game;
     }
 
-    public static void loadGame(){
+    public static void loadGame(int slot){
         game = GameSession.createInstance();
         CameraSession.createInstance();
 
-        TiledMap map = new TmxMapLoader().load("untitled.tmx");
+        GameData gameData = SaveManager.loadGame(slot);
+        if(gameData == null){
+            createGame(slot);
+            return;
+        }
+
+        TiledMap map = new TmxMapLoader().load(gameData.currentMapName.getFilePath());
+        game.setMap(map); 
+
+        World world = new World(new Vector2(0f , -9.8f), true);
+        game.setWorld(world);
+
+        loadStaticBodies();
+        loadDynamicBodies();
+
+        Vector2 spawnPos = new Vector2(gameData.knightX * Constants.PPM, gameData.knightY * Constants.PPM   );
+        Knight knight = new Knight(world, spawnPos);
+        knight.setCurrentMasks(gameData.currentMasks);
+        knight.setCurrentSoul(gameData.currentSoul);
+        game.setKnight(knight);
+
+        game.setMapName(gameData.currentMapName);
+        game.setSlot(slot);
+
+        loadContactListeners();
+     
+    }
+
+    public static void createGame(int slot){
+        game = GameSession.createInstance();
+        CameraSession.createInstance();
+
+        GameMap currentMap = GameMap.TEST;
+        TiledMap map = new TmxMapLoader().load(currentMap.getFilePath());
         game.setMap(map); 
 
         World world = new World(new Vector2(0f , -9.8f), true);
@@ -63,7 +99,12 @@ public class GameController {
         Knight knight = new Knight(world, spawnPos);
         game.setKnight(knight);
 
-        loadContactListeners();        
+        game.setMapName(currentMap);
+        game.setSlot(slot);
+
+        loadContactListeners();
+
+        SaveManager.saveGame(knight, currentMap, false, slot);
     }
 
     public static void updateGame(float delta){
@@ -216,7 +257,10 @@ public class GameController {
         game.getWorld().setContactListener(manager);
     }
 
-    public static void saveGame(){}
+    public static void saveGame(){
+        GameSession game = GameSession.getInstance();
+        SaveManager.saveGame(game.getKnight(), game.getMapName(), false, game.getSlot());
+    }
     
     public static void disposeGame(){
         game.dispose();

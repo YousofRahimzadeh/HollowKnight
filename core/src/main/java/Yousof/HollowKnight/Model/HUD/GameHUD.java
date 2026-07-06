@@ -56,6 +56,8 @@ public class GameHUD {
         for (int i = 0; i < MAX_HEALTH; i++) {
             hearts[i] = new HeartIcon();
             if (i >= lastKnownHp) {
+                hearts[i].changeState(HeartIcon.HeartState.BREAKING);
+            }else{
                 hearts[i].changeState(HeartIcon.HeartState.REFILLING);
             }
         }

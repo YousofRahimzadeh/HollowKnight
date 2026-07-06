@@ -1,4 +1,4 @@
-package Yousof.HollowKnight.Utils.audio;
+package Yousof.HollowKnight.Enum;
 
 public enum ZoteVoices {
     MUMBLE_1("audio/Zote_01.wav"),

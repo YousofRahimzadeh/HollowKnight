@@ -52,7 +52,7 @@ public class CheatCodeManager {
         if (Gdx.input.isKeyJustPressed(CheatKeys.INSTA_KILL.getTriggerKey())) {
             for(Enemy enemy :GameSession.getInstance().getEnemies())
                 enemy.takeDamage(enemy.getBody() , 9999 , 0);
-            Gdx.app.log("CHEAT", "Insta-Kill: All active enemies eliminated!");
+            
         }
     }
 
