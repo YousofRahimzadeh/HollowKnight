@@ -23,8 +23,8 @@ public class PauseModal extends Modal {
         this.setBackground(myDrawable);
 
         TextButton btn1 = new TextButton("Continue", skin);
-        TextButton btn2 = new TextButton("Cheat Codes", skin);
-        TextButton btn3 = new TextButton("Setting", skin);
+        TextButton btn2 = new TextButton("Setting", skin);
+        TextButton btn3 = new TextButton("Guide", skin);
         TextButton btn4 = new TextButton("Save and Exit", skin);
 
         Table container = new Table(skin);

@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+import Yousof.HollowKnight.Controller.AchievementManager;
+import Yousof.HollowKnight.Enum.AchievementTypes;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
@@ -23,6 +25,7 @@ public class FalseDeathState extends FalseKnightState {
         currentAnimation = AnimationManager.FalseKnight.create("DeathFall", PlayMode.NORMAL, enemy.frameDuration);
         currentPhase = LeapPhase.FALLING;
         enemy.cleanUpPhysicsOnDeath();
+        AchievementManager.unlockAchievement(AchievementTypes.FALSE_KNIGHT);
 
     }
 

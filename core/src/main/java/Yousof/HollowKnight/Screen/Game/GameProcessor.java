@@ -7,6 +7,7 @@ import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Screen.AbstractScreen;
 import Yousof.HollowKnight.Screen.Modal;
+import Yousof.HollowKnight.Screen.Main.GuideModal;
 import Yousof.HollowKnight.Screen.Main.MainScreen;
 import Yousof.HollowKnight.Screen.Main.SettingModal;
 
@@ -31,7 +32,7 @@ public class GameProcessor extends InputAdapter{
             @Override
             public void onContinue() {
                 ((GameScreen) Main.getInstance().getScreen()).setState(GameState.run);
-                ((AbstractScreen) Main.getInstance().getScreen()).getModalStack().getChildren().forEach(f -> f.remove());
+                this.hide();
             }
 
             @Override
@@ -51,8 +52,17 @@ public class GameProcessor extends InputAdapter{
 
             @Override
             public void onGuide() {
-                // TODO Auto-generated method stub
                 super.onGuide();
+                this.hide();
+
+                GuideModal guideModal = new GuideModal(){
+                    @Override
+                    public void onBack() {
+                        super.onBack(); 
+                        onEscape();
+                    }
+                };
+                guideModal.show();
             }
 
             @Override

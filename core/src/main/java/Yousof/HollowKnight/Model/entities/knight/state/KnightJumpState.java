@@ -29,6 +29,10 @@ public class KnightJumpState extends KnightState{
     public void update(float delta) {
         super.update(delta);
 
+        if(!Gdx.input.isKeyPressed(KeysSettings.KNIGHTJUMP.key) && body.getLinearVelocity().y > 0f){
+            body.setLinearVelocity(body.getLinearVelocity().x, body.getLinearVelocity().y * 0.45f);
+        }
+
         if(Gdx.input.isKeyPressed(KeysSettings.KNIGHTRIGHT.key)){
             if(knight.getSurroundSensors().rightSensor > 0){
                 knight.changeState(new KnightWallSideState());

@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Yousof.HollowKnight.Screen.Modal;
 import Yousof.HollowKnight.Enum.KeysSettings;
+import Yousof.HollowKnight.Enum.CheatKeys;
 import Yousof.HollowKnight.Utils.animation.InteractiveKnightActor;
 
 public class GuideModal extends Modal {
@@ -52,7 +53,6 @@ public class GuideModal extends Modal {
         }
         scrollContent.add(keysGrid).colspan(2).center().padBottom(sectionSpacing).row();
 
-
         scrollContent.add(new Label("--- KNIGHT ABILITIES & MECHANICS ---", skin)).colspan(2).padBottom(10).row();
         
         Table mechanicsTable = new Table();
@@ -71,25 +71,31 @@ public class GuideModal extends Modal {
         combatDesc.setWrap(true);
 
         mechanicsTable.add(healthTitle).center().row();
-        mechanicsTable.add(healthDesc).width(520).padBottom(10).row();
+        mechanicsTable.add(healthDesc).width(540).padBottom(10).row();
         mechanicsTable.add(soulTitle).center().row();
-        mechanicsTable.add(soulDesc).width(520).padBottom(10).row();
+        mechanicsTable.add(soulDesc).width(540).padBottom(10).row();
         mechanicsTable.add(combatTitle).center().row();
-        mechanicsTable.add(combatDesc).width(520).row();
+        mechanicsTable.add(combatDesc).width(540).row();
 
         scrollContent.add(mechanicsTable).colspan(2).center().padBottom(sectionSpacing).row();
-
 
         scrollContent.add(new Label("--- AVAILABLE CHEAT CODES ---", skin)).colspan(2).padBottom(10).row();
         
         Table cheatsTable = new Table();
-        cheatsTable.defaults().left().padBottom(6);
-        cheatsTable.add(new Label("• GODMODE  - Toggle absolute invincibility from all damage.", skin)).row();
-        cheatsTable.add(new Label("• INFSOUL  - Keeps the main SOUL Orb constantly fully charged.", skin)).row();
-        cheatsTable.add(new Label("• HEALME   - Instantly restores all broken health masks.", skin)).row();
+        cheatsTable.defaults().left().padBottom(8);
+
+        CheatKeys[] allCheats = CheatKeys.values();
+        for (int i = 0; i < allCheats.length; i++) {
+            CheatKeys cheat = allCheats[i];
+            String keyName = com.badlogic.gdx.Input.Keys.toString(cheat.getTriggerKey());
+            String cheatDescription = getCheatDescription(cheat);
+            
+            Label cheatLabel = new Label("|| " + getCleanCheatName(cheat.name()) + " (Ctrl + " + keyName + ") : " + cheatDescription, skin);
+            cheatLabel.setWrap(true);
+            cheatsTable.add(cheatLabel).left().width(540).pad(2).row();
+        }
 
         scrollContent.add(cheatsTable).colspan(2).center().padBottom(25).row();
-
 
         TextButton backButton = new TextButton("Back", skin);
         backButton.addListener(new ClickListener() {
@@ -104,9 +110,8 @@ public class GuideModal extends Modal {
         scrollPane.setScrollingDisabled(true, false);
         scrollPane.setScrollBarPositions(false, true);
         scrollPane.setVariableSizeKnobs(false); 
-        this.add(scrollPane).width(740).height(700).center().padTop(10).row();
+        this.add(scrollPane).width(760).height(700).center().padTop(10).row();
         this.add(backButton).width(160).padTop(20).center();
-
     }
 
     private String getCleanName(String enumName) {
@@ -114,6 +119,36 @@ public class GuideModal extends Modal {
             return enumName.substring(6);
         }
         return enumName;
+    }
+
+    private String getCleanCheatName(String cheatName) {
+        StringBuilder sb = new StringBuilder();
+        String[] tokens = cheatName.split("_");
+        for (String token : tokens) {
+            if (token.length() > 0) {
+                sb.append(token.substring(0, 1).toUpperCase()).append(token.substring(1).toLowerCase()).append(" ");
+            }
+        }
+        return sb.toString().trim();
+    }
+
+    private String getCheatDescription(CheatKeys cheat) {
+        switch (cheat) {
+            case BOSS_TELEPORT:
+                return "Teleport instantly to the False Knight boss arena.";
+            case NOCLIP:
+                return "Fly through map constraints without animations or gravity.";
+            case EMERGENCY_HEAL:
+                return "Instantly recover health masks when in critical state.";
+            case REFILL_SOUL:
+                return "Fully charge your gathered SOUL vessel container.";
+            case GOD_MODE:
+                return "Activate invincibility from hazards, spikes, and enemies.";
+            case INSTA_KILL:
+                return "Execute a fatal strike to eliminate all active screen enemies.";
+            default:
+                return "";
+        }
     }
 
     public void onBack() {

@@ -52,9 +52,22 @@ public class MainModal extends Modal {
         this.padBottom(40f);
         
         btnStart.addListener(new ClickListener() {
+            // @Override
+            // public void clicked(InputEvent event, float x, float y) {
+            //     Main.getInstance().setScreen(new GameScreen());
+            // }
+            
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(new GameScreen());
+                hide();
+                SaveSlotsModal slotsModal = new SaveSlotsModal(){
+                    public void onBack() {
+                        super.onBack();
+                        MainModal mainModal = new MainModal();
+                        mainModal.show();
+                    }
+                };
+                slotsModal.show(); // باز کردن منوی اسلات‌ها روی استیج منو
             }
         });
 
@@ -94,6 +107,28 @@ public class MainModal extends Modal {
 
                 // 3. Mount the guide modal into the Stage
                 guideModal.show(); 
+            }
+        });
+
+        btnAchievements.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // 1. Hide the current main menu modal interface
+                hide(); 
+
+                // 2. Create the Guide view with custom back button override functionality
+                AchievementsModal achievementsModal = new AchievementsModal() {
+                    @Override
+                    public void onBack() {
+                        super.onBack();
+                        // When back is pressed inside guide, dismiss it and reload a clean MainModal
+                        MainModal mainModal = new MainModal();
+                        mainModal.show();
+                    }
+                };
+
+                // 3. Mount the guide modal into the Stage
+                achievementsModal.show(); 
             }
         });
 
