@@ -4,9 +4,11 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -78,7 +80,6 @@ public class GameController {
         game.setSlot(slot);
 
         loadContactListeners();
-     
     }
 
     public static void createGame(int slot){
@@ -128,7 +129,6 @@ public class GameController {
         Iterator<Entitie> removeIter = game.getToRemove().iterator();
 
         while(removeIter.hasNext()){
-
             Entitie entitie = removeIter.next();
 
             if(entitie.getBody() != null) {
@@ -168,68 +168,89 @@ public class GameController {
     }
 
     private static void loadStaticBodies(){
-        for(MapObject object : game.getMap().getLayers().get("grounds").getObjects()){
-
-            if (object instanceof RectangleMapObject) {
-                Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-                BodyDef bdef = new BodyDef();
-                bdef.type = BodyDef.BodyType.StaticBody;
-                float x = (rect.getX() + rect.getWidth() / 2f) / Constants.PPM;
-                float y = (rect.getY() + rect.getHeight() / 2f) / Constants.PPM;
-                bdef.position.set(x, y);
-
-                Body body = game.getWorld().createBody(bdef);
-
-                PolygonShape shape = new PolygonShape();
-                float hx = (rect.getWidth() / 2f) / Constants.PPM;
-                float hy = (rect.getHeight() / 2f) / Constants.PPM;
-                shape.setAsBox(hx, hy);
-
-                FixtureDef fdef = new FixtureDef();
-                fdef.friction = 0f;
-                fdef.shape = shape;
-                fdef.filter.categoryBits = Constants.BIT_GROUND;
-                body.createFixture(fdef).setUserData("grounds");;
-                shape.dispose();
+        if (game.getMap().getLayers().get("grounds") != null) {
+            for(MapObject object : game.getMap().getLayers().get("grounds").getObjects()){
+                if (object instanceof RectangleMapObject) {
+                    createStaticRectangleBody(object, Constants.BIT_GROUND, "grounds");
+                }
             }
         }
 
-        for(MapObject object : game.getMap().getLayers().get("spikes").getObjects()){
-
-            if (object instanceof RectangleMapObject) {
-                Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-                BodyDef bdef = new BodyDef();
-                bdef.type = BodyDef.BodyType.StaticBody;
-                float x = (rect.getX() + rect.getWidth() / 2f) / Constants.PPM;
-                float y = (rect.getY() + rect.getHeight() / 2f) / Constants.PPM;
-                bdef.position.set(x, y);
-
-                Body body = game.getWorld().createBody(bdef);
-
-                PolygonShape shape = new PolygonShape();
-                float hx = (rect.getWidth() / 2f) / Constants.PPM;
-                float hy = (rect.getHeight() / 2f) / Constants.PPM;
-                shape.setAsBox(hx, hy);
-
-                FixtureDef fdef = new FixtureDef();
-                fdef.friction = 0f;
-                fdef.shape = shape;
-                fdef.filter.categoryBits = Constants.BIT_GROUND;
-                body.createFixture(fdef).setUserData("spikes");
-                shape.dispose();
+        if (game.getMap().getLayers().get("spikes") != null) {
+            for(MapObject object : game.getMap().getLayers().get("spikes").getObjects()){
+                if (object instanceof RectangleMapObject) {
+                    createStaticRectangleBody(object, Constants.BIT_GROUND, "spikes");
+                } 
+                else if (object instanceof PolygonMapObject) {
+                    createStaticPolygonBody(object, Constants.BIT_GROUND, "spikes");
+                }
             }
+        } else {
+            System.out.println("Warning: 'spikes' layer not found in Tiled Map!");
         }
     }
     
+    // متد کمکی برای ساخت آبجکت‌های فیزیکی مستطیلی استاتیک
+    private static void createStaticRectangleBody(MapObject object, short categoryBits, String userData) {
+        Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+        BodyDef bdef = new BodyDef();
+        bdef.type = BodyDef.BodyType.StaticBody;
+        float x = (rect.getX() + rect.getWidth() / 2f) / Constants.PPM;
+        float y = (rect.getY() + rect.getHeight() / 2f) / Constants.PPM;
+        bdef.position.set(x, y);
+
+        Body body = game.getWorld().createBody(bdef);
+
+        PolygonShape shape = new PolygonShape();
+        float hx = (rect.getWidth() / 2f) / Constants.PPM;
+        float hy = (rect.getHeight() / 2f) / Constants.PPM;
+        shape.setAsBox(hx, hy);
+
+        FixtureDef fdef = new FixtureDef();
+        fdef.friction = 0f;
+        fdef.shape = shape;
+        fdef.filter.categoryBits = categoryBits;
+        
+        body.createFixture(fdef).setUserData(userData);
+        shape.dispose();
+    }
+
+    // متد کمکی برای ساخت آبجکت‌های فیزیکی چندضلعی (مثل تیغ‌های مثلثی شکل)
+    private static void createStaticPolygonBody(MapObject object, short categoryBits, String userData) {
+        Polygon mapPolygon = ((PolygonMapObject) object).getPolygon();
+        float[] vertices = mapPolygon.getTransformedVertices();
+        float[] worldVertices = new float[vertices.length];
+
+        for (int i = 0; i < vertices.length; i++) {
+            worldVertices[i] = vertices[i] / Constants.PPM;
+        }
+
+        BodyDef bdef = new BodyDef();
+        bdef.type = BodyDef.BodyType.StaticBody;
+        Body body = game.getWorld().createBody(bdef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.set(worldVertices);
+
+        FixtureDef fdef = new FixtureDef();
+        fdef.friction = 0f;
+        fdef.shape = shape;
+        fdef.filter.categoryBits = categoryBits;
+
+        body.createFixture(fdef).setUserData(userData);
+        shape.dispose();
+    }
+
     private static void loadDynamicBodies(){
         for(MapObject object : game.getMap().getLayers().get("spawn").getObjects()){
-            if(object.getName().equals("GroundSpawn")){
-                Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                Enemy nextEnemy2 = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+            if(object.getName().equals("GroundEnemy")){
+                Enemy enemy = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 game.getEnemies().add(enemy);
-                game.getEnemies().add(nextEnemy2);
+            }
+            if(object.getName().equals("LaserEnemy")){
+                Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.getEnemies().add(enemy);
             }
             if(object.getName().equals("FalseKnight")){
                 Enemy nextEnemy = EnemyFactory.createEnemy("FalseKnight", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
@@ -265,6 +286,4 @@ public class GameController {
     public static void disposeGame(){
         game.dispose();
     }
-
-
 }

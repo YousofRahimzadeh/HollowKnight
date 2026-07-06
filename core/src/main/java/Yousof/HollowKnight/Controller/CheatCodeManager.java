@@ -15,7 +15,7 @@ public class CheatCodeManager {
     public static void handleCheats(Knight knight) {
         
         if (!Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
-            return; 
+            return;
         }
 
         // if (Gdx.input.isKeyJustPressed(CheatKeys.BOSS_TELEPORT.getTriggerKey())) {
