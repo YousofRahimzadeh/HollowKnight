@@ -49,7 +49,7 @@ public class KnightKnockbackState extends KnightState{
 
             body.applyLinearImpulse(
                 direction.x * strength,
-                strength * 0.3f,
+                strength ,
                 body.getWorldCenter().x,
                 body.getWorldCenter().y,
                 true
@@ -68,7 +68,7 @@ public class KnightKnockbackState extends KnightState{
 
         if (timer >= duration) {
             knight.setOnKnock(false);
-            knight.changeState(stateWrapper);
+            knight.setCurrentState(stateWrapper);
         }
     }
 

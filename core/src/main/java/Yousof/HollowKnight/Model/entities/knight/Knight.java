@@ -21,6 +21,7 @@ import Yousof.HollowKnight.Model.entities.knight.state.KnightDeathState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightSpectatorModeState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightIdleState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightKnockbackState;
+import Yousof.HollowKnight.Model.entities.knight.state.KnightOnSpikesState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightShadowDashState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightState;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
@@ -42,6 +43,8 @@ public class Knight extends Entitie {
     private KnightScreamSensros screamSensros;
     private KnightShadowDashSensors shadowDashSensors;
 
+    private Vector2 lasPos;
+
     private boolean facingRight = true;
     private boolean onKnock = false;
     private boolean canDoubleJump = true;
@@ -60,6 +63,7 @@ public class Knight extends Entitie {
         inventory = new KnightInventory();
         createBody(world, spawnPos);
         changeState(new KnightIdleState());
+        lasPos = body.getPosition();
     }
 
     public void update(float delta) {
@@ -115,7 +119,7 @@ public class Knight extends Entitie {
         }
     }
 
-    public void takeDamage(){
+    public void takeDamage(Body body){
         if(onGodMode) return;
         if(onKnock) return;
         
@@ -123,6 +127,9 @@ public class Knight extends Entitie {
         if(currentMasks <= 0){
             currentMasks = 0;
             changeState(new KnightDeathState());
+        }else{
+            changeState(new KnightOnSpikesState());
+            changeState(new KnightKnockbackState(body , this , currentState , 6f));
         }
     }
 
@@ -223,6 +230,9 @@ public class Knight extends Entitie {
     public void setOnGodMode(boolean onGodMode) {this.onGodMode = onGodMode;}
     public boolean isOnSpectator() {return onSpectator;}
     public void setOnSpectator(boolean onSpectator) {this.onSpectator = onSpectator;}
+    public Vector2 getLasPos() {return lasPos;}
+    public void setLasPos(Vector2 lasPos) {this.lasPos = lasPos;}
+    public void setCurrentState(KnightState currentState) {this.currentState = currentState;}
     public boolean isStrikingWithSharpShadow() {
         return this.currentState instanceof KnightShadowDashState;
     }
