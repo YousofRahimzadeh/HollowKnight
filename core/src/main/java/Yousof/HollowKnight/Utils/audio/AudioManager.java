@@ -34,6 +34,8 @@ public class AudioManager {
     }
 
     public void transitionToMusic(String nextFilePath, boolean loop) {
+        if (!Settings.musicOn) return;
+
         if (fadeState != FadeState.NONE) {
             return; 
         }
@@ -49,11 +51,16 @@ public class AudioManager {
         this.fadeState = FadeState.FADING_OUT;
     }
 
-    private void playMusicImmediate(String filePath, boolean loop) {
+    public void stopMusic(){
         if (currentMusic != null) {
             currentMusic.stop();
             currentMusic.dispose();
         }
+    }
+
+    private void playMusicImmediate(String filePath, boolean loop) {
+        stopMusic();
+        if (!Settings.musicOn) return;
         currentMusic = Gdx.audio.newMusic(Gdx.files.internal(filePath));
         currentMusic.setLooping(loop);
         currentMusic.setVolume(this.maxTargetVolume);
@@ -63,6 +70,7 @@ public class AudioManager {
 
     public void update(float delta) {
         updateVolumeSettings();
+        updateOnOffSettings();
         if (fadeState == FadeState.NONE || currentMusic == null) return;
 
         if (fadeState == FadeState.FADING_OUT) {
@@ -96,6 +104,7 @@ public class AudioManager {
     }
 
     public void playSound(String filePath) {
+        if (!Settings.sfxOn) return;
         Sound sound;
         if (!sounds.containsKey(filePath)) {
             sound = Gdx.audio.newSound(Gdx.files.internal(filePath));
@@ -127,6 +136,22 @@ public class AudioManager {
         }
     }
 
+    public void updateOnOffSettings(){
+        if(!Settings.musicOn){
+            if(currentMusic != null){
+                currentMusic.pause();
+            }
+        }
+        if(!Settings.sfxOn){
+            sounds.forEach(s -> s.value.stop());
+        }
+        if(Settings.musicOn){
+            if(!currentMusic.isPlaying()){
+                currentMusic.play();
+            }
+        }
+    }
+
     public void dispose() {
         if (currentMusic != null) currentMusic.dispose();
         if (nextMusic != null) nextMusic.dispose();
@@ -135,4 +160,5 @@ public class AudioManager {
         }
         sounds.clear();
     }
+
 }

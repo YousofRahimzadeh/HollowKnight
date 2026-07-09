@@ -39,7 +39,13 @@ public class SaveManager {
 
         Json json = new Json();
         GameData data = json.fromJson(GameData.class, file.readString());
-        
+        Gdx.app.log("SAVE", "Game successfully load on slot " + slotNumber);
         return data;
+    }
+
+    public static void deleteGame(int slotNumber){
+        FileHandle file = Gdx.files.local("saves/slot" + slotNumber + ".json");
+        Gdx.app.log("SAVE", "Game successfully delete on slot " + slotNumber);
+        file.delete();
     }
 }

@@ -31,22 +31,19 @@ public class SaveSlotsModal extends Modal {
 
         contentTable.add(new Label("--- SELECT YOUR JOURNEY ---", skin)).padBottom(30).row();
 
-        // ساخت ۳ اسلات ذخیره بازی
         for (int slot = 1; slot <= 4; slot++) {
             final int slotNumber = slot;
             
-            // لود کردن دیتای فایل JSON برای بررسی وجود داشتن سیو
             GameData slotData = SaveManager.loadGame(slotNumber);
 
             Table slotRow = new Table(skin);
             slotRow.left().pad(10);
 
             if (slotData != null) {
-                String infoText = "Slot " + slotNumber + " [ Masks: " + slotData.currentMasks + "/" + slotData.maxMasks + " | Soul: " + slotData.currentSoul + " ]";
-                Label infoLabel = new Label(infoText, skin);
-                slotRow.add(infoLabel).width(350).left();
+                String infoText = "Game " + slotNumber + " [ Masks: " + slotData.currentMasks + "/" + slotData.maxMasks + " | Soul: " + slotData.currentSoul + " ]";
 
-                TextButton loadButton = new TextButton("Load Game", skin);
+                TextButton loadButton = new TextButton(infoText, skin);
+                TextButton deleteButton = new TextButton("Delete Game", skin);
                 loadButton.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -55,13 +52,26 @@ public class SaveSlotsModal extends Modal {
                         hide();
                     }
                 });
-                slotRow.add(loadButton).width(120).right().padLeft(20);
+                deleteButton.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        SaveManager.deleteGame(slotNumber);
+                        hide();
+                        SaveSlotsModal saveSlot = new SaveSlotsModal(){
+                            @Override
+                            public void onBack() {
+                                super.onBack();
+                                MainModal mainModal = new MainModal();
+                                mainModal.show();
+                            }
+                        };
+                        saveSlot.show();
+                    }
+                });
+                slotRow.add(loadButton).left();
+                slotRow.add(deleteButton).right().padLeft(30);
                 
             } else {
-                Label emptyLabel = new Label("Slot " + slotNumber + " [ Empty Slot ]", skin);
-                emptyLabel.setColor(0.5f, 0.5f, 0.5f, 1f);
-                slotRow.add(emptyLabel).width(350).left();
-
                 TextButton newGameButton = new TextButton("New Game", skin);
                 newGameButton.addListener(new ClickListener() {
                     @Override
@@ -71,7 +81,7 @@ public class SaveSlotsModal extends Modal {
                         hide();
                     }
                 });
-                slotRow.add(newGameButton).width(120).right().padLeft(20);
+                slotRow.add(newGameButton).center();
             }
 
             contentTable.add(slotRow).padBottom(15).row();

@@ -18,7 +18,6 @@ import Yousof.HollowKnight.Model.entities.knight.sensors.KnightScreamSensros;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightShadowDashSensors;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightSurroundSensors;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightDeathState;
-import Yousof.HollowKnight.Model.entities.knight.state.KnightSpectatorModeState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightIdleState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightKnockbackState;
 import Yousof.HollowKnight.Model.entities.knight.state.KnightOnSpikesState;

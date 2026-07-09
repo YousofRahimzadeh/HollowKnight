@@ -13,9 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import Yousof.HollowKnight.Screen.Modal;
-import Yousof.HollowKnight.Enum.Settings;
+
 import Yousof.HollowKnight.Enum.KeysSettings;
+import Yousof.HollowKnight.Enum.Settings;
+import Yousof.HollowKnight.Screen.Modal;
 
 public class SettingModal extends Modal {
     private Preferences preferences;

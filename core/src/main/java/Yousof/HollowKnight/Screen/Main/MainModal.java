@@ -8,9 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Screen.Modal;
-import Yousof.HollowKnight.Screen.Game.GameScreen;
 
 public class MainModal extends Modal {
 
@@ -49,7 +47,7 @@ public class MainModal extends Modal {
         bottomTable.add(rightImg).right().uniformX().expandX().size(120).padRight(50f);
 
         this.add(bottomTable).growX().expandY().bottom();
-        this.padBottom(40f);
+        this.padBottom(80f);
         
         btnStart.addListener(new ClickListener() {
             // @Override
@@ -67,7 +65,7 @@ public class MainModal extends Modal {
                         mainModal.show();
                     }
                 };
-                slotsModal.show(); // باز کردن منوی اسلات‌ها روی استیج منو
+                slotsModal.show();
             }
         });
 
@@ -87,25 +85,20 @@ public class MainModal extends Modal {
                 settingModal.show(); 
             }
         });
-        // Inside MainModal.java -> Click listeners configuration section
         btnGuide.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // 1. Hide the current main menu modal interface
                 hide(); 
 
-                // 2. Create the Guide view with custom back button override functionality
                 GuideModal guideModal = new GuideModal() {
                     @Override
                     public void onBack() {
                         super.onBack();
-                        // When back is pressed inside guide, dismiss it and reload a clean MainModal
                         MainModal mainModal = new MainModal();
                         mainModal.show();
                     }
                 };
 
-                // 3. Mount the guide modal into the Stage
                 guideModal.show(); 
             }
         });
@@ -113,21 +106,17 @@ public class MainModal extends Modal {
         btnAchievements.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // 1. Hide the current main menu modal interface
                 hide(); 
 
-                // 2. Create the Guide view with custom back button override functionality
                 AchievementsModal achievementsModal = new AchievementsModal() {
                     @Override
                     public void onBack() {
                         super.onBack();
-                        // When back is pressed inside guide, dismiss it and reload a clean MainModal
                         MainModal mainModal = new MainModal();
                         mainModal.show();
                     }
                 };
 
-                // 3. Mount the guide modal into the Stage
                 achievementsModal.show(); 
             }
         });
