@@ -53,6 +53,7 @@ public class GameController {
 
     public static void changeGame(int slot){
         GameData gameData = new GameData();
+        String KnightPos = (GameSession.getInstance().isSpawnInEnd()) ? "KnightSpawnEnd" : "KnightSpawnStart";
         gameData.currentMapName = GameSession.getInstance().getNextMap();
         gameData.currentMasks = GameSession.getInstance().getKnight().getCurrentMasks();
         gameData.currentSoul = GameSession.getInstance().getKnight().getCurrentSoul();
@@ -70,15 +71,20 @@ public class GameController {
         loadStaticBodies();
         loadDynamicBodies();
         loadSensorsBodies();
-        loadContactListeners();
-
+        
+        gameData.knightX = (float)map.getLayers().get("spawns").getObjects().get(KnightPos).getProperties().get("x");
+        gameData.knightY = (float)map.getLayers().get("spawns").getObjects().get(KnightPos).getProperties().get("y");
+        Knight currentKnight = new Knight(world, new Vector2(gameData.knightX, gameData.knightY));
+        game.getKnight().dispose();
+        game.setKnight(currentKnight);
         game.getKnight().setCurrentMasks(gameData.currentMasks);
         game.getKnight().setCurrentSoul(gameData.currentSoul);
         game.setMapName(gameData.currentMapName);
         game.setSlot(slot);
-
+        
         Main.getInstance().setScreen(new GameScreen());
-
+        
+        loadContactListeners();
     }
 
     public static void loadGame(int slot){
@@ -209,7 +215,7 @@ public class GameController {
 
     private static void loadDynamicBodies(){
         for(MapObject object : game.getMap().getLayers().get("spawns").getObjects()){
-            if(object.getName().equals("KnightSpawn")){
+            if(object.getName().equals("KnightSpawnStart")){
                 Knight knight = new Knight(game.getWorld(), new Vector2((float)object.getProperties().get("x"), (float)object.getProperties().get("y")));
                 game.setKnight(knight);
             }
@@ -238,7 +244,7 @@ public class GameController {
 
     private static void loadSensorsBodies(){
         for(MapObject object : game.getMap().getLayers().get("sensors").getObjects()){
-            if(object.getName().equals("Teleport")){
+            if("Teleport".equals(object.getName())){
                 createSensorRectangleBody(object, Constants.BIT_GROUND);
             }
         }

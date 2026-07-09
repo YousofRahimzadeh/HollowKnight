@@ -174,7 +174,9 @@ public class Knight extends Entitie {
         AudioManager.getInstance().playSound(AudioStore.HollowKnightHealthHeal.path);
     }
 
-    public void dispose() {}
+    public void dispose() {
+        body.getWorld().destroyBody(body);
+    }
 
     public boolean isOnKnock() {return onKnock;}
     public void setOnKnock(boolean onKnock) {this.onKnock = onKnock;}

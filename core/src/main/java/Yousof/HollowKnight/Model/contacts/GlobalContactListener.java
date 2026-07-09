@@ -10,7 +10,6 @@ import Yousof.HollowKnight.Enum.GameMap;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
-import Yousof.HollowKnight.Screen.Game.GameScreen;
 
 public class GlobalContactListener implements ContactListener {
 
@@ -48,11 +47,22 @@ public class GlobalContactListener implements ContactListener {
     }
 
     private void mapTeleportSensors(Fixture fixtureA , Fixture fixtureB){
-        if(fixtureA.getUserData().equals("CityOfTears") && fixtureB.getUserData().equals("Knight_main_body")){
+        if(fixtureA.getUserData().equals("CityOfTearsEnd") && fixtureB.getUserData().equals("Knight_main_body")){
             GameSession.getInstance().setNextMap(GameMap.CITYOFTEARS);
+            GameSession.getInstance().setSpawnInEnd(true);
         }
-        if(fixtureA.getUserData().equals("CrystalPeaks") && fixtureB.getUserData().equals("Knight_main_body")){
+        if(fixtureA.getUserData().equals("CrystalPeaksEnd") && fixtureB.getUserData().equals("Knight_main_body")){
             GameSession.getInstance().setNextMap(GameMap.CRYSTALPEAKS);
+            GameSession.getInstance().setSpawnInEnd(true);
+        }
+        if(fixtureA.getUserData().equals("CityOfTearsStart") && fixtureB.getUserData().equals("Knight_main_body")){
+            GameSession.getInstance().setNextMap(GameMap.CITYOFTEARS);
+            GameSession.getInstance().setSpawnInEnd(false);
+        }
+        if(fixtureA.getUserData().equals("CrystalPeaksStart") && fixtureB.getUserData().equals("Knight_main_body")){
+            GameSession.getInstance().setNextMap(GameMap.CRYSTALPEAKS);
+            GameSession.getInstance().setSpawnInEnd(false);
+
         }
     }
 

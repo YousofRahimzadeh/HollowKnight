@@ -2,7 +2,6 @@ package Yousof.HollowKnight.Model;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
@@ -26,6 +25,7 @@ public class GameSession implements Disposable{
     private ArrayList<Enemy> enemies;
     private ArrayList<Projectile> projectiles;
 	private ArrayList<Entitie> toRemove;
+	private boolean spawnInEnd = false;
 
 	private GameSession(){
 		enemies = new ArrayList<>();
@@ -124,5 +124,13 @@ public class GameSession implements Disposable{
 
 	public void setNextMap(GameMap nextMap) {
 		this.nextMap = nextMap;
+	}
+
+	public boolean isSpawnInEnd() {
+		return spawnInEnd;
+	}
+
+	public void setSpawnInEnd(boolean spawnInEnd) {
+		this.spawnInEnd = spawnInEnd;
 	}
 }

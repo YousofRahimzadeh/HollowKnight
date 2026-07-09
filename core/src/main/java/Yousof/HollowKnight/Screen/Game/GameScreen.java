@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import Yousof.HollowKnight.Controller.GameController;
-import Yousof.HollowKnight.Enum.AudioStore;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.HUD.GameHUD;
@@ -69,8 +68,8 @@ public class GameScreen extends AbstractScreen {
 
         Matrix4 debugMatrix = camera.getCamera().combined.cpy();
         debugMatrix.scale(Constants.PPM, Constants.PPM, 1f); 
-        // worldDebuger.setDrawInactiveBodies(true);x
-        // worldDebuger.render(GameSession.getInstance().getWorld(), debugMatrix);x
+        // worldDebuger.setDrawInactiveBodies(true);
+        // worldDebuger.render(GameSession.getInstance().getWorld(), debugMatrix);
         
         super.render(delta);
     }
