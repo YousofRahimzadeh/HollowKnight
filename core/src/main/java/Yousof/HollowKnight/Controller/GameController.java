@@ -159,7 +159,6 @@ public class GameController {
         }
 
         game.getKnight().update(delta);
-        game.getZote().update(delta);
 
         Iterator<Entitie> removeIter = game.getToRemove().iterator();
 
@@ -182,7 +181,6 @@ public class GameController {
         for(Enemy enemy : game.getEnemies()){
             enemy.draw(batch);
         }
-        game.getZote().draw(batch);
         game.getKnight().draw(batch);
         
         for(Projectile projectile : game.getProjectiles()){
@@ -237,7 +235,7 @@ public class GameController {
             }
             if(object.getName().equals("Zote")){
                 Zote zote = new Zote( game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                game.setZote(zote);
+                game.getEnemies().add(zote);
             }
         }
     }

@@ -11,6 +11,7 @@ import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
+import Yousof.HollowKnight.Model.entities.npc.sensors.ZoteSurroundSensor;
 import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 
 public class GameSession implements Disposable{
@@ -61,7 +62,12 @@ public class GameSession implements Disposable{
 	}
 
 	public Zote getZote() {
-		return zote;
+		for(Enemy enemy : enemies){
+			if(enemy.getBody().getUserData() instanceof Zote zote){
+				return zote;
+			}
+		}
+		return null;
 	}
 	public void setZote(Zote zote) {
 		this.zote = zote;

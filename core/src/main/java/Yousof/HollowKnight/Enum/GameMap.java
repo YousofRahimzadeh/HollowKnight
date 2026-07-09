@@ -1,6 +1,7 @@
 package Yousof.HollowKnight.Enum;
 
 public enum GameMap {
+    BOSSFITE("maps/BossFite/BossFite.tmx", "audio/BossFite.mp3"),
     CRYSTALPEAKS("maps/CrystalPeaks/CrystalPeaks.tmx", "audio/CrystalPeaks.mp3"),
     CITYOFTEARS("maps/CityOfTears/CityOfTears.tmx", "audio/CityOfTears.mp3");
 

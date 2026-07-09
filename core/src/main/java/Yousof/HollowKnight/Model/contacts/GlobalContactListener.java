@@ -62,6 +62,10 @@ public class GlobalContactListener implements ContactListener {
         if(fixtureA.getUserData().equals("CrystalPeaksStart") && fixtureB.getUserData().equals("Knight_main_body")){
             GameSession.getInstance().setNextMap(GameMap.CRYSTALPEAKS);
             GameSession.getInstance().setSpawnInEnd(false);
+        }
+        if(fixtureA.getUserData().equals("BossFiteStart") && fixtureB.getUserData().equals("Knight_main_body")){
+            GameSession.getInstance().setNextMap(GameMap.BOSSFITE);
+            GameSession.getInstance().setSpawnInEnd(false);
 
         }
     }
