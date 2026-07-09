@@ -42,13 +42,14 @@ public class FalseKnightEnemy extends Enemy{
     private FalseFarSensors farSensors;
     private FalseSurroundSensors groundSensors;
 
-    public FalseKnightEnemy(World world, float x, float y) {
+    public FalseKnightEnemy(World world, float x, float y , int health) {
         nearbySensors = new FalseNearbySensors();
         middleSensors = new FalseMiddleSensors();
         farSensors = new FalseFarSensors();
         groundSensors = new FalseSurroundSensors();
         createBody(world, new Vector2(x, y));
         this.changeState(new FalseIdleState());
+        this.health = health;
     }
 
     @Override

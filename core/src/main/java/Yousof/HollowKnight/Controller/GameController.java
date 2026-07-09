@@ -2,12 +2,14 @@ package Yousof.HollowKnight.Controller;
 
 import java.util.Iterator;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -143,7 +145,7 @@ public class GameController {
         }
     }
 
-    public static void drawGame(SpriteBatch batch , float delta){
+    public static void drawGame(SpriteBatch batch, float delta){
         for(Enemy enemy : game.getEnemies()){
             enemy.draw(batch);
         }
@@ -157,7 +159,7 @@ public class GameController {
 
     private static Vector2 getSpawnPosition() {    
         try {
-            MapObject spawnObject = game.getMap().getLayers().get("spawn").getObjects().get("KnightSpawn");
+            MapObject spawnObject = game.getMap().getLayers().get("spawns").getObjects().get("KnightSpawn");
             float x = (float) spawnObject.getProperties().get("x");
             float y = (float) spawnObject.getProperties().get("y");
             return new Vector2(x, y);
@@ -190,7 +192,6 @@ public class GameController {
         }
     }
     
-    // متد کمکی برای ساخت آبجکت‌های فیزیکی مستطیلی استاتیک
     private static void createStaticRectangleBody(MapObject object, short categoryBits, String userData) {
         Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -216,7 +217,6 @@ public class GameController {
         shape.dispose();
     }
 
-    // متد کمکی برای ساخت آبجکت‌های فیزیکی چندضلعی (مثل تیغ‌های مثلثی شکل)
     private static void createStaticPolygonBody(MapObject object, short categoryBits, String userData) {
         Polygon mapPolygon = ((PolygonMapObject) object).getPolygon();
         float[] vertices = mapPolygon.getTransformedVertices();
@@ -243,13 +243,17 @@ public class GameController {
     }
 
     private static void loadDynamicBodies(){
-        for(MapObject object : game.getMap().getLayers().get("spawn").getObjects()){
+        for(MapObject object : game.getMap().getLayers().get("spawns").getObjects()){
             if(object.getName().equals("GroundEnemy")){
                 Enemy enemy = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 game.getEnemies().add(enemy);
             }
             if(object.getName().equals("LaserEnemy")){
                 Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.getEnemies().add(enemy);
+            }
+            if(object.getName().equals("FlyingEnemy")){
+                Enemy enemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 game.getEnemies().add(enemy);
             }
             if(object.getName().equals("FalseKnight")){

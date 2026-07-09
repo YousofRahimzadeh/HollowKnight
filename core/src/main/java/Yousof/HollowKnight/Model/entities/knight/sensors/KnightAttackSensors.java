@@ -31,6 +31,7 @@ public class KnightAttackSensors {
         fdef.friction = 0f;
         fdef.isSensor = true;
         fdef.shape = shape;
+        fdef.filter.maskBits = Constants.BIT_ENEMY | Constants.BIT_NPC;
 
         float rightLeftSensorWidth = 70f / Constants.PPM;
         float rightLeftSensorHeight = hy * 0.7f;

@@ -20,17 +20,17 @@ public class CrystalSeeSensors {
         fdef.isSensor = true;
         fdef.shape = shape;
 
-        float SensorWidth = hx * 3f;
-        float SensorHeight = hy * 2f;
+        float SensorWidth = hx * 4f;
+        float SensorHeight = hy * 3f;
 
         fdef.isSensor = true;
         fdef.filter.categoryBits = Constants.BIT_ENEMY;
         fdef.filter.maskBits = Constants.BIT_KNIGHT;
 
-        shape.setAsBox(SensorWidth, SensorHeight, new Vector2(hx + SensorWidth,0), 0);
+        shape.setAsBox(SensorWidth, SensorHeight, new Vector2(hx + SensorWidth,-hy + SensorHeight), 0);
         body.createFixture(fdef).setUserData("CrystalGuardian_knightRight_is_around");
         
-        shape.setAsBox(SensorWidth, SensorHeight, new Vector2(-hx - SensorWidth,0), 0);
+        shape.setAsBox(SensorWidth, SensorHeight, new Vector2(-hx - SensorWidth,-hy + SensorHeight), 0);
         body.createFixture(fdef).setUserData("CrystalGuardian_knightLeft_is_around");
 
         shape.dispose();

@@ -20,7 +20,7 @@ public class ZoteDeathState extends ZoteState {
         enemy.getBody().getFixtureList().forEach(f ->{
             if(f.getUserData().equals("Zote_main_body"))
                 f.setSensor(false);
-                f.getFilterData().maskBits &= ~(Constants.BIT_KNIGHT);
+                f.getFilterData().maskBits = Constants.BIT_DEAD_ENEMY;
         });
     }
 

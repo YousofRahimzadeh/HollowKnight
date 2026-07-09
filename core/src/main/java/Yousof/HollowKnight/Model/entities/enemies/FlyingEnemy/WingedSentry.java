@@ -22,7 +22,7 @@ import Yousof.HollowKnight.Model.entities.enemies.FlyingEnemy.state.WingedSentry
 public class WingedSentry extends Enemy{
     private int health = 100;
 
-    private final float speed = 1f;
+    private final float speed;
     private final float halfWidth = 50f;
     private final float halfHeight = 75f;
     private final float yOffset = -70f;
@@ -33,10 +33,12 @@ public class WingedSentry extends Enemy{
     private WingedSentryState currentState;
     private WingedSentrySensor sensors;
 
-    public WingedSentry(World world, float x, float y){
+    public WingedSentry(World world, float x, float y , int healt , float speed){
         sensors = new WingedSentrySensor();
         createBody(world, new Vector2(x, y));
         changeState(new WingedIdleState());
+        this.health = healt;
+        this.speed = speed;
     }
 
     @Override

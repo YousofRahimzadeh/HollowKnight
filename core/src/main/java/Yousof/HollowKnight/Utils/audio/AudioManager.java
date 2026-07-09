@@ -34,7 +34,6 @@ public class AudioManager {
     }
 
     public void transitionToMusic(String nextFilePath, boolean loop) {
-        if (!Settings.musicOn) return;
 
         if (fadeState != FadeState.NONE) {
             return; 
@@ -60,7 +59,6 @@ public class AudioManager {
 
     private void playMusicImmediate(String filePath, boolean loop) {
         stopMusic();
-        if (!Settings.musicOn) return;
         currentMusic = Gdx.audio.newMusic(Gdx.files.internal(filePath));
         currentMusic.setLooping(loop);
         currentMusic.setVolume(this.maxTargetVolume);
@@ -140,10 +138,12 @@ public class AudioManager {
         if(!Settings.musicOn){
             if(currentMusic != null){
                 currentMusic.pause();
+                maxTargetVolume = 0f;
             }
         }
         if(!Settings.sfxOn){
             sounds.forEach(s -> s.value.stop());
+            maxSfxVolume = 0f;
         }
         if(Settings.musicOn){
             if(!currentMusic.isPlaying()){

@@ -17,6 +17,8 @@ public class KnightWallSideState extends KnightState{
     public void enter(Knight knight) {  
         super.enter(knight);
         animation = AnimationManager.Knight.create("Wall Slide", PlayMode.LOOP, 0.08f);
+        knight.setCanDoubleJump(true);
+        knight.setCanDash(true);
     }
 
     @Override

@@ -40,11 +40,11 @@ public class CrystalGuardian extends Enemy {
     private CrystalSeeSensors seeSensors;
 
 
-    public CrystalGuardian(World world, float x, float y, AnimationManager anim , float yOffset) {
+    public CrystalGuardian(World world, float x, float y, int health,  AnimationManager anim , float yOffset) {
         this.speed = 2f;
         this.halfWidth = 96f / 2f;
         this.halfHeight = 140 / 2f;
-        this.health = 11;
+        this.health = health;
         this.animation = anim;
         this.yOffset = yOffset;
         surroundSensors = new CrystalSurroundSensors();

@@ -53,22 +53,24 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         GameController.updateGame(delta);
-        
         camera.update(delta);
-        mapRenderer.setView(camera.getCamera());
-        mapRenderer.render();
         
+        mapRenderer.setView(CameraSession.getInstance().getCamera());
+        int[] backLayers = {0 , 1 , 2 , 3};
+        mapRenderer.render(backLayers);
         batch.setProjectionMatrix(camera.getCamera().combined);
         batch.begin();
         GameController.drawGame(batch , delta);
         batch.end();
+        int[] foreLayers = {4 , 5 , 6};
+        mapRenderer.render(foreLayers);
 
         hud.render(batch, delta);
 
         Matrix4 debugMatrix = camera.getCamera().combined.cpy();
         debugMatrix.scale(Constants.PPM, Constants.PPM, 1f); 
-        worldDebuger.setDrawInactiveBodies(true);
-        worldDebuger.render(GameSession.getInstance().getWorld(), debugMatrix);
+        // worldDebuger.setDrawInactiveBodies(true);x
+        // worldDebuger.render(GameSession.getInstance().getWorld(), debugMatrix);x
         
         super.render(delta);
     }
