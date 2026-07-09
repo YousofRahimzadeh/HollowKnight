@@ -1,9 +1,8 @@
 package Yousof.HollowKnight.Enum;
 
 public enum GameMap {
-    TEST("maps/CrystalPeaks/CrystalPeaks.tmx", "audio/CityOfTears.mp3"),
-    FORGOTTEN_CROSSROADS("maps/crossroads.tmx", "audio/crossroads.mp3"),
-    GREENPATH("maps/greenpath.tmx", "audio/greenpath.mp3");
+    CRYSTALPEAKS("maps/CrystalPeaks/CrystalPeaks.tmx", "audio/CrystalPeaks.mp3"),
+    CITYOFTEARS("maps/CityOfTears/CityOfTears.tmx", "audio/CityOfTears.mp3");
 
     private final String filePath;
     private final String musicPath;

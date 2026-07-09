@@ -44,7 +44,7 @@ public class GameScreen extends AbstractScreen {
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(gameProcessor);
         Gdx.input.setInputProcessor(multiplexer);
-        AudioManager.getInstance().transitionToMusic(AudioStore.CityOfTears.path, true);
+        AudioManager.getInstance().transitionToMusic(GameSession.getInstance().getMapName().getMusicPath(), true);
     }
 
     @Override

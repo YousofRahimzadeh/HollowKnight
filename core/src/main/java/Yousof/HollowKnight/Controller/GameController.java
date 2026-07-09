@@ -2,14 +2,12 @@ package Yousof.HollowKnight.Controller;
 
 import java.util.Iterator;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -53,6 +51,36 @@ public class GameController {
         return game;
     }
 
+    public static void changeGame(int slot){
+        GameData gameData = new GameData();
+        gameData.currentMapName = GameSession.getInstance().getNextMap();
+        gameData.currentMasks = GameSession.getInstance().getKnight().getCurrentMasks();
+        gameData.currentSoul = GameSession.getInstance().getKnight().getCurrentSoul();
+        gameData.isFalseKnightDefeated = false;
+
+        game = GameSession.createInstance();
+        CameraSession.createInstance();
+
+        TiledMap map = new TmxMapLoader().load(gameData.currentMapName.getFilePath());
+        game.setMap(map); 
+
+        World world = new World(new Vector2(0f , -9.8f), true);
+        game.setWorld(world);
+
+        loadStaticBodies();
+        loadDynamicBodies();
+        loadSensorsBodies();
+        loadContactListeners();
+
+        game.getKnight().setCurrentMasks(gameData.currentMasks);
+        game.getKnight().setCurrentSoul(gameData.currentSoul);
+        game.setMapName(gameData.currentMapName);
+        game.setSlot(slot);
+
+        Main.getInstance().setScreen(new GameScreen());
+
+    }
+
     public static void loadGame(int slot){
         game = GameSession.createInstance();
         CameraSession.createInstance();
@@ -71,24 +99,22 @@ public class GameController {
 
         loadStaticBodies();
         loadDynamicBodies();
+        loadSensorsBodies();
+        loadContactListeners();
 
-        Vector2 spawnPos = new Vector2(gameData.knightX * Constants.PPM, gameData.knightY * Constants.PPM   );
-        Knight knight = new Knight(world, spawnPos);
-        knight.setCurrentMasks(gameData.currentMasks);
-        knight.setCurrentSoul(gameData.currentSoul);
-        game.setKnight(knight);
-
+        game.getKnight().getBody().setTransform(gameData.knightX , gameData.knightY , 0f);
+        game.getKnight().setCurrentMasks(gameData.currentMasks);
+        game.getKnight().setCurrentSoul(gameData.currentSoul);
         game.setMapName(gameData.currentMapName);
         game.setSlot(slot);
 
-        loadContactListeners();
     }
 
     public static void createGame(int slot){
         game = GameSession.createInstance();
         CameraSession.createInstance();
 
-        GameMap currentMap = GameMap.TEST;
+        GameMap currentMap = GameMap.CRYSTALPEAKS;
         TiledMap map = new TmxMapLoader().load(currentMap.getFilePath());
         game.setMap(map); 
 
@@ -97,21 +123,22 @@ public class GameController {
 
         loadStaticBodies();
         loadDynamicBodies();
-
-        Vector2 spawnPos = getSpawnPosition();
-        Knight knight = new Knight(world, spawnPos);
-        game.setKnight(knight);
+        loadSensorsBodies();
+        loadContactListeners();
 
         game.setMapName(currentMap);
         game.setSlot(slot);
 
-        loadContactListeners();
 
-        SaveManager.saveGame(knight, currentMap, false, slot);
+        SaveManager.saveGame(game.getKnight(), currentMap, false, slot);
     }
 
     public static void updateGame(float delta){
         if(((GameScreen) Main.getInstance().getScreen()).getState() == GameState.pause) return;
+        
+        if(GameSession.getInstance().getNextMap() != null){
+            changeGame(GameSession.getInstance().getSlot());
+        }
 
         CheatCodeManager.handleCheats(GameSession.getInstance().getKnight());
 
@@ -157,18 +184,6 @@ public class GameController {
         }
     }
 
-    private static Vector2 getSpawnPosition() {    
-        try {
-            MapObject spawnObject = game.getMap().getLayers().get("spawns").getObjects().get("KnightSpawn");
-            float x = (float) spawnObject.getProperties().get("x");
-            float y = (float) spawnObject.getProperties().get("y");
-            return new Vector2(x, y);
-        } catch (Exception e) {
-            System.out.println("Failed to get spawn position");
-            return new Vector2(0, 0);
-        }
-    }
-
     private static void loadStaticBodies(){
         if (game.getMap().getLayers().get("grounds") != null) {
             for(MapObject object : game.getMap().getLayers().get("grounds").getObjects()){
@@ -191,7 +206,86 @@ public class GameController {
             System.out.println("Warning: 'spikes' layer not found in Tiled Map!");
         }
     }
-    
+
+    private static void loadDynamicBodies(){
+        for(MapObject object : game.getMap().getLayers().get("spawns").getObjects()){
+            if(object.getName().equals("KnightSpawn")){
+                Knight knight = new Knight(game.getWorld(), new Vector2((float)object.getProperties().get("x"), (float)object.getProperties().get("y")));
+                game.setKnight(knight);
+            }
+            if(object.getName().equals("GroundEnemy")){
+                Enemy enemy = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.getEnemies().add(enemy);
+            }
+            if(object.getName().equals("LaserEnemy")){
+                Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.getEnemies().add(enemy);
+            }
+            if(object.getName().equals("FlyingEnemy")){
+                Enemy enemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.getEnemies().add(enemy);
+            }
+            if(object.getName().equals("FalseKnight")){
+                Enemy nextEnemy = EnemyFactory.createEnemy("FalseKnight", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.getEnemies().add(nextEnemy);
+            }
+            if(object.getName().equals("Zote")){
+                Zote zote = new Zote( game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.setZote(zote);
+            }
+        }
+    }
+
+    private static void loadSensorsBodies(){
+        for(MapObject object : game.getMap().getLayers().get("sensors").getObjects()){
+            if(object.getName().equals("Teleport")){
+                createSensorRectangleBody(object, Constants.BIT_GROUND);
+            }
+        }
+    }
+
+    private static void loadContactListeners(){
+        GameContactListener manager = new GameContactListener();
+        manager.addListeners(new KnightContactListener());
+        manager.addListeners(new GroundEnemyListener());
+        manager.addListeners(new FlyingEnemyListener());
+        manager.addListeners(new HuskEnemyListener());
+        manager.addListeners(new CrystalEnemyListener());
+        manager.addListeners(new GlobalContactListener());
+        manager.addListeners(new FalseKnightListener());
+        manager.addListeners(new ZoteContactListener());
+        manager.addListeners(new ProjectileContactListener());
+        
+        game.getWorld().setContactListener(manager);
+    }
+    private static void createSensorRectangleBody(MapObject object, short categoryBits) {
+        Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+        BodyDef bdef = new BodyDef();
+        bdef.type = BodyDef.BodyType.StaticBody;
+        float x = (rect.getX() + rect.getWidth() / 2f) / Constants.PPM;
+        float y = (rect.getY() + rect.getHeight() / 2f) / Constants.PPM;
+        bdef.position.set(x, y);
+
+        Body body = game.getWorld().createBody(bdef);
+
+        PolygonShape shape = new PolygonShape();
+        float hx = (rect.getWidth() / 2f) / Constants.PPM;
+        float hy = (rect.getHeight() / 2f) / Constants.PPM;
+        shape.setAsBox(hx, hy);
+
+        FixtureDef fdef = new FixtureDef();
+        fdef.friction = 0f;
+        fdef.shape = shape;
+        fdef.isSensor = true;
+        fdef.filter.categoryBits = categoryBits;
+        fdef.filter.maskBits = Constants.BIT_KNIGHT;
+        
+        body.createFixture(fdef).setUserData(object.getProperties().get("goTo"));
+        shape.dispose();
+    }
+
+
     private static void createStaticRectangleBody(MapObject object, short categoryBits, String userData) {
         Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -240,46 +334,6 @@ public class GameController {
 
         body.createFixture(fdef).setUserData(userData);
         shape.dispose();
-    }
-
-    private static void loadDynamicBodies(){
-        for(MapObject object : game.getMap().getLayers().get("spawns").getObjects()){
-            if(object.getName().equals("GroundEnemy")){
-                Enemy enemy = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                game.getEnemies().add(enemy);
-            }
-            if(object.getName().equals("LaserEnemy")){
-                Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                game.getEnemies().add(enemy);
-            }
-            if(object.getName().equals("FlyingEnemy")){
-                Enemy enemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                game.getEnemies().add(enemy);
-            }
-            if(object.getName().equals("FalseKnight")){
-                Enemy nextEnemy = EnemyFactory.createEnemy("FalseKnight", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                game.getEnemies().add(nextEnemy);
-            }
-            if(object.getName().equals("Zote")){
-                Zote zote = new Zote( game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                game.setZote(zote);
-            }
-        }
-    }
-
-    private static void loadContactListeners(){
-        GameContactListener manager = new GameContactListener();
-        manager.addListeners(new KnightContactListener());
-        manager.addListeners(new GroundEnemyListener());
-        manager.addListeners(new FlyingEnemyListener());
-        manager.addListeners(new HuskEnemyListener());
-        manager.addListeners(new CrystalEnemyListener());
-        manager.addListeners(new GlobalContactListener());
-        manager.addListeners(new FalseKnightListener());
-        manager.addListeners(new ZoteContactListener());
-        manager.addListeners(new ProjectileContactListener());
-        
-        game.getWorld().setContactListener(manager);
     }
 
     public static void saveGame(){

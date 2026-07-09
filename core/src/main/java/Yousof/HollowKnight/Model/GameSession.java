@@ -2,6 +2,7 @@ package Yousof.HollowKnight.Model;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
@@ -17,6 +18,7 @@ public class GameSession implements Disposable{
 	private static GameSession gameSession;
 	private int slot;
 	private GameMap mapName;
+	private GameMap nextMap;
 	private TiledMap map;
 	private World world;
 	private Zote zote;
@@ -29,6 +31,7 @@ public class GameSession implements Disposable{
 		enemies = new ArrayList<>();
 		projectiles = new ArrayList<>();
 		toRemove = new ArrayList<>();
+		nextMap = null;
 	}
 
 	public static GameSession getInstance(){
@@ -113,5 +116,13 @@ public class GameSession implements Disposable{
 
 	public void setMapName(GameMap mapName) {
 		this.mapName = mapName;
+	}
+
+	public GameMap getNextMap() {
+		return nextMap;
+	}
+
+	public void setNextMap(GameMap nextMap) {
+		this.nextMap = nextMap;
 	}
 }
