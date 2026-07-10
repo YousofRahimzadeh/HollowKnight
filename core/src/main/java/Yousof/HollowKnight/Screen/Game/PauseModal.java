@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import Yousof.HollowKnight.Enum.GameText;
+import Yousof.HollowKnight.Manager.LocalizationManager;
 import Yousof.HollowKnight.Screen.Modal;
 
 public class PauseModal extends Modal {
@@ -22,10 +24,10 @@ public class PauseModal extends Modal {
         TextureRegionDrawable myDrawable = new TextureRegionDrawable(myTexture); 
         this.setBackground(myDrawable);
 
-        TextButton btn1 = new TextButton("Continue", skin);
-        TextButton btn2 = new TextButton("Setting", skin);
-        TextButton btn3 = new TextButton("Guide", skin);
-        TextButton btn4 = new TextButton("Save and Exit", skin);
+        TextButton btn1 = new TextButton(LocalizationManager.get(GameText.CONTINUE),      skin);
+        TextButton btn2 = new TextButton(LocalizationManager.get(GameText.SETTINGS),       skin);
+        TextButton btn3 = new TextButton(LocalizationManager.get(GameText.GUIDE),          skin);
+        TextButton btn4 = new TextButton(LocalizationManager.get(GameText.SAVE_AND_EXIT),  skin);
 
         Table container = new Table(skin);
         container.center();

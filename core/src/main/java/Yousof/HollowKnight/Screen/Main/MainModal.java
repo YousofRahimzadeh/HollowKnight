@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import Yousof.HollowKnight.Enum.GameText;
+import Yousof.HollowKnight.Manager.LocalizationManager;
 import Yousof.HollowKnight.Screen.Modal;
 
 public class MainModal extends Modal {
@@ -21,11 +23,11 @@ public class MainModal extends Modal {
         this.add(header).center().padTop(40f).row();
 
         Table menus = new Table();
-        TextButton btnStart = new TextButton("Start Game", skin);
-        TextButton btnSetting = new TextButton("Setting", skin);
-        TextButton btnGuide = new TextButton("Guide", skin);
-        TextButton btnAchievements = new TextButton("Achievements", skin);
-        TextButton btnQuit = new TextButton("Quit Game", skin);
+        TextButton btnStart        = new TextButton(LocalizationManager.get(GameText.START_GAME),   skin);
+        TextButton btnSetting       = new TextButton(LocalizationManager.get(GameText.SETTINGS),     skin);
+        TextButton btnGuide         = new TextButton(LocalizationManager.get(GameText.GUIDE),        skin);
+        TextButton btnAchievements  = new TextButton(LocalizationManager.get(GameText.ACHIEVEMENTS), skin);
+        TextButton btnQuit          = new TextButton(LocalizationManager.get(GameText.QUIT_GAME),    skin);
 
         menus.defaults().space(15).width(280); 
         menus.add(btnStart).row();

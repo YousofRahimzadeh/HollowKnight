@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Model.GameSession;
+import Yousof.HollowKnight.Enum.GameText;
+import Yousof.HollowKnight.Manager.LocalizationManager;
 import Yousof.HollowKnight.Screen.Modal;
 import Yousof.HollowKnight.Screen.Main.MainScreen;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
@@ -36,7 +38,7 @@ public class VictoryModal extends Modal {
         }
 
         // ── Title ──────────────────────────────────────────────
-        Label titleLabel = new Label("You Conquered the Knight!", skin);
+        Label titleLabel = new Label(LocalizationManager.get(GameText.VICTORY_TITLE), skin);
         titleLabel.setFontScale(1.4f);
 
         // ── Stats ──────────────────────────────────────────────
@@ -46,13 +48,13 @@ public class VictoryModal extends Modal {
         int killed = session.getEnemiesDefeated();
         String timeFormatted = formatTime(session.getTotalTimeElapsed());
 
-        Label deathLabel    = new Label("Deaths:                           " + deaths, skin , "title");
-        Label killsLabel    = new Label("Enemies Defeated:      " + killed,      skin, "title");
-        Label timeLabel     = new Label("Time Elapsed:          " + timeFormatted, skin, "title");
+        Label deathLabel    = new Label(LocalizationManager.get(GameText.VICTORY_DEATHS)           + ":  " + deaths,        skin, "title");
+        Label killsLabel    = new Label(LocalizationManager.get(GameText.VICTORY_ENEMIES_DEFEATED)  + ":  " + killed,        skin, "title");
+        Label timeLabel     = new Label(LocalizationManager.get(GameText.VICTORY_TIME_ELAPSED)      + ":  " + timeFormatted,  skin, "title");
         
         // ── Buttons ────────────────────────────────────────────
-        TextButton restartBtn  = new TextButton("Restart",    skin);
-        TextButton mainMenuBtn = new TextButton("Main Menu",  skin);
+        TextButton restartBtn  = new TextButton(LocalizationManager.get(GameText.RESTART),   skin);
+        TextButton mainMenuBtn = new TextButton(LocalizationManager.get(GameText.MAIN_MENU), skin);
 
         restartBtn.addListener(new ClickListener() {
             @Override

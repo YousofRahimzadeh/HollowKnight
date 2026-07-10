@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Controller.GameController;
+import Yousof.HollowKnight.Enum.GameText;
+import Yousof.HollowKnight.Manager.LocalizationManager;
 import Yousof.HollowKnight.Screen.Modal;
 import Yousof.HollowKnight.Screen.Game.GameScreen;
 import Yousof.HollowKnight.Utils.save.GameData;
@@ -29,7 +31,7 @@ public class SaveSlotsModal extends Modal {
         Table contentTable = new Table(skin);
         contentTable.center();
 
-        contentTable.add(new Label("--- SELECT YOUR JOURNEY ---", skin)).padBottom(30).row();
+        contentTable.add(new Label(LocalizationManager.get(GameText.SELECT_JOURNEY), skin)).padBottom(30).row();
 
         for (int slot = 1; slot <= 4; slot++) {
             final int slotNumber = slot;
@@ -40,10 +42,12 @@ public class SaveSlotsModal extends Modal {
             slotRow.left().pad(10);
 
             if (slotData != null) {
-                String infoText = "Game " + slotNumber + " [ Masks: " + slotData.currentMasks + "/" + slotData.maxMasks + " | Soul: " + slotData.currentSoul + " ]";
+                String infoText = LocalizationManager.get(GameText.SAVE_SLOT_GAME) + " " + slotNumber
+                        + " [ " + LocalizationManager.get(GameText.SAVE_SLOT_MASKS) + ": " + slotData.currentMasks + "/" + slotData.maxMasks
+                        + " | " + LocalizationManager.get(GameText.SAVE_SLOT_SOUL)  + ": " + slotData.currentSoul + " ]";
 
                 TextButton loadButton = new TextButton(infoText, skin);
-                TextButton deleteButton = new TextButton("Delete Game", skin);
+                TextButton deleteButton = new TextButton(LocalizationManager.get(GameText.DELETE_GAME), skin);
                 loadButton.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -72,7 +76,7 @@ public class SaveSlotsModal extends Modal {
                 slotRow.add(deleteButton).right().padLeft(30);
                 
             } else {
-                TextButton newGameButton = new TextButton("New Game", skin);
+                TextButton newGameButton = new TextButton(LocalizationManager.get(GameText.NEW_GAME), skin);
                 newGameButton.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -87,7 +91,7 @@ public class SaveSlotsModal extends Modal {
             contentTable.add(slotRow).padBottom(15).row();
         }
 
-        TextButton backButton = new TextButton("Back", skin);
+        TextButton backButton = new TextButton(LocalizationManager.get(GameText.BACK), skin);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

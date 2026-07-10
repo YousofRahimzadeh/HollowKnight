@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Yousof.HollowKnight.Enum.AchievementTypes;
+import Yousof.HollowKnight.Enum.GameText;
+import Yousof.HollowKnight.Manager.LocalizationManager;
 import Yousof.HollowKnight.Screen.Modal;
 
 public class AchievementsModal extends Modal {
@@ -29,7 +31,7 @@ public class AchievementsModal extends Modal {
         Table scrollContent = new Table(skin);
         scrollContent.center();
 
-        scrollContent.add(new Label("--- HALL OF ACHIEVEMENTS ---", skin)).colspan(2).padBottom(20).row();
+        scrollContent.add(new Label(LocalizationManager.get(GameText.ACHIEVEMENTS_HALL_HEADER), skin)).colspan(2).padBottom(20).row();
 
         Table achievementsTable = new Table();
         achievementsTable.defaults().left().padBottom(15);
@@ -51,13 +53,13 @@ public class AchievementsModal extends Modal {
                 // حالت فعال و رنگی (سفید درخشان)
                 titleLabel.setColor(1f, 1f, 1f, 1f);
                 descLabel.setColor(0.8f, 0.8f, 0.8f, 1f);
-                statusLabel = new Label("[ UNLOCKED ]", skin);
+                statusLabel = new Label("[ " + LocalizationManager.get(GameText.ACHIEVEMENTS_UNLOCKED) + " ]", skin);
                 statusLabel.setColor(0.2f, 0.8f, 0.2f, 1f); // رنگ سبز برای دستاوردهای باز شده
             } else {
                 // حالت کدر و خاکستری (Grayscale Effect)
                 titleLabel.setColor(0.4f, 0.4f, 0.4f, 0.7f);
                 descLabel.setColor(0.3f, 0.3f, 0.3f, 0.6f);
-                statusLabel = new Label("[ LOCKED ]", skin);
+                statusLabel = new Label("[ " + LocalizationManager.get(GameText.ACHIEVEMENTS_LOCKED) + " ]", skin);
                 statusLabel.setColor(0.7f, 0.2f, 0.2f, 0.7f); // رنگ قرمز کدر برای قفل‌ها
             }
 
@@ -74,7 +76,7 @@ public class AchievementsModal extends Modal {
 
         scrollContent.add(achievementsTable).colspan(2).center().padBottom(25).row();
 
-        TextButton backButton = new TextButton("Back", skin);
+        TextButton backButton = new TextButton(LocalizationManager.get(GameText.BACK), skin);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

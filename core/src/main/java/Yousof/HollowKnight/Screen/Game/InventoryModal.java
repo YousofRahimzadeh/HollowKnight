@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import Yousof.HollowKnight.Enum.CharmEnum;
+import Yousof.HollowKnight.Enum.GameText;
+import Yousof.HollowKnight.Manager.LocalizationManager;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.knight.KnightInventory;
 import Yousof.HollowKnight.Screen.Modal;
@@ -41,19 +43,19 @@ public class InventoryModal extends Modal {
 
         // Setup left panel for charms list
         Table leftPanel = new Table();
-        leftPanel.add(new Label("Equipped", skin)).left().padBottom(10).row();
+        leftPanel.add(new Label(LocalizationManager.get(GameText.INVENTORY_EQUIPPED), skin)).left().padBottom(10).row();
         equippedTable = new Table(); 
         leftPanel.add(equippedTable).left().padBottom(40).row();
         
-        leftPanel.add(new Label("Charms", skin)).left().padBottom(10).row();
+        leftPanel.add(new Label(LocalizationManager.get(GameText.INVENTORY_CHARMS), skin)).left().padBottom(10).row();
         unequippedTable = new Table(); 
         leftPanel.add(unequippedTable).left().row();
 
         // Setup right panel for descriptions
         Table rightPanel = new Table();
-        charmTitleLabel = new Label("Select a Charm", skin);
+        charmTitleLabel = new Label(LocalizationManager.get(GameText.INVENTORY_SELECT_CHARM), skin);
         charmTitleLabel.setFontScale(1.2f);
-        charmDescLabel = new Label("Click to equip or unequip.\nHover to see details.", skin);
+        charmDescLabel = new Label(LocalizationManager.get(GameText.INVENTORY_CLICK_HINT), skin);
         charmDescLabel.setWrap(true); 
         
         rightPanel.add(charmTitleLabel).center().padBottom(20).row();
@@ -134,8 +136,8 @@ public class InventoryModal extends Modal {
                     if (success) {
                         refreshTables();
                     } else {
-                        charmTitleLabel.setText("Notches Full!");
-                        charmDescLabel.setText("You must unequip a charm first.");
+                        charmTitleLabel.setText(LocalizationManager.get(GameText.INVENTORY_NOTCHES_FULL));
+                        charmDescLabel.setText(LocalizationManager.get(GameText.INVENTORY_UNEQUIP_FIRST));
                     }
                 }
             }

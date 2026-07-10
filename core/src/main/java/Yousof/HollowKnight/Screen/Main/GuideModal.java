@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import Yousof.HollowKnight.Screen.Modal;
 import Yousof.HollowKnight.Enum.KeysSettings;
 import Yousof.HollowKnight.Enum.CheatKeys;
+import Yousof.HollowKnight.Enum.GameText;
+import Yousof.HollowKnight.Manager.LocalizationManager;
 import Yousof.HollowKnight.Utils.animation.InteractiveKnightActor;
 
 public class GuideModal extends Modal {
@@ -33,8 +35,8 @@ public class GuideModal extends Modal {
 
         float sectionSpacing = 30f;
 
-        scrollContent.add(new Label("--- INTERACTIVE CHARACTER TEST ---", skin)).colspan(2).padBottom(5).row();
-        Label hintLabel = new Label("[ Press & Hold your movement/action keys to animate the Knight ]", skin);
+        scrollContent.add(new Label(LocalizationManager.get(GameText.GUIDE_INTERACTIVE_HEADER), skin)).colspan(2).padBottom(5).row();
+        Label hintLabel = new Label(LocalizationManager.get(GameText.GUIDE_INTERACTIVE_HINT), skin);
         hintLabel.setFontScale(0.85f);
         scrollContent.add(hintLabel).colspan(2).center().padBottom(15).row();
 
@@ -48,26 +50,26 @@ public class GuideModal extends Modal {
             int currentKey = preferences.getInteger("KEY_" + bind.name(), bind.getKey());
             String keyName = com.badlogic.gdx.Input.Keys.toString(currentKey);
             
-            keysGrid.add(new Label(getCleanName(bind.name()) + ": " + keyName, skin)).left().width(240).pad(5);
+            keysGrid.add(new Label(localizedKeyName(bind) + ": " + keyName, skin)).left().width(240).pad(5);
             if ((i + 1) % 2 == 0) keysGrid.row();
         }
         scrollContent.add(keysGrid).colspan(2).center().padBottom(sectionSpacing).row();
 
-        scrollContent.add(new Label("--- KNIGHT ABILITIES & MECHANICS ---", skin)).colspan(2).padBottom(10).row();
+        scrollContent.add(new Label(LocalizationManager.get(GameText.GUIDE_ABILITIES_HEADER), skin)).colspan(2).padBottom(10).row();
         
         Table mechanicsTable = new Table();
         mechanicsTable.defaults().left().padBottom(12);
 
-        Label healthTitle = new Label("[ Health System - Masks ]", skin);
-        Label healthDesc = new Label("Your life is measured in Masks. Holding the FOCUS key consumes collected SOUL to focus and repair broken masks safely.", skin);
+        Label healthTitle = new Label(LocalizationManager.get(GameText.GUIDE_HEALTH_TITLE), skin);
+        Label healthDesc = new Label(LocalizationManager.get(GameText.GUIDE_HEALTH_DESC), skin);
         healthDesc.setWrap(true);
 
-        Label soulTitle = new Label("[ SOUL Orb Gathering ]", skin);
-        Label soulDesc = new Label("Strike enemies with your Nail weapon (SLASH) to harvest and fill the SOUL Orb. SOUL is required for spells and healing.", skin);
+        Label soulTitle = new Label(LocalizationManager.get(GameText.GUIDE_SOUL_TITLE), skin);
+        Label soulDesc = new Label(LocalizationManager.get(GameText.GUIDE_SOUL_DESC), skin);
         soulDesc.setWrap(true);
 
-        Label combatTitle = new Label("[ Core Abilities ]", skin);
-        Label combatDesc = new Label("Dash: Tap the dash key for a quick horizontal dodge.\nNail Slash: Strike enemies to deal damage or down-slash to bounce (Pogo).", skin);
+        Label combatTitle = new Label(LocalizationManager.get(GameText.GUIDE_COMBAT_TITLE), skin);
+        Label combatDesc = new Label(LocalizationManager.get(GameText.GUIDE_COMBAT_DESC), skin);
         combatDesc.setWrap(true);
 
         mechanicsTable.add(healthTitle).center().row();
@@ -79,7 +81,7 @@ public class GuideModal extends Modal {
 
         scrollContent.add(mechanicsTable).colspan(2).center().padBottom(sectionSpacing).row();
 
-        scrollContent.add(new Label("--- AVAILABLE CHEAT CODES ---", skin)).colspan(2).padBottom(10).row();
+        scrollContent.add(new Label(LocalizationManager.get(GameText.GUIDE_CHEATS_HEADER), skin)).colspan(2).padBottom(10).row();
         
         Table cheatsTable = new Table();
         cheatsTable.defaults().left().padBottom(8);
@@ -97,7 +99,7 @@ public class GuideModal extends Modal {
 
         scrollContent.add(cheatsTable).colspan(2).center().padBottom(25).row();
 
-        TextButton backButton = new TextButton("Back", skin);
+        TextButton backButton = new TextButton(LocalizationManager.get(GameText.BACK), skin);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -114,40 +116,44 @@ public class GuideModal extends Modal {
         this.add(backButton).width(160).padTop(20).center();
     }
 
-    private String getCleanName(String enumName) {
-        if (enumName.startsWith("KNIGHT")) {
-            return enumName.substring(6);
-        }
-        return enumName;
-    }
-
+    /** Converts SNAKE_CASE enum name to Title Case for display (e.g. BOSS_TELEPORT → Boss Teleport). */
     private String getCleanCheatName(String cheatName) {
         StringBuilder sb = new StringBuilder();
-        String[] tokens = cheatName.split("_");
-        for (String token : tokens) {
-            if (token.length() > 0) {
-                sb.append(token.substring(0, 1).toUpperCase()).append(token.substring(1).toLowerCase()).append(" ");
+        for (String token : cheatName.split("_")) {
+            if (!token.isEmpty()) {
+                sb.append(Character.toUpperCase(token.charAt(0)))
+                  .append(token.substring(1).toLowerCase())
+                  .append(' ');
             }
         }
         return sb.toString().trim();
     }
 
+    private String localizedKeyName(KeysSettings bind) {
+        switch (bind) {
+            case KNIGHTRIGHT:    return LocalizationManager.get(GameText.KEY_RIGHT);
+            case KNIGHTLEFT:     return LocalizationManager.get(GameText.KEY_LEFT);
+            case KNIGHTLOOKUP:   return LocalizationManager.get(GameText.KEY_LOOK_UP);
+            case KNIGHTLOOKDOWN: return LocalizationManager.get(GameText.KEY_LOOK_DOWN);
+            case KNIGHTJUMP:     return LocalizationManager.get(GameText.KEY_JUMP);
+            case KNIGHTATTACK:   return LocalizationManager.get(GameText.KEY_ATTACK);
+            case KNIGHTFOCUS:    return LocalizationManager.get(GameText.KEY_FOCUS);
+            case KNIGHTVENGEFUL: return LocalizationManager.get(GameText.KEY_VENGEFUL);
+            case KNIGHTSCREAM:   return LocalizationManager.get(GameText.KEY_SCREAM);
+            case KNIGHTDASH:     return LocalizationManager.get(GameText.KEY_DASH);
+            default:             return bind.name();
+        }
+    }
+
     private String getCheatDescription(CheatKeys cheat) {
         switch (cheat) {
-            case BOSS_TELEPORT:
-                return "Teleport instantly to the False Knight boss arena.";
-            case NOCLIP:
-                return "Fly through map constraints without animations or gravity.";
-            case EMERGENCY_HEAL:
-                return "Instantly recover health masks when in critical state.";
-            case REFILL_SOUL:
-                return "Fully charge your gathered SOUL vessel container.";
-            case GOD_MODE:
-                return "Activate invincibility from hazards, spikes, and enemies.";
-            case INSTA_KILL:
-                return "Execute a fatal strike to eliminate all active screen enemies.";
-            default:
-                return "";
+            case BOSS_TELEPORT:    return LocalizationManager.get(GameText.CHEAT_DESC_BOSS_TELEPORT);
+            case NOCLIP:           return LocalizationManager.get(GameText.CHEAT_DESC_NOCLIP);
+            case EMERGENCY_HEAL:   return LocalizationManager.get(GameText.CHEAT_DESC_EMERGENCY_HEAL);
+            case REFILL_SOUL:      return LocalizationManager.get(GameText.CHEAT_DESC_REFILL_SOUL);
+            case GOD_MODE:         return LocalizationManager.get(GameText.CHEAT_DESC_GOD_MODE);
+            case INSTA_KILL:       return LocalizationManager.get(GameText.CHEAT_DESC_INSTA_KILL);
+            default:               return "";
         }
     }
 
