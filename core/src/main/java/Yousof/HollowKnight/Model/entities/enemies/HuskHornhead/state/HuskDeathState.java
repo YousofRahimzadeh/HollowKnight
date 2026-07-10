@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.enemies.HuskHornhead.HuskHornheadEnemy;
 
 public class HuskDeathState extends HuskEnemyState{
@@ -12,6 +13,7 @@ public class HuskDeathState extends HuskEnemyState{
     @Override
     public void enter(HuskHornheadEnemy enemy) {
         super.enter(enemy);
+        GameSession.getInstance().incrementEnemiesDefeated();
         currentAnimation = enemy.getAnimation().create("Death Land", PlayMode.NORMAL, 0.08f);
         enemy.cleanUpPhysicsOnDeath();
     }

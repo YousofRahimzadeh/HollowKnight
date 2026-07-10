@@ -11,7 +11,11 @@ public class GameData {
     public int currentSoul;
     public float knightX;
     public float knightY;
-    
+
+    public int deathCount;
+	public int enemiesDefeated;
+	public float totalTimeElapsed;
+
     public GameMap currentMapName;
     public boolean isFalseKnightDefeated;
     public int currentPhase;

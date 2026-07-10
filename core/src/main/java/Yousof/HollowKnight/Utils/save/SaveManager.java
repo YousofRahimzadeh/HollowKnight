@@ -5,20 +5,24 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
-import Yousof.HollowKnight.Enum.GameMap;
+import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 
 public class SaveManager {
 
-    public static void saveGame(Knight knight, GameMap currentMap, boolean isBossDefeated, int slotNumber) {
+    public static void saveGame(GameSession gameSession, boolean isBossDefeated, int slotNumber) {
         GameData data = new GameData();
+        Knight knight = gameSession.getKnight();
         data.currentMasks = knight.getCurrentMasks();
         data.maxMasks = knight.getMaxMasks();
         data.currentSoul = knight.getCurrentSoul();
         data.knightX = knight.getBody().getPosition().x;
         data.knightY = knight.getBody().getPosition().y;
+        data.totalTimeElapsed = gameSession.getTotalTimeElapsed();
+        data.deathCount = gameSession.getDeathCount();
+        data.enemiesDefeated = gameSession.getEnemiesDefeated();
         data.isFalseKnightDefeated = isBossDefeated;
-        data.currentMapName = currentMap;
+        data.currentMapName = gameSession.getMapName();
 
         Json json = new Json();
         json.setOutputType(OutputType.json);
@@ -39,7 +43,7 @@ public class SaveManager {
 
         Json json = new Json();
         GameData data = json.fromJson(GameData.class, file.readString());
-        Gdx.app.log("SAVE", "Game successfully load on slot " + slotNumber);
+        Gdx.app.log("SAVE", "Game successfully loaded from slot " + slotNumber);
         return data;
     }
 

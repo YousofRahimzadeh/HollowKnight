@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.AudioStore;
 import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;
@@ -112,6 +113,7 @@ public class Knight extends Entitie {
         this.currentMasks -= 1;
         if(currentMasks <= 0){
             currentMasks = 0;
+            GameSession.getInstance().incrementDeathCount();
             changeState(new KnightDeathState());
         }else{
             changeState(new KnightKnockbackState(enemy.getBody() , this , currentState , 6f));
@@ -125,6 +127,7 @@ public class Knight extends Entitie {
         this.currentMasks -= 1;
         if(currentMasks <= 0){
             currentMasks = 0;
+            GameSession.getInstance().incrementDeathCount();
             changeState(new KnightDeathState());
         }else{
             changeState(new KnightOnSpikesState());
@@ -139,6 +142,7 @@ public class Knight extends Entitie {
         this.currentMasks -= how;
         if(currentMasks <= 0){
             currentMasks = 0;
+            GameSession.getInstance().incrementDeathCount();
             changeState(new KnightDeathState());
         }else{
             changeState(new KnightKnockbackState(body , this , currentState , 6f));

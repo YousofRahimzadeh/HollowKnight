@@ -3,6 +3,8 @@ package Yousof.HollowKnight.Model.entities.knight.state;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
@@ -49,6 +51,26 @@ public class KnightDeathState extends KnightState{
     public void drawEffects(Batch batch, float stateTime) {
         
         
+    }
+
+    public void cleanUpPhysicsOnDeath() {
+
+        Filter disableFilter = new Filter();
+        disableFilter.categoryBits = 0;
+        disableFilter.maskBits = 0;
+
+        Filter deadBodyFilter = new Filter();
+        deadBodyFilter.categoryBits = Constants.BIT_KNIGHT_DEAD;
+        deadBodyFilter.maskBits = Constants.BIT_GROUND; 
+
+        for (Fixture fixture : body.getFixtureList()) {
+            if (fixture.isSensor()) {
+                fixture.setFilterData(disableFilter);
+            } else {
+                fixture.setFilterData(deadBodyFilter);
+            }
+        }
+
     }
     
 }

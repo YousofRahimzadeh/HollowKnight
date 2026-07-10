@@ -11,7 +11,6 @@ import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
-import Yousof.HollowKnight.Model.entities.npc.sensors.ZoteSurroundSensor;
 import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 
 public class GameSession implements Disposable{
@@ -21,12 +20,15 @@ public class GameSession implements Disposable{
 	private GameMap nextMap;
 	private TiledMap map;
 	private World world;
-	private Zote zote;
 	private Knight knight;
     private ArrayList<Enemy> enemies;
     private ArrayList<Projectile> projectiles;
 	private ArrayList<Entitie> toRemove;
 	private boolean spawnInEnd = false;
+
+	private int deathCount = 0;
+	private int enemiesDefeated = 0;
+	private float totalTimeElapsed = 0f;
 
 	private GameSession(){
 		enemies = new ArrayList<>();
@@ -68,9 +70,6 @@ public class GameSession implements Disposable{
 			}
 		}
 		return null;
-	}
-	public void setZote(Zote zote) {
-		this.zote = zote;
 	}
 
 	public Knight getKnight() {
@@ -138,5 +137,41 @@ public class GameSession implements Disposable{
 
 	public void setSpawnInEnd(boolean spawnInEnd) {
 		this.spawnInEnd = spawnInEnd;
+	}
+
+	public int getDeathCount() {
+		return deathCount;
+	}
+
+	public void incrementDeathCount() {
+		this.deathCount++;
+	}
+
+	public int getEnemiesDefeated() {
+		return enemiesDefeated;
+	}
+
+	public void incrementEnemiesDefeated() {
+		this.enemiesDefeated++;
+	}
+
+	public float getTotalTimeElapsed() {
+		return totalTimeElapsed;
+	}
+
+	public void addTime(float delta) {
+		this.totalTimeElapsed += delta;
+	}
+
+	public void setDeathCount(int deathCount) {
+		this.deathCount = deathCount;
+	}
+
+	public void setEnemiesDefeated(int enemiesDefeated) {
+		this.enemiesDefeated = enemiesDefeated;
+	}
+
+	public void setTotalTimeElapsed(float totalTimeElapsed) {
+		this.totalTimeElapsed = totalTimeElapsed;
 	}
 }

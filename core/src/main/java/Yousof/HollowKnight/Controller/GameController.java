@@ -34,11 +34,14 @@ import Yousof.HollowKnight.Model.contacts.ZoteContactListener;
 import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.enemies.EnemyFactory;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.state.FalseDeathState;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
 import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 import Yousof.HollowKnight.Screen.Game.GameScreen;
 import Yousof.HollowKnight.Screen.Game.GameState;
+import Yousof.HollowKnight.Screen.Game.VictoryModal;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.save.GameData;
 import Yousof.HollowKnight.Utils.save.SaveManager;
@@ -57,6 +60,9 @@ public class GameController {
         gameData.currentMapName = GameSession.getInstance().getNextMap();
         gameData.currentMasks = GameSession.getInstance().getKnight().getCurrentMasks();
         gameData.currentSoul = GameSession.getInstance().getKnight().getCurrentSoul();
+        gameData.totalTimeElapsed = GameSession.getInstance().getTotalTimeElapsed();
+        gameData.deathCount = GameSession.getInstance().getDeathCount();
+        gameData.enemiesDefeated = GameSession.getInstance().getEnemiesDefeated();
         gameData.isFalseKnightDefeated = false;
 
         game = GameSession.createInstance();
@@ -80,11 +86,15 @@ public class GameController {
         game.getKnight().setCurrentMasks(gameData.currentMasks);
         game.getKnight().setCurrentSoul(gameData.currentSoul);
         game.setMapName(gameData.currentMapName);
+        game.setDeathCount(gameData.deathCount);
+        game.setEnemiesDefeated(gameData.enemiesDefeated);
+        game.setTotalTimeElapsed(gameData.totalTimeElapsed);
         game.setSlot(slot);
         
         Main.getInstance().setScreen(new GameScreen());
         
         loadContactListeners();
+
     }
 
     public static void loadGame(int slot){
@@ -111,6 +121,9 @@ public class GameController {
         game.getKnight().getBody().setTransform(gameData.knightX , gameData.knightY , 0f);
         game.getKnight().setCurrentMasks(gameData.currentMasks);
         game.getKnight().setCurrentSoul(gameData.currentSoul);
+        game.setDeathCount(gameData.deathCount);
+        game.setEnemiesDefeated(gameData.enemiesDefeated);
+        game.setTotalTimeElapsed(gameData.totalTimeElapsed);
         game.setMapName(gameData.currentMapName);
         game.setSlot(slot);
 
@@ -136,15 +149,30 @@ public class GameController {
         game.setSlot(slot);
 
 
-        SaveManager.saveGame(game.getKnight(), currentMap, false, slot);
+        SaveManager.saveGame(game, false, slot);
     }
 
     public static void updateGame(float delta){
         if(((GameScreen) Main.getInstance().getScreen()).getState() == GameState.pause) return;
         
+        GameSession.getInstance().addTime(delta);
+
         if(GameSession.getInstance().getNextMap() != null){
             changeGame(GameSession.getInstance().getSlot());
         }
+
+        GameSession.getInstance().getEnemies().forEach(e -> {
+            if(e instanceof FalseKnightEnemy falseKnight
+                    && falseKnight.getCurrentState() instanceof FalseDeathState deathState
+                    && deathState.currentPhase == FalseDeathState.LeapPhase.IDLE) {
+                GameScreen screen = (GameScreen) Main.getInstance().getScreen();
+                if(screen.getState() != GameState.pause) {
+                    screen.setState(GameState.pause);
+                    VictoryModal modal = new VictoryModal();
+                    modal.show();
+                }
+            }
+        });
 
         CheatCodeManager.handleCheats(GameSession.getInstance().getKnight());
 
@@ -342,10 +370,11 @@ public class GameController {
 
     public static void saveGame(){
         GameSession game = GameSession.getInstance();
-        SaveManager.saveGame(game.getKnight(), game.getMapName(), false, game.getSlot());
+        SaveManager.saveGame(game, false, game.getSlot());
     }
     
     public static void disposeGame(){
+        GameSession game = GameSession.getInstance();
         game.dispose();
     }
 }

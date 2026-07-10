@@ -191,6 +191,9 @@ public class FalseKnightEnemy extends Enemy{
     public void setOnKnock(boolean onKnock) {
         this.onKnock = onKnock;
     }
+    public FalseKnightState getCurrentState() {
+        return currentState;
+    }
     public String getLastPerformedMove() { return lastPerformedMove; }
     public void setLastPerformedMove(String move) { this.lastPerformedMove = move; }
 }
