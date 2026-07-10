@@ -165,7 +165,6 @@ public class SettingModal extends Modal {
 
         // ── Language toggle ────────────────────────────────────────────────
         SupportedLanguages current = LocalizationManager.getCurrentLanguage();
-        SupportedLanguages next    = LocalizationManager.getNextLanguage();
         String langBtnText = LocalizationManager.get(GameText.SETTINGS_LANGUAGE)
                 + ": [ " + current.displayName + " ]";
         TextButton langBtn = new TextButton(langBtnText, skin , "default");

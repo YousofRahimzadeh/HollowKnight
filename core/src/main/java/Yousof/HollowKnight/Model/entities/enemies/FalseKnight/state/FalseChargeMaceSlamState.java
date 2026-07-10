@@ -26,7 +26,7 @@ public class FalseChargeMaceSlamState extends FalseKnightState{
         currentPhase = LeapPhase.JUMPING;
 
         launchLeapWithImpulse();
-        CameraSession.getInstance().changeState(new CameraVibrationState(1f, 13f));
+        CameraSession.getInstance().changeState(new CameraVibrationState(1f, 16f));
     }
 
     @Override

@@ -96,7 +96,7 @@ public class FalseDeathState extends FalseKnightState {
             currentFrame.flip(true, false);
         }
         float drawX = body.getPosition().x * Constants.PPM - (currentFrame.getRegionWidth() / 2f);
-        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + 170f;
+        float drawY = body.getPosition().y * Constants.PPM - (currentFrame.getRegionHeight() / 2f) + 130f;
         batch.draw(currentFrame, drawX, drawY);
         drawEffects(batch, stateTime);
     }

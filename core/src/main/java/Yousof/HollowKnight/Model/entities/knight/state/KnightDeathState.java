@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
@@ -20,13 +21,19 @@ public class KnightDeathState extends KnightState{
         super.enter(knight);
         animation = AnimationManager.Knight.create("Death", PlayMode.NORMAL, 0.08f);
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 16f));
-        knight.getBody().getFixtureList().forEach(f -> f.getFilterData().categoryBits = Constants.BIT_KNIGHT_DEAD);
+        cleanUpPhysicsOnDeath();
     }   
 
     @Override
     public void update(float delta) {
         super.update(delta);
         body.setLinearVelocity(0 , body.getLinearVelocity().y);
+        if (animation.isAnimationFinished(stateTime)) {
+            GameSession.getInstance().incrementDeathCount();
+            GameSession.getInstance().setNextMap(GameSession.getInstance().getMapName());
+            GameSession.getInstance().getKnight().setCurrentSoul(99);
+            GameSession.getInstance().getKnight().setCurrentMasks(5);
+        }
     }
 
     @Override

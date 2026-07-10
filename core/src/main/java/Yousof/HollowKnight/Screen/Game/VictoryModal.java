@@ -34,7 +34,7 @@ public class VictoryModal extends Modal {
         // Stop gameplay music and start victory theme
         AudioManager.getInstance().stopMusic();
         if (Gdx.files.internal("audio/victory.mp3").exists()) {
-            AudioManager.getInstance().transitionToMusic("audio/victory.mp3", true);
+            AudioManager.getInstance().transitionToMusic("audio/victory.mp3", false);
         }
 
         // ── Title ──────────────────────────────────────────────

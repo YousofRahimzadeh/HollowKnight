@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 import Yousof.HollowKnight.Enum.CheatKeys;
+import Yousof.HollowKnight.Enum.GameMap;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
@@ -18,12 +19,9 @@ public class CheatCodeManager {
             return;
         }
 
-        // if (Gdx.input.isKeyJustPressed(CheatKeys.BOSS_TELEPORT.getTriggerKey())) {
-        //     float bossArenaX = ; 
-        //     float bossArenaY = 400f;
-        //     knight.setPosition(bossArenaX, bossArenaY);
-        //     Gdx.app.log("CHEAT", "Teleported to Boss Arena!");
-        // }
+        if (Gdx.input.isKeyJustPressed(CheatKeys.BOSS_TELEPORT.getTriggerKey())) {
+            GameSession.getInstance().setNextMap(GameMap.BOSSFITE);
+        }
 
         if (Gdx.input.isKeyJustPressed(CheatKeys.NOCLIP.getTriggerKey())) {
             if(knight.isOnSpectator()){
