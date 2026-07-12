@@ -116,7 +116,6 @@ public class GuideModal extends Modal {
         this.add(backButton).width(160).padTop(20).center();
     }
 
-    /** Converts SNAKE_CASE enum name to Title Case for display (e.g. BOSS_TELEPORT → Boss Teleport). */
     private String getCleanCheatName(String cheatName) {
         StringBuilder sb = new StringBuilder();
         for (String token : cheatName.split("_")) {

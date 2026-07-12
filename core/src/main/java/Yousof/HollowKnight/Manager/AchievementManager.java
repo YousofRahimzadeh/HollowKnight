@@ -9,14 +9,11 @@ public class AchievementManager {
 
     private static final String PREFS_FILE = "hollowknight_achievements";
 
-    /** All enemy type keys that must be killed for TRUE_HUNTER. */
     private static final String[] ALL_ENEMY_TYPES = {
         "Crawlid", "HuskHornhead", "WingedSentry", "CrystalGuardian", "FalseKnight"
     };
 
     // ── Core unlock ───────────────────────────────────────────────────────────
-
-    /** Persistently unlocks an achievement (no-op if already unlocked). */
     public static void unlockAchievement(AchievementTypes achievement) {
         Preferences prefs = Gdx.app.getPreferences(PREFS_FILE);
         if (!prefs.getBoolean("ACH_" + achievement.name(), false)) {
@@ -27,15 +24,11 @@ public class AchievementManager {
     }
 
     // ── COMPLETION ────────────────────────────────────────────────────────────
-
-    /** Call when the player finishes the game (VictoryModal opened). */
     public static void checkCompletion() {
         unlockAchievement(AchievementTypes.COMPLETION);
     }
 
     // ── SPEEDRUN ──────────────────────────────────────────────────────────────
-
-    /** Call with the total run time in seconds when the game is completed. */
     public static void checkSpeedrun(float totalSeconds) {
         if (totalSeconds < 5 * 60f) {   // under 5 minutes
             unlockAchievement(AchievementTypes.SPEEDRUN);
@@ -43,12 +36,6 @@ public class AchievementManager {
     }
 
     // ── TRUE_HUNTER ───────────────────────────────────────────────────────────
-
-    /**
-     * Call each time an enemy type is killed for the first time.
-     * @param enemyType one of: "Crawlid", "HuskHornhead", "WingedSentry",
-     *                          "CrystalGuardian", "FalseKnight"
-     */
     public static void recordEnemyTypeKilled(String enemyType) {
         Preferences prefs = Gdx.app.getPreferences(PREFS_FILE);
         prefs.putBoolean("KILLED_" + enemyType, true);
@@ -61,18 +48,6 @@ public class AchievementManager {
             if (!prefs.getBoolean("KILLED_" + type, false)) return;
         }
         unlockAchievement(AchievementTypes.TRUE_HUNTER);
-    }
-
-    // ── GRUB_RESCUER ──────────────────────────────────────────────────────────
-
-    /**
-     * Call when the player rescues all grubs.
-     * Requires grub tracking to be implemented in the map/level layer.
-     */
-    public static void checkGrubRescuer(int rescuedCount, int totalGrubs) {
-        if (rescuedCount >= totalGrubs && totalGrubs > 0) {
-            unlockAchievement(AchievementTypes.GRUB_RESCUER);
-        }
     }
 
     public static void resetAllAchievements() {

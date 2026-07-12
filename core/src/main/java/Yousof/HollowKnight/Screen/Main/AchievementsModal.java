@@ -40,7 +40,6 @@ public class AchievementsModal extends Modal {
         for (int i = 0; i < allAchievements.length; i++) {
             AchievementTypes achievement = allAchievements[i];
             
-            // بررسی وضعیت قفل بودن دستاورد از پریففرنسز (پیش‌فرض کدهای تایید نشده false است)
             boolean isUnlocked = preferences.getBoolean("ACH_" + achievement.name(), false);
 
             Label titleLabel = new Label(achievement.getTitle(), skin);
@@ -50,25 +49,21 @@ public class AchievementsModal extends Modal {
             Label statusLabel;
 
             if (isUnlocked) {
-                // حالت فعال و رنگی (سفید درخشان)
                 titleLabel.setColor(1f, 1f, 1f, 1f);
                 descLabel.setColor(0.8f, 0.8f, 0.8f, 1f);
                 statusLabel = new Label("[ " + LocalizationManager.get(GameText.ACHIEVEMENTS_UNLOCKED) + " ]", skin);
-                statusLabel.setColor(0.2f, 0.8f, 0.2f, 1f); // رنگ سبز برای دستاوردهای باز شده
+                statusLabel.setColor(0.2f, 0.8f, 0.2f, 1f);
             } else {
-                // حالت کدر و خاکستری (Grayscale Effect)
                 titleLabel.setColor(0.4f, 0.4f, 0.4f, 0.7f);
                 descLabel.setColor(0.3f, 0.3f, 0.3f, 0.6f);
                 statusLabel = new Label("[ " + LocalizationManager.get(GameText.ACHIEVEMENTS_LOCKED) + " ]", skin);
-                statusLabel.setColor(0.7f, 0.2f, 0.2f, 0.7f); // رنگ قرمز کدر برای قفل‌ها
+                statusLabel.setColor(0.7f, 0.2f, 0.2f, 0.7f);
             }
 
-            // چیدمان دستاورد در جدول
             achievementsTable.add(titleLabel).row();
             achievementsTable.add(descLabel).width(500).row();
             achievementsTable.add(statusLabel).padBottom(10).row();
             
-            // خط جداکننده بین هر دستاورد
             if (i < allAchievements.length - 1) {
                 achievementsTable.add(new Label("--------------------------------------------------", skin)).padBottom(10).row();
             }
@@ -90,7 +85,6 @@ public class AchievementsModal extends Modal {
         scrollPane.setScrollBarPositions(false, true);
         scrollPane.setVariableSizeKnobs(false); 
 
-        // استفاده از ابعاد بهینه شده‌ی قبلی برای عدم بیرون زدگی
         this.add(scrollPane).width(760).height(500).center().padTop(10).row();
         this.add(backButton).width(160).padTop(20).center();
     }

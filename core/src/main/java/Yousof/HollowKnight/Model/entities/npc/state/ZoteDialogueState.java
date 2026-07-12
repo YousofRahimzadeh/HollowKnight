@@ -7,13 +7,15 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils; // اضافه شد برای انتخاب رندوم
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
+import Yousof.HollowKnight.Enum.AchievementTypes;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Enum.ZoteVoices;
+import Yousof.HollowKnight.Manager.AchievementManager;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.audio.AudioManager;
@@ -34,7 +36,6 @@ public class ZoteDialogueState extends ZoteState {
     private float typeTimer = 0;
     private float charSpeed = 0.04f; 
 
-    // ۵۷ قانون معروف زوت (تعدادی از بهترین‌ها برای دفعات بعدی هم‌صحبتی)
     private static final String[] ZOTE_PRECEPTS = {
         "Always Win Your Battles.",
         "Never Let Them Laugh at You.",
@@ -74,6 +75,8 @@ public class ZoteDialogueState extends ZoteState {
         
         currentLineIndex = 0;
         showLine(currentLineIndex);
+
+        AchievementManager.unlockAchievement(AchievementTypes.SEE_ZOTE);
     }
 
     private void setupDialogueLines() {

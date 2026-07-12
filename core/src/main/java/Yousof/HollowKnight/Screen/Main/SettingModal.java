@@ -345,10 +345,6 @@ public class SettingModal extends Modal {
         return localizedKeyName(bind) + ": " + com.badlogic.gdx.Input.Keys.toString(bind.getKey());
     }
 
-    /**
-     * Maps each {@link KeysSettings} constant to its localised display name
-     * via the corresponding {@link GameText} key.
-     */
     private String localizedKeyName(KeysSettings bind) {
         switch (bind) {
             case KNIGHTRIGHT:   return LocalizationManager.get(GameText.KEY_RIGHT);
