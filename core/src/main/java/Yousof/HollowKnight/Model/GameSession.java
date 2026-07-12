@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Disposable;
 import Yousof.HollowKnight.Enum.GameMap;
 import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Model.entities.npc.Zote;
 import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
@@ -67,6 +68,15 @@ public class GameSession implements Disposable{
 		for(Enemy enemy : enemies){
 			if(enemy.getBody().getUserData() instanceof Zote zote){
 				return zote;
+			}
+		}
+		return null;
+	}
+
+	public FalseKnightEnemy getFalseKnight() {
+		for(Enemy enemy : enemies){
+			if(enemy.getBody().getUserData() instanceof FalseKnightEnemy falseKnight){
+				return falseKnight;
 			}
 		}
 		return null;

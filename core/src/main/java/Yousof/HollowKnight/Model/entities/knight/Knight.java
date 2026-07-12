@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import Yousof.HollowKnight.Enum.AudioStore;
 import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
-import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.Entitie;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.sensors.KnightAttackSensors;

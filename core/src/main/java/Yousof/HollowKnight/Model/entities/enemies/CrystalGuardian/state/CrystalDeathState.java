@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Manager.AchievementManager;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Model.entities.enemies.CrystalGuardian.CrystalGuardian;
 
@@ -14,6 +15,7 @@ public class CrystalDeathState extends CrystalEnemyState{
     public void enter(CrystalGuardian enemy) {
         super.enter(enemy);
         GameSession.getInstance().incrementEnemiesDefeated();
+        AchievementManager.recordEnemyTypeKilled("CrystalGuardian");
         currentAnimation = enemy.getAnimation().create("Death Air", PlayMode.NORMAL, 0.08f);
         enemy.cleanUpPhysicsOnDeath();
     }

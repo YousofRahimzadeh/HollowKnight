@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import Yousof.HollowKnight.Controller.MainController;
 import Yousof.HollowKnight.Enum.Settings;
+import Yousof.HollowKnight.Manager.AchievementManager;
 import Yousof.HollowKnight.Model.Assets;
 import Yousof.HollowKnight.Screen.Main.MainScreen;
 
@@ -24,6 +25,7 @@ public class Main extends Game {
     public void create() {
         main = this;
         MainController.loadAllAssests(Assets.manager);
+        AchievementManager.resetAllAchievements();
         setScreen(new MainScreen());
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);

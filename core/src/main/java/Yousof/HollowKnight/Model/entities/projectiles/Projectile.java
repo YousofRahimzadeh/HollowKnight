@@ -23,5 +23,9 @@ public class Projectile extends Entitie {
         // TODO Auto-generated method stub
         
     }
+
+    public int getDamage() {
+        return 0;
+    }
     
 }

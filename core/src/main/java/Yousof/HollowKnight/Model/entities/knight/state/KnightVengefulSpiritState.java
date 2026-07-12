@@ -31,9 +31,9 @@ public class KnightVengefulSpiritState extends KnightState{
         animation = AnimationManager.Knight.create("Fireball Cast", PlayMode.NORMAL, 0.08f);
         effecAnimation = AnimationManager.KnightEffects.create("Blast", PlayMode.NORMAL, 0.08f);
         if(knight.getInventory().isEquipped(CharmEnum.VOID_HEART)){
-            ProjectileFactory.createProjectile("ShadowVengefulProjectile");
+            ProjectileFactory.createProjectile("ShadowVengefulProjectile" , body.getPosition() , knight.isFacingRight());
         }else{
-            ProjectileFactory.createProjectile("SoulVengefulProjectile");
+            ProjectileFactory.createProjectile("SoulVengefulProjectile" , body.getPosition() , knight.isFacingRight());
         }
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 10f));
     }

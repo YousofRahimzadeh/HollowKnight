@@ -10,8 +10,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Yousof.HollowKnight.Enum.Constants;
+import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Model.entities.knight.Knight;
 
-public class VengefulProjectile extends Projectile{
+public class WaveProjectile extends Projectile{
     private Animation<TextureRegion> animation;
     private int damage = 5;
     private float stateTime = 0;
@@ -19,11 +21,11 @@ public class VengefulProjectile extends Projectile{
     private float speed;
     private static final float maxSpeed = 8f;
 
-    public VengefulProjectile(World world ,Vector2 position, boolean isFacingRight , int damage , Animation<TextureRegion> animation){
+    public WaveProjectile(World world ,Vector2 position , boolean isFacingRight , int damage , Animation<TextureRegion> animation){
         this.isFacingRight = isFacingRight;
         this.damage = damage;
         this.animation = animation;
-        createBody(world , position);
+        createBody(world , position );
         speed = (isFacingRight) ? maxSpeed : -maxSpeed;
     }
 
@@ -54,8 +56,8 @@ public class VengefulProjectile extends Projectile{
     }
 
     public void createBody(World world , Vector2 position){
-        float hx = 40 / Constants.PPM;
-        float hy = 30 / Constants.PPM;
+        float hx = 20 / Constants.PPM;
+        float hy = 10 / Constants.PPM;
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(position.x, position.y + 20f/Constants.PPM);
@@ -70,7 +72,7 @@ public class VengefulProjectile extends Projectile{
         fdef.isSensor = true;
         fdef.filter.categoryBits = Constants.BIT_PROJECTILE;
         fdef.filter.maskBits = Constants.BIT_ENEMY | Constants.BIT_GROUND;
-        body.createFixture(fdef).setUserData("Vengeful_main_body");
+        body.createFixture(fdef).setUserData("Wave_main_body");
         shape.dispose();
     }
 

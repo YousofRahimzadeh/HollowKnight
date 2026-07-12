@@ -8,7 +8,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
-import Yousof.HollowKnight.Model.entities.projectiles.VengefulProjectile;
+import Yousof.HollowKnight.Model.entities.knight.Knight;
+import Yousof.HollowKnight.Model.entities.projectiles.Projectile;
 
 public class ProjectileContactListener implements ContactListener {
 
@@ -24,9 +25,9 @@ public class ProjectileContactListener implements ContactListener {
     }
 
     private void checkProjectileToGroundContact(Fixture fixtureA, Fixture fixtureB) {
-        if ("grounds".equals(fixtureA.getUserData()) && "Vengeful_main_body".equals(fixtureB.getUserData())) {
+        if ("grounds".equals(fixtureA.getUserData()) && ("Vengeful_main_body".equals(fixtureB.getUserData()) || "Wave_main_body".equals(fixtureB.getUserData()))) {
             
-            VengefulProjectile projectile = (VengefulProjectile) fixtureB.getBody().getUserData();
+            Projectile projectile = (Projectile) fixtureB.getBody().getUserData();
             if (!GameController.getGame().getToRemove().contains(projectile)) {
                 GameController.getGame().getToRemove().add(projectile);
             }
@@ -38,9 +39,16 @@ public class ProjectileContactListener implements ContactListener {
         if ("Enemy_main_body".equals(fixtureA.getUserData()) && "Vengeful_main_body".equals(fixtureB.getUserData())) {
             
             Enemy enemy = (Enemy) fixtureA.getBody().getUserData();
-            VengefulProjectile projectile = (VengefulProjectile) fixtureB.getBody().getUserData();
+            Projectile projectile = (Projectile) fixtureB.getBody().getUserData();
             
             enemy.takeDamage(projectile.getBody(), projectile.getDamage() , 10f);
+        }
+
+        if("Knight_main_body".equals(fixtureA.getUserData()) && "Wave_main_body".equals(fixtureB.getUserData())){
+            Knight knight = (Knight)fixtureA.getBody().getUserData();
+            Projectile projectile = (Projectile) fixtureB.getBody().getUserData();
+
+            knight.takeDamage(projectile.getBody(), projectile.getDamage());
         }
     }
 

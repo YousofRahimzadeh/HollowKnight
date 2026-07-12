@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
+import Yousof.HollowKnight.Model.entities.projectiles.ProjectileFactory;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
 import Yousof.HollowKnight.Utils.camera.CameraSession;
 import Yousof.HollowKnight.Utils.camera.state.CameraVibrationState;
@@ -27,6 +28,7 @@ public class FalseChargeMaceSlamState extends FalseKnightState{
 
         launchLeapWithImpulse();
         CameraSession.getInstance().changeState(new CameraVibrationState(1f, 16f));
+
     }
 
     @Override
@@ -59,6 +61,12 @@ public class FalseChargeMaceSlamState extends FalseKnightState{
 
         if (currentPhase == LeapPhase.ATTACKING && currentAnimation.isAnimationFinished(stateTime)) {
             performAttack();
+            Vector2 position = new Vector2();
+            position.x = body.getPosition().x + (enemy.isFacingRight() ? 250f / (2f * Constants.PPM) : -250f / (2f * Constants.PPM));
+            position.y = body.getPosition().y - (260f / Constants.PPM) / 2f + 80f / Constants.PPM;
+            
+            ProjectileFactory.createProjectile("WaveProjectile", position , true);
+            ProjectileFactory.createProjectile("WaveProjectile", position , false);
             enemy.changeState(new FalseIdleState());
             return;
         }

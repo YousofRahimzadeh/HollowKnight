@@ -12,6 +12,7 @@ import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.enemies.Enemy;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
 
 public class KnightShadowDashState extends KnightState{
 
@@ -33,6 +34,7 @@ public class KnightShadowDashState extends KnightState{
         });
         float speed = (knight.isFacingRight()) ? 12f : -12f;
         body.applyLinearImpulse(new Vector2(speed * speedMulti , 0), body.getWorldCenter() , true);
+        AudioManager.getInstance().playSound("audio/hero_super_dash_charge.wav");
     }
 
     @Override

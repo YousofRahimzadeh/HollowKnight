@@ -257,6 +257,10 @@ public class GameController {
                 Enemy enemy = EnemyFactory.createEnemy("WingedSentry", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 game.getEnemies().add(enemy);
             }
+            if(object.getName().equals("HuskHornheadEnemy")){
+                Enemy enemy = EnemyFactory.createEnemy("HuskHornhead", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                game.getEnemies().add(enemy);
+            }
             if(object.getName().equals("FalseKnight")){
                 Enemy nextEnemy = EnemyFactory.createEnemy("FalseKnight", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
                 game.getEnemies().add(nextEnemy);

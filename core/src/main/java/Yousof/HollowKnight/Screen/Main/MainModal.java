@@ -52,10 +52,6 @@ public class MainModal extends Modal {
         this.padBottom(80f);
         
         btnStart.addListener(new ClickListener() {
-            // @Override
-            // public void clicked(InputEvent event, float x, float y) {
-            //     Main.getInstance().setScreen(new GameScreen());
-            // }
             
             @Override
             public void clicked(InputEvent event, float x, float y) {

@@ -13,6 +13,7 @@ import Yousof.HollowKnight.Main;
 import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Model.GameSession;
 import Yousof.HollowKnight.Enum.GameText;
+import Yousof.HollowKnight.Manager.AchievementManager;
 import Yousof.HollowKnight.Manager.LocalizationManager;
 import Yousof.HollowKnight.Screen.Modal;
 import Yousof.HollowKnight.Screen.Main.MainScreen;
@@ -43,6 +44,10 @@ public class VictoryModal extends Modal {
 
         // ── Stats ──────────────────────────────────────────────
         GameSession session = GameSession.getInstance();
+
+        // ── Achievements ───────────────────────────────────────
+        AchievementManager.checkCompletion();
+        AchievementManager.checkSpeedrun(session.getTotalTimeElapsed());
 
         int deaths = session.getDeathCount();
         int killed = session.getEnemiesDefeated();

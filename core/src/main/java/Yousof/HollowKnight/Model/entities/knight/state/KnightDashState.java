@@ -2,14 +2,15 @@ package Yousof.HollowKnight.Model.entities.knight.state;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Enum.CharmEnum;
 import Yousof.HollowKnight.Enum.Constants;
 import Yousof.HollowKnight.Model.entities.knight.Knight;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
+import Yousof.HollowKnight.Utils.audio.AudioManager;
 
 public class KnightDashState extends KnightState{
 
@@ -27,6 +28,7 @@ public class KnightDashState extends KnightState{
         knight.startDashCooldown();
         float speed = (knight.isFacingRight()) ? 12f : -12f;
         body.applyLinearImpulse(new Vector2(speed , 0), body.getWorldCenter() , true);
+        AudioManager.getInstance().playSound("audio/hero_super_dash_burst.wav");
     }
 
     @Override
