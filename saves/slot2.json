@@ -1,8 +1,11 @@
 {
-"currentMasks": 5,
+"currentMasks": 3,
 "maxMasks": 5,
 "currentSoul": 99,
-"knightX": 4.63754,
-"knightY": 33.45863,
-"currentMapName": "CRYSTALPEAKS"
+"knightX": 17.57302,
+"knightY": 28.548779,
+"deathCount": 2,
+"enemiesDefeated": 3,
+"totalTimeElapsed": 160.33206,
+"currentMapName": "CITYOFTEARS"
 }

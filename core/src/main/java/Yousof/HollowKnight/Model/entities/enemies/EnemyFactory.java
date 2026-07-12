@@ -14,6 +14,10 @@ public class EnemyFactory {
         switch (type) {
             case "Crawlid":
                 return new GroundEnemy(world, x, y, 110f, 75f, 1.5f , 15 , AnimationManager.Crawlid , 28f);
+            case "Tiktik":
+                return new GroundEnemy(world, x, y, 70f, 40f, 1.5f , 15 , AnimationManager.Tiktik , 5f);
+            case "CrystalCrawler":
+                return new GroundEnemy(world, x, y, 110f, 100f, 1.5f , 15 , AnimationManager.CrystalCrawler , 35f);
             case "HuskHornhead":
                 return new HuskHornheadEnemy(world, x, y, 95f, 115f, 1.2f , 20 , AnimationManager.HuskHornhead , 28f);
             case "WingedSentry":

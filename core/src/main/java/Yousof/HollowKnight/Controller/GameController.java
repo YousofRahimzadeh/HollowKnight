@@ -70,6 +70,7 @@ public class GameController {
 
         TiledMap map = new TmxMapLoader().load(gameData.currentMapName.getFilePath());
         game.setMap(map); 
+        game.setMapName(gameData.currentMapName);
 
         World world = new World(new Vector2(0f , -9.8f), true);
         game.setWorld(world);
@@ -109,6 +110,7 @@ public class GameController {
 
         TiledMap map = new TmxMapLoader().load(gameData.currentMapName.getFilePath());
         game.setMap(map); 
+        game.setMapName(gameData.currentMapName);
 
         World world = new World(new Vector2(0f , -9.8f), true);
         game.setWorld(world);
@@ -135,6 +137,7 @@ public class GameController {
 
         GameMap currentMap = GameMap.CRYSTALPEAKS;
         TiledMap map = new TmxMapLoader().load(currentMap.getFilePath());
+        game.setMapName(currentMap);
         game.setMap(map); 
 
         World world = new World(new Vector2(0f , -9.8f), true);
@@ -246,8 +249,14 @@ public class GameController {
                 game.setKnight(knight);
             }
             if(object.getName().equals("GroundEnemy")){
-                Enemy enemy = EnemyFactory.createEnemy("Crawlid", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
-                game.getEnemies().add(enemy);
+                if(game.getMapName() == GameMap.CRYSTALPEAKS){
+                    Enemy enemy = EnemyFactory.createEnemy("CrystalCrawler", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                    game.getEnemies().add(enemy);
+                }
+                else if(game.getMapName() == GameMap.CITYOFTEARS){
+                    Enemy enemy = EnemyFactory.createEnemy("Tiktik", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));
+                    game.getEnemies().add(enemy);
+                }
             }
             if(object.getName().equals("LaserEnemy")){
                 Enemy enemy = EnemyFactory.createEnemy("CrystalGuardian", game.getWorld(), (float)object.getProperties().get("x"), (float)object.getProperties().get("y"));

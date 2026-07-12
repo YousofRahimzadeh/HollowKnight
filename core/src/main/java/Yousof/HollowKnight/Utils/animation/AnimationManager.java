@@ -19,6 +19,8 @@ public enum AnimationManager {
     HuskHornhead("Animations/Atlas/Enemies/HuskHornhead/HuskHornhead.atlas"),
     CrystalGuardian("Animations/Atlas/Enemies/CrystalGuardian/CrystalGuardian.atlas"),
     Mosscreep("Animations/Atlas/Enemies/Mosscreep/Mosscreep.atlas"),
+    Tiktik("Animations/Atlas/Enemies/Tiktik/Tiktik.atlas"),
+    CrystalCrawler("Animations/Atlas/Enemies/CrystalCrawler/CrystalCrawler.atlas"),
     FalseKnight("Animations/Atlas/Enemies/FalseKnight/FalseKnight.atlas");
 
     
