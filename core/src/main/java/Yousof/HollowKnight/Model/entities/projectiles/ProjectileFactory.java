@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import Yousof.HollowKnight.Controller.GameController;
 import Yousof.HollowKnight.Model.GameSession;
-import Yousof.HollowKnight.Model.entities.enemies.FalseKnight.FalseKnightEnemy;
 import Yousof.HollowKnight.Utils.animation.AnimationManager;
 
 public class ProjectileFactory {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -54,6 +55,7 @@ public class GameScreen extends AbstractScreen {
         GameController.updateGame(delta);
         camera.update(delta);
         
+        AnimatedTiledMapTile.updateAnimationBaseTime(); 
         mapRenderer.setView(CameraSession.getInstance().getCamera());
         int[] backLayers = {0 , 1 , 2 , 3};
         mapRenderer.render(backLayers);
@@ -68,8 +70,8 @@ public class GameScreen extends AbstractScreen {
 
         Matrix4 debugMatrix = camera.getCamera().combined.cpy();
         debugMatrix.scale(Constants.PPM, Constants.PPM, 1f); 
-        worldDebuger.setDrawInactiveBodies(true);
-        worldDebuger.render(GameSession.getInstance().getWorld(), debugMatrix);
+        // worldDebuger.setDrawInactiveBodies(true);
+        // worldDebuger.render(GameSession.getInstance().getWorld(), debugMatrix);
         
         super.render(delta);
     }
