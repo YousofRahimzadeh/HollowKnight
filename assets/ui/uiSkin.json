@@ -1,0 +1,154 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	default: {
+		file: baskervville.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	title: {
+		file: cinzel.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	charcoal: {
+		r: 0.078431375
+		g: 0.078431375
+		b: 0.08235294
+		a: 0.8509804
+	}
+	dark_gray: {
+		r: 0.5019608
+		g: 0.5019608
+		b: 0.5019608
+		a: 1
+	}
+	gray: {
+		r: 0.3019608
+		g: 0.3019608
+		b: 0.3019608
+		a: 0.6
+	}
+	gray2: {
+		r: 0.2509804
+		g: 0.2509804
+		b: 0.2509804
+		a: 0.9019608
+	}
+	light_gray: {
+		r: 0.8
+		g: 0.8
+		b: 0.8
+		a: 1
+	}
+	transparent: {
+		r: 0
+		g: 0
+		b: 0
+		a: 0
+	}
+	unselected_gray: {
+		r: 0.6
+		g: 0.6
+		b: 0.6
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	bgDark: {
+		name: white-pixel
+		color: charcoal
+	}
+	bgGray: {
+		name: white-pixel
+		color: gray
+	}
+	white: {
+		name: white-pixel
+		color: white
+	}
+	transparent: {
+		name: white-pixel
+		color: transparent
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	default: {
+		font: title
+		fontColor: gray
+		overFontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: default
+		fontColor: white
+	}
+	title: {
+		font: title
+		fontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: default
+		fontColorSelected: white
+		fontColorUnselected: unselected_gray
+		selection: bgDark
+		background: bgDark
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		vScrollKnob: scrollbar_fleur_new
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: default
+		fontColor: white
+		background: transparent
+		scrollStyle: default
+		listStyle: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	default-horizontal: {
+		background: bgGray
+		knob: MenuSliderHandle
+	}
+	default-vertical: {
+		background: bgGray
+		knob: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: title
+		fontColor: light_gray
+		downFontColor: dark_gray
+		overFontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+		background: bgDark
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: bgDark
+		titleFont: default
+	}
+}
+}
