@@ -1,0 +1,186 @@
+{
+    "activeFile": "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/salam.tsx",
+    "expandedProjectPaths": [
+        "tsx"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/BossFite/BossFite.tmx": {
+            "expandedObjectLayers": [
+                9,
+                13,
+                8,
+                11,
+                12
+            ],
+            "scale": 0.2975,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 1238.655462184874,
+                "y": 1119.3277310924368
+            }
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/BossFite/tsx/Background1.tsx": {
+            "scaleInDock": 0.1839
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/BossFite/tsx/Background2.tsx": {
+            "scaleInDock": 0.0765
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx": {
+            "expandedObjectLayers": [
+                11,
+                8,
+                10
+            ],
+            "scale": 1.1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 2260.4545454545455,
+                "y": 3759.090909090909
+            }
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx#CrystalPeaks2": {
+            "scaleInDock": 0.75
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background1.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background2.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background3.tsx": {
+            "scaleInDock": 0.75
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background4.tsx": {
+            "scaleInDock": 0.3472
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background5.tsx": {
+            "scaleInDock": 0.1992,
+            "scaleInEditor": 1
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background6.tsx": {
+            "scaleInDock": 0.75
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background7.tsx": {
+            "scaleInDock": 0.3125
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background8.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.4291
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/CityOfTearsSprites.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.3572,
+            "scaleInEditor": 0.55
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/CityOfTearsSprites2.tsx": {
+            "scaleInDock": 0.2915,
+            "scaleInEditor": 0.55
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Idle_000.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/candle_flame.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/fire.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/salam.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "CrystalPeaks.tmx": {
+            "expandedObjectLayers": [
+                12,
+                8,
+                9
+            ],
+            "scale": 0.0936,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 2943.376068376068,
+                "y": 1741.452991452991
+            }
+        },
+        "backboard.tsx": {
+            "scaleInDock": 0.2493,
+            "scaleInEditor": 1
+        },
+        "tsx/Area_Crystal_Mines-gigapixel-low resolution v2-4x.tsx": {
+            "scaleInDock": 0.4013,
+            "scaleInEditor": 1
+        },
+        "tsx/Area_Royal_Quarter-gigapixel-low resolution v2-4x.tsx": {
+            "scaleInDock": 0.096,
+            "scaleInEditor": 1
+        },
+        "tsx/Area_Shaman_Temple-gigapixel-low resolution v2-4x.tsx": {
+            "scaleInDock": 0.4277,
+            "scaleInEditor": 0.7034
+        },
+        "tsx/Background1.tsx": {
+            "scaleInDock": 1
+        },
+        "tsx/Background2.tsx": {
+            "scaleInDock": 1
+        },
+        "tsx/Background3.tsx": {
+            "scaleInDock": 1
+        },
+        "tsx/CrystalPeaks.tsx": {
+            "scaleInDock": 0.495,
+            "scaleInEditor": 0.3329
+        },
+        "tsx/CrystalPeaks2.tsx": {
+            "scaleInDock": 0.8459,
+            "scaleInEditor": 0.7615
+        }
+    },
+    "frame.defaultDuration": 100,
+    "last.externalTilesetPath": "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx",
+    "last.imagePath": "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/sprites/Particles & Effects/Fire & Smoke",
+    "map.height": 500,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 8,
+    "map.tileWidth": 8,
+    "map.width": 500,
+    "openFiles": [
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/salam.tsx"
+    ],
+    "project": "untitled.tiled-project",
+    "property.type": "float",
+    "recentFiles": [
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/salam.tsx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/fire.tsx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/BossFite/BossFite.tmx",
+        "CrystalPeaks.tmx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/CityOfTearsSprites2.tsx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/CityOfTearsSprites.tsx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background5.tsx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background2.tsx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Idle_000.tsx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/Background1.tsx",
+        "tsx/Area_Shaman_Temple-gigapixel-low resolution v2-4x.tsx"
+    ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 8,
+        "width": 8
+    },
+    "tileset.type": 1
+}
