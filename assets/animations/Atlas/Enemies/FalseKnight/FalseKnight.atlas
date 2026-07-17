@@ -1,0 +1,225 @@
+FalseKnight.png
+size:8192,8192
+repeat:none
+Attack
+index:0
+bounds:1099,5106,1095,636
+Attack
+index:2
+bounds:1099,3192,1095,636
+Attack
+index:1
+bounds:4390,3192,1095,636
+Attack Antic
+index:4
+bounds:2,3830,1095,636
+Attack Antic
+index:1
+bounds:2,3830,1095,636
+Attack Antic
+index:3
+bounds:5487,5106,1095,636
+Attack Antic
+index:0
+bounds:1099,1278,1095,636
+Attack Antic
+index:5
+bounds:1099,640,1095,636
+Attack Antic
+index:2
+bounds:1099,640,1095,636
+Attack Recover
+index:3
+bounds:2196,6382,1095,636
+Attack Recover
+index:0
+bounds:5487,7020,1095,636
+Attack Recover
+index:2
+bounds:2,1916,1095,636
+Attack Recover
+index:4
+bounds:2196,1916,1095,636
+Attack Recover
+index:1
+bounds:4390,2554,1095,636
+Body
+index:3
+bounds:2,5106,1095,636
+Body
+index:0
+bounds:1099,4468,1095,636
+Body
+index:2
+bounds:5487,5744,1095,636
+Body
+index:4
+bounds:5487,4468,1095,636
+Body
+index:1
+bounds:2196,1278,1095,636
+DeathFall
+index:0
+bounds:2,7020,1095,636
+DeathFall
+index:2
+bounds:2196,5106,1095,636
+DeathFall
+index:1
+bounds:6584,5744,1095,636
+DeathHit
+index:1
+bounds:2196,4468,1095,636
+DeathHit
+index:0
+bounds:4390,3830,1095,636
+DeathHit
+index:2
+bounds:6584,3830,1095,636
+DeathLand
+index:7
+bounds:1099,7020,1095,636
+DeathLand
+index:4
+bounds:3293,7020,1095,636
+DeathLand
+index:9
+bounds:3293,5744,1095,636
+DeathLand
+index:1
+bounds:1099,3830,1095,636
+DeathLand
+index:6
+bounds:2,2554,1095,636
+DeathLand
+index:3
+bounds:1099,2554,1095,636
+DeathLand
+index:8
+bounds:2,1278,1095,636
+DeathLand
+index:0
+bounds:3293,3192,1095,636
+DeathLand
+index:10
+bounds:2,2,1095,636
+DeathLand
+index:2
+bounds:5487,3192,1095,636
+Idle
+index:3
+bounds:2196,5744,1095,636
+Idle
+index:0
+bounds:3293,5106,1095,636
+Idle
+index:2
+bounds:2196,3192,1095,636
+Idle
+index:4
+bounds:5487,3830,1095,636
+Idle
+index:1
+bounds:1099,2,1095,636
+Jump
+index:1
+bounds:4390,5744,1095,636
+Jump
+index:3
+bounds:4390,5744,1095,636
+Jump
+index:0
+bounds:6584,5106,1095,636
+Jump
+index:2
+bounds:2196,640,1095,636
+Jump Attack
+index:7
+bounds:2196,7020,1095,636
+Jump Attack
+index:4
+bounds:4390,7020,1095,636
+Jump Attack
+index:1
+bounds:5487,6382,1095,636
+Jump Attack
+index:6
+bounds:4390,5106,1095,636
+Jump Attack
+index:3
+bounds:3293,3830,1095,636
+Jump Attack
+index:0
+bounds:2,640,1095,636
+Jump Attack
+index:5
+bounds:6584,4468,1095,636
+Jump Attack
+index:2
+bounds:3293,1278,1095,636
+Jump Attack Hit 3
+index:1
+bounds:2,4468,1095,636
+Stun Recover
+index:5
+bounds:2,4468,1095,636
+Land
+index:3
+bounds:2,5744,1095,636
+Land
+index:1
+bounds:2,5744,1095,636
+Land
+index:0
+bounds:3293,6382,1095,636
+Land
+index:4
+bounds:3293,6382,1095,636
+Land
+index:2
+bounds:2196,3830,1095,636
+Run
+index:1
+bounds:1099,6382,1095,636
+Run
+index:3
+bounds:4390,6382,1095,636
+Run
+index:0
+bounds:3293,4468,1095,636
+Run
+index:2
+bounds:1099,1916,1095,636
+Run
+index:4
+bounds:3293,1916,1095,636
+Run Antic
+index:1
+bounds:4390,4468,1095,636
+Run Antic
+index:0
+bounds:4390,1916,1095,636
+Stun Recover
+index:4
+bounds:2,6382,1095,636
+Stun Recover
+index:1
+bounds:1099,5744,1095,636
+DeathLand
+index:5
+bounds:1099,5744,1095,636
+Stun Recover
+index:3
+bounds:6584,7020,1095,636
+Stun Recover
+index:0
+bounds:6584,6382,1095,636
+Stun Recover
+index:2
+bounds:3293,2554,1095,636
+Turn
+index:1
+bounds:2,3192,1095,636
+Turn
+index:0
+bounds:2196,2554,1095,636

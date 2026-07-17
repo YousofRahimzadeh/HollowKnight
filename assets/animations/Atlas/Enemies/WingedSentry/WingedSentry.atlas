@@ -1,0 +1,72 @@
+WingedSentry.png
+size:4096,2048
+repeat:none
+Charge
+index:2
+bounds:2,1202,509,398
+Charge
+index:1
+bounds:1024,1202,509,398
+Charge
+index:0
+bounds:513,2,509,398
+Charge Antic
+index:2
+bounds:2,802,509,398
+Charge Antic
+index:1
+bounds:2,2,509,398
+Charge Antic
+index:3
+bounds:2046,1602,509,398
+Charge Antic
+index:0
+bounds:2557,1602,509,398
+Death
+index:1
+bounds:1535,1202,509,398
+Death
+index:0
+bounds:2046,802,509,398
+Death
+index:4
+bounds:513,1202,509,398
+Death
+index:3
+bounds:513,402,509,398
+Death
+index:5
+bounds:1024,402,509,398
+Death
+index:2
+bounds:1024,2,509,398
+Idle
+index:6
+bounds:2,1602,509,398
+Idle
+index:3
+bounds:1024,1602,509,398
+Idle
+index:0
+bounds:2,402,509,398
+Idle
+index:5
+bounds:513,802,509,398
+Idle
+index:2
+bounds:1024,802,509,398
+Idle
+index:4
+bounds:1535,802,509,398
+Idle
+index:1
+bounds:1535,402,509,398
+Turn To Fly
+index:2
+bounds:513,1602,509,398
+Turn To Fly
+index:1
+bounds:1535,1602,509,398
+Turn To Fly
+index:0
+bounds:2046,1202,509,398

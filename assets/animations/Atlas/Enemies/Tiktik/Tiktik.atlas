@@ -1,0 +1,42 @@
+Tiktik.png
+size:2048,128
+repeat:none
+Death Air
+index:2
+bounds:119,2,115,105
+Death Air
+index:1
+bounds:704,2,115,105
+Death Air
+index:0
+bounds:1055,2,115,105
+Death Land
+index:2
+bounds:2,2,115,105
+Death Land
+index:0
+bounds:2,2,115,105
+Death Land
+index:1
+bounds:587,2,115,105
+Death Air
+index:3
+bounds:587,2,115,105
+Turn
+index:1
+bounds:236,2,115,105
+Turn
+index:0
+bounds:821,2,115,105
+Walk
+index:0
+bounds:821,2,115,105
+Walk
+index:1
+bounds:353,2,115,105
+Walk
+index:3
+bounds:470,2,115,105
+Walk
+index:2
+bounds:938,2,115,105

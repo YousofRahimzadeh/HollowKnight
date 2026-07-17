@@ -1,0 +1,36 @@
+CrystalCrawler.png
+size:2048,256
+repeat:none
+Death Air
+index:2
+bounds:2,2,155,180
+Death Air
+index:1
+bounds:787,2,155,180
+Death Air
+index:0
+bounds:1572,2,155,180
+Death Land
+index:1
+bounds:630,2,155,180
+Death Land
+index:0
+bounds:1415,2,155,180
+Turn
+index:1
+bounds:159,2,155,180
+Turn
+index:0
+bounds:944,2,155,180
+Walk
+index:1
+bounds:316,2,155,180
+Walk
+index:3
+bounds:473,2,155,180
+Walk
+index:0
+bounds:1101,2,155,180
+Walk
+index:2
+bounds:1258,2,155,180

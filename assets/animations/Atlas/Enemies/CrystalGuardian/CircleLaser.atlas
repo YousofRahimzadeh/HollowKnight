@@ -1,0 +1,15 @@
+CircleLaser.png
+size:1024,128
+repeat:none
+LaserCircle
+index:3
+bounds:2,2,228,123
+LaserCircle
+index:0
+bounds:232,2,228,123
+LaserCircle
+index:2
+bounds:462,2,228,123
+LaserCircle
+index:1
+bounds:692,2,228,123
