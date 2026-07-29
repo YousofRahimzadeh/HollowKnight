@@ -1,5 +1,5 @@
 {
-    "activeFile": "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/salam.tsx",
+    "activeFile": "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx",
     "expandedProjectPaths": [
         "tsx"
     ],
@@ -31,15 +31,15 @@
         },
         "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx": {
             "expandedObjectLayers": [
-                11,
                 8,
+                11,
                 10
             ],
-            "scale": 1.1,
+            "scale": 0.2246,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 2260.4545454545455,
-                "y": 3759.090909090909
+                "x": 1698.5752448797866,
+                "y": 3926.981300089048
             }
         },
         "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx#CrystalPeaks2": {
@@ -163,8 +163,8 @@
     "project": "untitled.tiled-project",
     "property.type": "float",
     "recentFiles": [
-        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx",
         "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/salam.tsx",
+        "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/CityOfTears.tmx",
         "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/CityOfTears/tsx/fire.tsx",
         "/Users/yousofrahimzadeh/Yousof/AP/ex4/HollowKnightNew/assets/maps/BossFite/BossFite.tmx",
         "CrystalPeaks.tmx",
