@@ -1,8 +1,11 @@
 {
-"currentMasks": 5,
+"currentMasks": 4,
 "maxMasks": 5,
 "currentSoul": 99,
-"knightX": 4.63754,
-"knightY": 33.45863,
-"currentMapName": "CRYSTALPEAKS"
+"knightX": 2.39103,
+"knightY": 8.075599,
+"deathCount": 2,
+"enemiesDefeated": 3,
+"totalTimeElapsed": 326.8312,
+"currentMapName": "BOSSFITE"
 }

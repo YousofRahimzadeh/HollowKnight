@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="500" height="500" tilewidth="8" tileheight="8" infinite="0" nextlayerid="13" nextobjectid="85">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="500" height="500" tilewidth="8" tileheight="8" infinite="0" nextlayerid="13" nextobjectid="86">
  <tileset firstgid="1" source="tsx/Area_Crystal_Mines-gigapixel-low resolution v2-4x.tsx"/>
  <tileset firstgid="21345" source="tsx/Area_Royal_Quarter-gigapixel-low resolution v2-4x.tsx"/>
  <tileset firstgid="42689" source="backboard.tsx"/>
@@ -3543,7 +3543,7 @@
    <polygon points="0,0 2.76702,-65.9472 47.9616,-129.127 73.326,-35.5101"/>
   </object>
   <object id="20" x="2670.17" y="847.168">
-   <polygon points="0,0 -6.45637,-63.1802 63.6414,-137.429 69.1754,-50.2675"/>
+   <polygon points="0,0 -32.532,-69.6991 63.6414,-137.429 69.1754,-50.2675"/>
   </object>
   <object id="25" x="2686.22" y="849.743">
    <polygon points="0,0 85.6164,-54.0454 68.4932,17.6584"/>
@@ -3552,7 +3552,7 @@
    <polygon points="0,0 -55.1156,-86.6866 -64.7474,14.9829"/>
   </object>
   <object id="27" x="3064" y="934.824">
-   <polygon points="0,0 -56.7209,-104.345 -41.738,14.9829"/>
+   <polygon points="37.4837,-27.7053 -56.7209,-104.345 -71.0731,3.57482"/>
   </object>
   <object id="28" x="2968.75" y="919.842">
    <polygon points="0,0 22.4743,61.5368 52.9752,31.036"/>
@@ -3580,7 +3580,7 @@
    <polygon points="0,0 39.6368,-82.1562 64.1395,-100.894 68.4635,-61.2568 59.8155,-2.88268"/>
   </object>
   <object id="53" x="314.212" y="2579.99">
-   <polygon points="0,0 6.48602,-40.3575 32.4301,-23.7821 28.1061,1.44134"/>
+   <polygon points="0,-1.62973 6.48602,-40.3575 53.6165,-48.228 28.1061,1.44134"/>
   </object>
   <object id="54" x="357.452" y="2579.99">
    <polygon points="0,0 53.3295,-95.1283 80.7149,6.48602"/>
@@ -3591,14 +3591,6 @@
   <object id="56" x="532.759" y="1996.55">
    <polygon points="0,0 -82.7586,1.72414 -144.828,50 -144.828,96.5517 -103.448,141.379 -29.3103,174.138 0,141.379"/>
   </object>
-  <object id="67" x="1767.88" y="1891.95" width="118.05" height="81.2389"/>
-  <object id="68" x="1892.39" y="1901.5" width="147.076" height="82.5083"/>
-  <object id="69" x="2046.65" y="1895.15" width="158.881" height="92.6631"/>
-  <object id="70" x="2213.76" y="1900.23" width="134.552" height="88.855"/>
-  <object id="71" x="2355.43" y="1896.42" width="163.19" height="90.1244"/>
-  <object id="72" x="2528.95" y="1895.15" width="149.227" height="91.3938"/>
-  <object id="73" x="2686.35" y="1896.42" width="122.74" height="99.0099"/>
-  <object id="74" x="2818.09" y="1896.42" width="163.246" height="93.9325"/>
   <object id="77" x="429.766" y="2579.56">
    <polygon points="0,0 53.3295,-95.1283 80.7149,6.48602"/>
   </object>
@@ -3608,6 +3600,7 @@
   <object id="79" x="605.776" y="2584.4">
    <polygon points="0,0 68.1993,-95.1283 103.221,6.48602"/>
   </object>
+  <object id="85" x="1769.88" y="1906.78" width="1228.81" height="99.4133"/>
  </objectgroup>
  <objectgroup id="9" name="spawns">
   <object id="1" name="KnightSpawnStart" x="463.754" y="654.137">

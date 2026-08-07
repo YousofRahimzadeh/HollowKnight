@@ -36,17 +36,17 @@ public class MainModal extends Modal {
         menus.add(btnAchievements).row();
         menus.add(btnQuit).row();
 
-        Texture left = new Texture("Sprites/Menu/Hidden_Dreams_Logo.png");
-        Image leftImg = new Image(left);
-        Texture right = new Texture("Sprites/Menu/team_cherry_logo_main_menu.png");
-        Image rightImg = new Image(right);
+        // Texture left = new Texture("Sprites/Menu/Hidden_Dreams_Logo.png");
+        // Image leftImg = new Image(left);
+        // Texture right = new Texture("Sprites/Menu/team_cherry_logo_main_menu.png");
+        // Image rightImg = new Image(right);
 
         Table bottomTable = new Table();
         bottomTable.pad(30);
 
-        bottomTable.add(leftImg).left().uniformX().expandX().padLeft(50f);
+        // bottomTable.add(leftImg).left().uniformX().expandX().padLeft(50f);
         bottomTable.add(menus).center().expandX();
-        bottomTable.add(rightImg).right().uniformX().expandX().size(120).padRight(50f);
+        // bottomTable.add(rightImg).right().uniformX().expandX().size(120).padRight(50f);
 
         this.add(bottomTable).growX().expandY().bottom();
         this.padBottom(80f);

@@ -45,10 +45,9 @@ public class KnightAttackState extends KnightState{
             currentDir = Direction.HOR;
             animation = AnimationManager.Knight.create("Slash", PlayMode.NORMAL, frameRate);
         }
-
-        AudioManager.getInstance().playSound(AudioStore.HollowKnightSword.path);
-
         performAttack();
+        AudioManager.getInstance().playSound(AudioStore.HollowKnightSword.path);
+        
     }
 
     @Override

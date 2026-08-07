@@ -31,12 +31,12 @@ public class KnightAttackSensors {
         fdef.friction = 0f;
         fdef.isSensor = true;
         fdef.shape = shape;
-        fdef.filter.maskBits = Constants.BIT_ENEMY | Constants.BIT_NPC;
+        fdef.filter.maskBits = Constants.BIT_ENEMY | Constants.BIT_NPC | Constants.BIT_GROUND;
 
         float rightLeftSensorWidth = 70f / Constants.PPM;
         float rightLeftSensorHeight = hy * 0.7f;
         float upDownSensorWidth = 3 * hx;
-        float upDownSensorHeight = 45f / Constants.PPM;
+        float upDownSensorHeight = 65f / Constants.PPM;
         
 
         shape.setAsBox(upDownSensorWidth, upDownSensorHeight, new Vector2(0, -hy -upDownSensorHeight), 0);
