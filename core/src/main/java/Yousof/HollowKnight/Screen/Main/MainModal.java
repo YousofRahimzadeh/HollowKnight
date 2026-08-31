@@ -18,7 +18,7 @@ public class MainModal extends Modal {
         super();
         this.center();
 
-        Texture hollowKnightHeader = new Texture("Sprites/Menu/SpriteAtlasTexture-Title-2048x2048-fmt12.png");
+        Texture hollowKnightHeader = new Texture("sprites/Menu/SpriteAtlasTexture-Title-2048x2048-fmt12.png");
         Image header = new Image(hollowKnightHeader);
         this.add(header).center().padTop(40f).row();
 
@@ -36,9 +36,9 @@ public class MainModal extends Modal {
         menus.add(btnAchievements).row();
         menus.add(btnQuit).row();
 
-        // Texture left = new Texture("Sprites/Menu/Hidden_Dreams_Logo.png");
+        // Texture left = new Texture("sprites/Menu/Hidden_Dreams_Logo.png");
         // Image leftImg = new Image(left);
-        // Texture right = new Texture("Sprites/Menu/team_cherry_logo_main_menu.png");
+        // Texture right = new Texture("sprites/Menu/team_cherry_logo_main_menu.png");
         // Image rightImg = new Image(right);
 
         Table bottomTable = new Table();

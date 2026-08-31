@@ -8,7 +8,7 @@ public enum CharmEnum {
     QUICK_FOCUS("Quick Focus", "Increases the speed of focusing SOUL to heal.", "animations/Atlas/Charms/quick_focus.png"),
     HEAVY_BLOW("Heavy Blow", "Increases the knockback force of regular attacks.", "animations/Atlas/Charms/heavy_blow.png"),
     SHARP_SHADOW("Sharp Shadow", "Dash passes through enemies, dealing damage.", "animations/Atlas/Charms/sharp_shadow.png"),
-    VOID_HEART("Void Heart", "Upgrades spells, increasing their damage by 50%.", "animations/Atlas/Charms/void_heart.png");
+    VOID_HEART("Void Heart", "Upgrades spells, increasing their damage by 50%.", "animations/Atlas/Charms/Void_Heart.png");
 
     private final String title;
     private final String description;

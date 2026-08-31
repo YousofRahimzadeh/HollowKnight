@@ -6,22 +6,22 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public enum AnimationManager {
-    Soul("Animations/Atlas/HUD/SoulAnim.atlas"),
-    SoulContainer("Animations/Atlas/HUD/SoulContainer.atlas"),
-    Mask("Animations/Atlas/HUD/KnightHp.atlas"),
-    Zote("Animations/Atlas/NPC/Zote.atlas"),
-    Knight("Animations/Atlas/Knight/Knight.atlas"),
-    KnightProjectile("Animations/Atlas/Knight/KnightProjectile.atlas"),
-    KnightShadowDash("Animations/Atlas/Knight/shadowDash.atlas"),
-    KnightEffects("Animations/Atlas/Knight/Effects.atlas"),
-    Crawlid("Animations/Atlas/Enemies/Crawlid/Crawlid.atlas"),
-    WingedSentry("Animations/Atlas/Enemies/WingedSentry/WingedSentry.atlas"),
-    HuskHornhead("Animations/Atlas/Enemies/HuskHornhead/HuskHornhead.atlas"),
-    CrystalGuardian("Animations/Atlas/Enemies/CrystalGuardian/CrystalGuardian.atlas"),
-    Mosscreep("Animations/Atlas/Enemies/Mosscreep/Mosscreep.atlas"),
-    Tiktik("Animations/Atlas/Enemies/Tiktik/Tiktik.atlas"),
-    CrystalCrawler("Animations/Atlas/Enemies/CrystalCrawler/CrystalCrawler.atlas"),
-    FalseKnight("Animations/Atlas/Enemies/FalseKnight/FalseKnight.atlas");
+    Soul("animations/Atlas/HUD/SoulAnim.atlas"),
+    SoulContainer("animations/Atlas/HUD/SoulContainer.atlas"),
+    Mask("animations/Atlas/HUD/KnightHp.atlas"),
+    Zote("animations/Atlas/NPC/Zote.atlas"),
+    Knight("animations/Atlas/Knight/Knight.atlas"),
+    KnightProjectile("animations/Atlas/Knight/KnightProjectile.atlas"),
+    KnightShadowDash("animations/Atlas/Knight/shadowDash.atlas"),
+    KnightEffects("animations/Atlas/Knight/Effects.atlas"),
+    Crawlid("animations/Atlas/Enemies/Crawlid/Crawlid.atlas"),
+    WingedSentry("animations/Atlas/Enemies/WingedSentry/WingedSentry.atlas"),
+    HuskHornhead("animations/Atlas/Enemies/HuskHornhead/HuskHornhead.atlas"),
+    CrystalGuardian("animations/Atlas/Enemies/CrystalGuardian/CrystalGuardian.atlas"),
+    Mosscreep("animations/Atlas/Enemies/Mosscreep/Mosscreep.atlas"),
+    Tiktik("animations/Atlas/Enemies/Tiktik/Tiktik.atlas"),
+    CrystalCrawler("animations/Atlas/Enemies/CrystalCrawler/CrystalCrawler.atlas"),
+    FalseKnight("animations/Atlas/Enemies/FalseKnight/FalseKnight.atlas");
 
     
     private String atlasPath;
