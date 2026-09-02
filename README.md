@@ -208,20 +208,16 @@ Built with **Tiled** (orthogonal, 8×8 tiles), loaded via `TmxMapLoader`, 7+ lay
 
 ## 💎 Charm System
 
-<div align="center">
-
 | Charm | Effect |
 |---|---|
-| <img src="assets/animations/Atlas/charms/quick_slash.png" width="64"/> ⚔️ **Quick Slash** | Attack speed ×2 |
-| <img src="assets/animations/Atlas/charms/heavy_blow.png" width="64"/> 🔨 **Heavy Blow** | Knockback force +5 |
-| <img src="assets/animations/Atlas/charms/strength.png" width="64"/> 💪 **Unbreakable Strength** | Damage +5 per hit |
-| <img src="assets/animations/Atlas/charms/sharp_shadow.png" width="64"/> 🌑 **Sharp Shadow** | Dash → Shadow Dash (damages enemies, passes through) |
-| <img src="assets/animations/Atlas/charms/quick_focus.png" width="64"/> 💚 **Quick Focus** | Heal speed ×2 |
-| <img src="assets/animations/Atlas/charms/Void_Heart.png" width="64"/> 🖤 **Void Heart** | Soul spells → Shadow spells (1.5× damage) |
-| <img src="assets/animations/Atlas/charms/dashmaster.png" width="64"/> 🦅 **Dashmaster** | Dash cooldown 1s → 0.1s |
-| <img src="assets/animations/Atlas/charms/soul_catcher.png" width="64"/> 💧 **Soul Catcher** | +10 max soul capacity |
-
-</div>
+| <img src="docs/images/charms/quick_slash.png" width="64"/> | **Quick Slash** — Attack speed ×2 |
+| <img src="docs/images/charms/heavy_blow.png" width="64"/> | **Heavy Blow** — Knockback force +5 |
+| <img src="docs/images/charms/strength.png" width="64"/> | **Unbreakable Strength** — Damage +5 per hit |
+| <img src="docs/images/charms/sharp_shadow.png" width="64"/> | **Sharp Shadow** — Dash → Shadow Dash (damages enemies, passes through) |
+| <img src="docs/images/charms/quick_focus.png" width="64"/> | **Quick Focus** — Heal speed ×2 |
+| <img src="docs/images/charms/Void_Heart.png" width="64"/> | **Void Heart** — Soul spells → Shadow spells (1.5× damage) |
+| <img src="docs/images/charms/dashmaster.png" width="64"/> | **Dashmaster** — Dash cooldown 1s → 0.1s |
+| <img src="docs/images/charms/soul_catcher.png" width="64"/> | **Soul Catcher** — +10 max soul capacity |
 
 ---
 
