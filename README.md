@@ -122,12 +122,47 @@ Entitie (Abstract)
 
 ---
 
-## ⚔️ Knight & Enemies
+## ⚔️ Knight — Movements & Abilities
 
-The Knight has **16 states** (idle, run, jump, dash, shadow dash, pogo, attacks, spells, wall-slide, and more). Enemies range from simple ground patrollers to the multi-phase **False Knight** boss (10 states across 2 phases).
+The Knight has **16 distinct states** covering movement, combat, spells, and special abilities. Each state is fully animated with directional variants.
 
-<!-- 🎬 Add animated previews here, e.g.: -->
-<!-- ![Knight Combat](docs/gifs/knight_combat.gif) -->
+### Movement & Traversal
+
+| # | Movement | GIF | Description |
+|---|---|---|---|
+| 1 | **Run** | ![Run](docs/gifs/Run.gif) | Horizontal movement with configurable speed |
+| 2 | **Double Jump** | ![DoubleJump](docs/gifs/DoubleJump.gif) | Second jump in mid-air resets vertical velocity |
+| 3 | **Wall Slide** | ![WallSide](docs/gifs/WallSide.gif) | Slows descent when touching a wall (80% velocity retention) |
+
+### Combat — Melee
+
+| # | Attack | GIF | Description |
+|---|---|---|---|
+| 4 | **Horizontal Slash** | ![Slash](docs/gifs/Slash.gif) | Forward melee attack (left/right sensor detection) |
+| 5 | **Up Slash** | ![UpSlash](docs/gifs/UpSlash.gif) | Upward melee attack (overhead sensor detection) |
+| 6 | **Down Slash (Pogo)** | ![DownSlash](docs/gifs/DownSlash.gif) | Downward attack that bounces off enemies/spikes, resets dash & double jump |
+
+### Combat — Dash
+
+| # | Ability | GIF | Description |
+|---|---|---|---|
+| 7 | **Dash** | ![Dash Normal](docs/gifs/DashNormal.gif) | Quick horizontal burst (impulse ±12), locks Y velocity |
+| 8 | **Dash (Dashmaster)** | ![Dash Master](docs/gifs/DashMaster.gif) | Dash cooldown 1s → 0.1s with the Dashmaster charm |
+
+### Combat — Spells
+
+| # | Spell | GIF | Description |
+|---|---|---|---|
+| 9 | **Vengeful Spirit** | ![Vengeful](docs/gifs/Vengeful.gif) | Horizontal fireball projectile (33 soul) |
+| 10 | **Vengeful Spirit (Shadow)** | ![Vengeful Special](docs/gifs/VengefulSpecial.gif) | Void Heart → Shadow version (8 damage, 1.5×) |
+| 11 | **Howling Wraiths** | ![Scream](docs/gifs/ScreamNormal.gif) | AOE scream damaging all nearby enemies (33 soul) |
+| 12 | **Howling Wraiths (Shadow)** | ![Scream Special](docs/gifs/ScreamSpecial.gif) | Void Heart → 1.5× damage |
+
+### NPC
+
+| Character | GIF | Description |
+|---|---|---|
+| **Zote** | ![Zote](docs/gifs/Zote.gif) | Talkative NPC with dialogue, killable (20 HP) |
 
 **False Knight — Phase Transition**: at HP ≤ 50, armor breaks off, speed doubles, and `ChargeMaceSlam` unlocks.
 
