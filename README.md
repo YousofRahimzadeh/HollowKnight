@@ -228,6 +228,8 @@ Built with **Tiled** (orthogonal, 8×8 tiles), loaded via `TmxMapLoader`, 7+ lay
 - **Soul** — +1 per hit, +11 per kill (cap 99); spells cost 33 soul
 - **Save** — JSON via `SaveManager` → `GameData` → `saves/slotN.json`, 3 slots, auto-save on map transitions
 
+![HUD](docs/gifs/HUD.gif)
+
 ---
 
 ## 🛠️ Installation
