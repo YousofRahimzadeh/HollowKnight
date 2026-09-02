@@ -1,8 +1,6 @@
 <div align="center">
 
-# Hollow Knight
-
-<img src="docs/images/HollowKnight.png" alt="Hollow Knight" width="600"/>
+<img src="docs/images/HollowKnight.png" alt="Hollow Knight" width="800"/>
 
 ### A faithful recreation of Team Cherry's Hollow Knight, built from scratch in Java
 
