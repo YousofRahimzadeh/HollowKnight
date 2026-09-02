@@ -479,12 +479,12 @@ Enemy (Abstract)
             ▼              ▼              ▼
        [Near Range]   [Mid Range]    [Far Range]
             │              │              │
-     ┌──────┴──────┐  ┌───┴────┐   ┌─────┴─────┐
+     ┌──────┴──────┐  ┌────┴────┐   ┌─────┴──────┐
      │ MaceSlam    │  │Offensive│   │ ChargeRun  │
-     │ (alternating)│ │Leap 60% │   │   (70%)    │
+     │(alternating)│  │Leap 60% │   │   (70%)    │
      │ Defensive   │  │Charge   │   │ ChargeMace │
      │ Leap        │  │Run 40%  │   │ Slam (30%) │
-     └─────────────┘  └────────┘   │ Phase 2    │
+     └─────────────┘  └─────────┘   │ Phase 2    │
                                     │ only       │
                                     └────────────┘
 ```
