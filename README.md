@@ -155,6 +155,14 @@ The Knight has **16 states** (idle, run, jump, dash, shadow dash, pogo, attacks,
 
 Built with **Tiled** (orthogonal, 8×8 tiles), loaded via `TmxMapLoader`, 7+ layers per map. Teleport sensors trigger seamless map transitions with state preservation.
 
+<div align="center">
+
+| Crystal Peaks | City of Tears | Boss Arena |
+|---|---|---|
+| ![Crystal Peaks](docs/images/CrystalPeaks.png) | ![City of Tears](docs/images/CityOfTears.png) | ![Boss Fight](docs/images/BossFight.png) |
+
+</div>
+
 <!-- 🖼️ Map screenshots below in the Screenshots section -->
 
 ---
@@ -225,13 +233,9 @@ All keys are re-bindable in Settings.
 
 <div align="center">
 
-| Crystal Peaks | City of Tears | Boss Arena |
-|---|---|---|
-| ![Crystal Peaks](docs/screenshots/crystal_peaks.png) | ![City of Tears](docs/screenshots/city_of_tears.png) | ![Boss Arena](docs/screenshots/boss_arena.png) |
-
-| Main Menu | Inventory | Pause Menu |
-|---|---|---|
-| ![Main Menu](docs/screenshots/main_menu.png) | ![Inventory](docs/screenshots/inventory.png) | ![Pause Menu](docs/screenshots/pause_menu.png) |
+| Main Menu | Select Game | Settings | Guide |
+|---|---|---|---|
+| ![Main Menu](docs/images/MainMenu.png) | ![Select Game](docs/images/SelectGameMenu.png) | ![Settings](docs/images/SettingMenu.png) | ![Guide](docs/images/GuideMenu.png) |
 
 </div>
 
