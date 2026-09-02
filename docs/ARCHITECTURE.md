@@ -392,44 +392,44 @@ The Knight has **16 distinct states** covering movement, combat, spells, and spe
 
 ### Movement & Traversal
 
-| # | Movement | GIF | Description |
-|---|---|---|---|
-| 1 | **Idle** | ![Idle](../docs/gifs/knight/idle.gif) | Standing still with breathing animation |
-| 2 | **Run** | ![Run](../docs/gifs/knight/run.gif) | Horizontal movement with configurable speed |
-| 3 | **Jump** | ![Jump](../docs/gifs/knight/jump.gif) | Vertical impulse with variable height (release early = shorter) |
-| 4 | **Double Jump** | ![DoubleJump](../docs/gifs/knight/double_jump.gif) | Second jump in mid-air resets vertical velocity |
-| 5 | **Fall** | ![Fall](../docs/gifs/knight/fall.gif) | Falling state with landing detection |
-| 6 | **Wall Slide** | ![WallSlide](../docs/gifs/knight/wall_slide.gif) | Slows descent when touching a wall (80% velocity retention) |
-| 7 | **Wall Jump** | ![WallJump](../docs/gifs/knight/wall_jump.gif) | Pushes away from wall with upward impulse |
+| # | Movement | Description |
+|---|---|---|
+| 1 | **Idle** | Standing still with breathing animation |
+| 2 | **Run** | Horizontal movement with configurable speed |
+| 3 | **Jump** | Vertical impulse with variable height (release early = shorter) |
+| 4 | **Double Jump** | Second jump in mid-air resets vertical velocity |
+| 5 | **Fall** | Falling state with landing detection |
+| 6 | **Wall Slide** | Slows descent when touching a wall (80% velocity retention) |
+| 7 | **Wall Jump** | Pushes away from wall with upward impulse |
 
 ### Combat — Melee
 
-| # | Attack | GIF | Description |
-|---|---|---|---|
-| 8 | **Horizontal Slash** | ![Slash](../docs/gifs/knight/slash.gif) | Forward melee attack (left/right sensor detection) |
-| 9 | **Up Slash** | ![UpSlash](../docs/gifs/knight/up_slash.gif) | Upward melee attack (overhead sensor detection) |
-| 10 | **Down Slash (Pogo)** | ![DownSlash](../docs/gifs/knight/down_slash.gif) | Downward attack that bounces off enemies/spikes, resets dash & double jump |
+| # | Attack | Description |
+|---|---|---|
+| 8 | **Horizontal Slash** | Forward melee attack (left/right sensor detection) |
+| 9 | **Up Slash** | Upward melee attack (overhead sensor detection) |
+| 10 | **Down Slash (Pogo)** | Downward attack that bounces off enemies/spikes, resets dash & double jump |
 
 ### Combat — Dash
 
-| # | Ability | GIF | Description |
-|---|---|---|---|
-| 11 | **Dash** | ![Dash](../docs/gifs/knight/dash.gif) | Quick horizontal burst (impulse ±12), locks Y velocity |
-| 12 | **Shadow Dash** | ![ShadowDash](../docs/gifs/knight/shadow_dash.gif) | Dash through enemies (Sharp Shadow charm), damages on contact, 1.4× speed |
+| # | Ability | Description |
+|---|---|---|
+| 11 | **Dash** | Quick horizontal burst (impulse ±12), locks Y velocity |
+| 12 | **Shadow Dash** | Dash through enemies (Sharp Shadow charm), damages on contact, 1.4× speed |
 
 ### Combat — Spells
 
-| # | Spell | GIF | Description |
-|---|---|---|---|
-| 13 | **Vengeful Spirit** | ![VengefulSpirit](../docs/gifs/knight/vengeful_spirit.gif) | Horizontal fireball projectile (33 soul). Void Heart → Shadow version (8 damage) |
-| 14 | **Howling Wraiths** | ![HowlingWraiths](../docs/gifs/knight/howling_wraiths.gif) | AOE scream damaging all nearby enemies (33 soul). Void Heart → 1.5× damage |
+| # | Spell | Description |
+|---|---|---|
+| 13 | **Vengeful Spirit** | Horizontal fireball projectile (33 soul). Void Heart → Shadow version (8 damage) |
+| 14 | **Howling Wraiths** | AOE scream damaging all nearby enemies (33 soul). Void Heart → 1.5× damage |
 
 ### Combat — Defensive
 
-| # | Ability | GIF | Description |
-|---|---|---|---|
-| 15 | **Focus (Heal)** | ![Focus](../docs/gifs/knight/focus.gif) | Restore 1 mask by spending 33 soul. Three-phase animation with camera shake |
-| 16 | **Knockback** | ![Knockback](../docs/gifs/knight/knockback.gif) | Hit reaction — wraps current state, applies knockback impulse, then resumes |
+| # | Ability | Description |
+|---|---|---|
+| 15 | **Focus (Heal)** | Restore 1 mask by spending 33 soul. Three-phase animation with camera shake |
+| 16 | **Knockback** | Hit reaction — wraps current state, applies knockback impulse, then resumes |
 
 ### Special States
 
