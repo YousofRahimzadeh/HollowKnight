@@ -89,9 +89,10 @@ Lwjgl3Launcher → Main (Game) → MainController (Assets)
                     ┌───────────────┼──────────────┐
                  Knight           Enemies       Projectiles
               (16 states)        (5 types)     (Vengeful, Wave)
-                    │               │
-                    └───────┬───────┘
-                        Box2D World
+                    │               │               │
+                    └───────────────┼───────────────┘
+                                    │
+                              Box2D World
                  (GameContactListener, 9 sub-listeners)
 ```
 
