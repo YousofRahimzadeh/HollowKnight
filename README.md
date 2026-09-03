@@ -10,7 +10,7 @@
 [![Gradle](https://img.shields.io/badge/Gradle-8.x-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-**[🎬 Video Demo](#)** · **[📥 Download](#-installation)** · **[📖 Docs](#-architecture)** · **[🗺️ Maps](#-maps)**
+**[🎬 Video Demo](https://drive.google.com/drive/folders/1mlYDbtAgBCK7AYvxpkPY8eORFJSK__SL?usp=sharing)** · **[📥 Download](#-installation)** · **[📖 Docs](#-architecture)** · **[🗺️ Maps](#-maps)**
 
 <!-- 🎬 Replace with a real gameplay clip once you upload it -->
 <!-- ![Gameplay Demo](docs/gifs/gameplay_demo.gif) -->
